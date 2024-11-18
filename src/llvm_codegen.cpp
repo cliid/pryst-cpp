@@ -253,14 +253,14 @@ llvm::Function* LLVMCodeGen::getOrCreateMapAlloc() {
 }
 
 // Visitor pattern implementation
-std::any LLVMCodeGen::visitProgram(PrystParser::ProgramContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitProgram(PrystParser::ProgramContext* ctx) {
     for (auto decl : ctx->declaration()) {
         visit(decl);
     }
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitVarDecl(PrystParser::VarDeclContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitVarDecl(PrystParser::VarDeclContext* ctx) {
     auto type = getLLVMType(getTypeFromTypeContext(ctx->type()));
     llvm::Value* lastAlloca = nullptr;
 
@@ -269,7 +269,7 @@ std::any LLVMCodeGen::visitVarDecl(PrystParser::VarDeclContext* ctx) {
         auto alloca = builder.CreateAlloca(type, nullptr, identifier->getText());
 
         if (ctx->expression()) {
-            auto value = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+            auto value = visit(ctx->expression()).as<llvm::Value*>();
             builder.CreateStore(value, alloca);
         }
 
@@ -277,10 +277,10 @@ std::any LLVMCodeGen::visitVarDecl(PrystParser::VarDeclContext* ctx) {
         lastAlloca = alloca;
     }
 
-    return lastAlloca;
+    return antlrcpp::Any(lastAlloca);
 }
 
-std::any LLVMCodeGen::visitFunctionDecl(PrystParser::FunctionDeclContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitFunctionDecl(PrystParser::FunctionDeclContext* ctx) {
     std::vector<llvm::Type*> paramTypes;
     if (ctx->parameters()) {
         for (auto param : ctx->parameters()->parameter()) {
@@ -318,10 +318,10 @@ std::any LLVMCodeGen::visitFunctionDecl(PrystParser::FunctionDeclContext* ctx) {
         }
     }
 
-    return func;
+    return antlrcpp::Any(func);
 }
 
-std::any LLVMCodeGen::visitClassDecl(PrystParser::ClassDeclContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitClassDecl(PrystParser::ClassDeclContext* ctx) {
     auto identifierTokens = ctx->IDENTIFIER();
     if (identifierTokens.empty()) {
         throw std::runtime_error("Class declaration must have a name");
@@ -509,11 +509,11 @@ std::any LLVMCodeGen::visitClassDecl(PrystParser::ClassDeclContext* ctx) {
         }
     }
 
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitIfStmt(PrystParser::IfStmtContext* ctx) {
-    auto condition = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+antlrcpp::Any LLVMCodeGen::visitIfStmt(PrystParser::IfStmtContext* ctx) {
+    auto condition = visit(ctx->expression()).as<llvm::Value*>();
 
     if (!condition->getType()->isIntegerTy(1)) {
         condition = builder.CreateICmpNE(condition,
@@ -554,10 +554,10 @@ std::any LLVMCodeGen::visitIfStmt(PrystParser::IfStmtContext* ctx) {
     function->getBasicBlockList().push_back(mergeBlock);
     builder.SetInsertPoint(mergeBlock);
 
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitWhileStmt(PrystParser::WhileStmtContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitWhileStmt(PrystParser::WhileStmtContext* ctx) {
     auto function = builder.GetInsertBlock()->getParent();
 
     auto condBlock = llvm::BasicBlock::Create(context, "whilecond", function);
@@ -570,7 +570,7 @@ std::any LLVMCodeGen::visitWhileStmt(PrystParser::WhileStmtContext* ctx) {
     builder.CreateBr(condBlock);
 
     builder.SetInsertPoint(condBlock);
-    auto condition = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+    auto condition = visit(ctx->expression()).as<llvm::Value*>();
 
     if (!condition->getType()->isIntegerTy(1)) {
         condition = builder.CreateICmpNE(condition,
@@ -592,14 +592,14 @@ std::any LLVMCodeGen::visitWhileStmt(PrystParser::WhileStmtContext* ctx) {
     function->getBasicBlockList().push_back(afterBlock);
     builder.SetInsertPoint(afterBlock);
 
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitForStmt(PrystParser::ForStmtContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitForStmt(PrystParser::ForStmtContext* ctx) {
     auto function = builder.GetInsertBlock()->getParent();
 
     if (ctx->type()) {  // For-in loop
-        auto iterableExpr = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
+        auto iterableExpr = visit(ctx->expression(0)).as<llvm::Value*>();
         auto itemType = getLLVMType(getTypeFromTypeContext(ctx->type()));
 
         auto initBlock = llvm::BasicBlock::Create(context, "forinit", function);
@@ -676,7 +676,7 @@ std::any LLVMCodeGen::visitForStmt(PrystParser::ForStmtContext* ctx) {
         builder.SetInsertPoint(condBlock);
         llvm::Value* condition;
         if (ctx->expression().size() > 0) {
-            condition = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
+            condition = visit(ctx->expression(0)).as<llvm::Value*>();
             if (!condition->getType()->isIntegerTy(1)) {
                 condition = builder.CreateICmpNE(condition,
                     llvm::Constant::getNullValue(condition->getType()), "forcond");
@@ -710,10 +710,10 @@ std::any LLVMCodeGen::visitForStmt(PrystParser::ForStmtContext* ctx) {
         builder.SetInsertPoint(afterBlock);
     }
 
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitTryStmt(PrystParser::TryStmtContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitTryStmt(PrystParser::TryStmtContext* ctx) {
     auto function = builder.GetInsertBlock()->getParent();
 
     // Visit try block
@@ -733,16 +733,16 @@ std::any LLVMCodeGen::visitTryStmt(PrystParser::TryStmtContext* ctx) {
         visit(ctx->block(i + 1));
     }
 
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitReturnStmt(PrystParser::ReturnStmtContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitReturnStmt(PrystParser::ReturnStmtContext* ctx) {
     llvm::errs() << "DEBUG: Processing return statement\n";
     auto function = builder.GetInsertBlock()->getParent();
     auto returnType = function->getReturnType();
 
     if (ctx->expression()) {
-        auto returnValue = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+        auto returnValue = visit(ctx->expression()).as<llvm::Value*>();
         llvm::errs() << "DEBUG: Got expression value\n";
 
         if (returnValue->getType() != returnType) {
@@ -773,17 +773,17 @@ std::any LLVMCodeGen::visitReturnStmt(PrystParser::ReturnStmtContext* ctx) {
         builder.CreateRetVoid();
     }
 
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitPrimaryExpr(PrystParser::PrimaryExprContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitPrimaryExpr(PrystParser::PrimaryExprContext* ctx) {
     return visit(ctx->primary());
 }
 
 
 
-std::any LLVMCodeGen::visitConstructorExpr(PrystParser::ConstructorExprContext* ctx) {
-    std::string className = std::any_cast<std::shared_ptr<Type>>(visit(ctx->qualifiedType()))->toString();
+antlrcpp::Any LLVMCodeGen::visitConstructorExpr(PrystParser::ConstructorExprContext* ctx) {
+    std::string className = visit(ctx->qualifiedType()).as<std::shared_ptr<Type>>()->toString();
     if (!typeRegistry.hasClass(className)) {
         throw std::runtime_error("Unknown class: " + className);
     }
@@ -795,16 +795,16 @@ std::any LLVMCodeGen::visitConstructorExpr(PrystParser::ConstructorExprContext* 
     std::vector<llvm::Value*> args;
     if (auto argsCtx = ctx->arguments()) {
         for (auto exprCtx : argsCtx->expression()) {
-            args.push_back(std::any_cast<llvm::Value*>(visit(exprCtx)));
+            args.push_back(visit(exprCtx).as<llvm::Value*>());
         }
     }
-    return (llvm::Value*)builder.CreateCall(llvm::FunctionCallee(ctor), args);
+    return antlrcpp::Any((llvm::Value*)builder.CreateCall(llvm::FunctionCallee(ctor), args));
 }
 
-std::any LLVMCodeGen::visitMemberAccessExpr(PrystParser::MemberAccessExprContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitMemberAccessExpr(PrystParser::MemberAccessExprContext* ctx) {
     llvm::errs() << "DEBUG: Entering visitMemberAccessExpr\n";
 
-    auto object = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+    auto object = visit(ctx->expression()).as<llvm::Value*>();
     if (!object) {
         llvm::errs() << "DEBUG: Null object in member access\n";
         throw std::runtime_error("Null object in member access");
@@ -841,7 +841,7 @@ std::any LLVMCodeGen::visitMemberAccessExpr(PrystParser::MemberAccessExprContext
         llvm::errs() << "DEBUG: Created GEP for member access\n";
         auto result = builder.CreateLoad(memberPtr->getType()->getPointerElementType(), memberPtr);
         llvm::errs() << "DEBUG: Successfully loaded member value\n";
-        return result;
+        return antlrcpp::Any(result);
     }
 
     llvm::errs() << "DEBUG: Member access attempted on non-object type: ";
@@ -850,10 +850,10 @@ std::any LLVMCodeGen::visitMemberAccessExpr(PrystParser::MemberAccessExprContext
     throw std::runtime_error("Member access on non-object type");
 }
 
-std::any LLVMCodeGen::visitNullableChain(PrystParser::NullableChainContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitNullableChain(PrystParser::NullableChainContext* ctx) {
     llvm::errs() << "DEBUG: Entering visitNullableChain\n";
 
-    auto object = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+    auto object = visit(ctx->expression()).as<llvm::Value*>();
     if (!object) {
         llvm::errs() << "DEBUG: Null object in nullable chain\n";
         throw std::runtime_error("Null object in nullable chain");
@@ -937,11 +937,11 @@ std::any LLVMCodeGen::visitNullableChain(PrystParser::NullableChainContext* ctx)
     phi->addIncoming(memberValue, accessBlock);
     llvm::errs() << "DEBUG: Successfully created PHI node\n";
 
-    return phi;
+    return antlrcpp::Any(phi);
 }
 
-std::any LLVMCodeGen::visitMethodCallExpr(PrystParser::MethodCallExprContext* ctx) {
-    auto object = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+antlrcpp::Any LLVMCodeGen::visitMethodCallExpr(PrystParser::MethodCallExprContext* ctx) {
+    auto object = visit(ctx->expression()).as<llvm::Value*>();
     auto methodName = ctx->IDENTIFIER()->getText();
 
     // Get object type
@@ -965,57 +965,57 @@ std::any LLVMCodeGen::visitMethodCallExpr(PrystParser::MethodCallExprContext* ct
 
         if (auto argsCtx = ctx->arguments()) {
             for (auto argCtx : argsCtx->expression()) {
-                args.push_back(std::any_cast<llvm::Value*>(visit(argCtx)));
+                args.push_back(visit(argCtx).as<llvm::Value*>());
             }
         }
 
-        return builder.CreateCall(llvm::FunctionCallee(method), args);
+        return antlrcpp::Any(builder.CreateCall(llvm::FunctionCallee(method), args));
     }
 
     throw std::runtime_error("Method call on non-object type");
 }
 
-std::any LLVMCodeGen::visitArrayAccessExpr(PrystParser::ArrayAccessExprContext* ctx) {
-    auto array = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
-    auto index = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
+antlrcpp::Any LLVMCodeGen::visitArrayAccessExpr(PrystParser::ArrayAccessExprContext* ctx) {
+    auto array = visit(ctx->expression(0)).as<llvm::Value*>();
+    auto index = visit(ctx->expression(1)).as<llvm::Value*>();
     auto getFn = module.getFunction("Array_get");
     std::vector<llvm::Value*> args = {array, index};
-    return (llvm::Value*)builder.CreateCall(llvm::FunctionCallee(getFn), args);
+    return antlrcpp::Any((llvm::Value*)builder.CreateCall(llvm::FunctionCallee(getFn), args));
 }
 
-std::any LLVMCodeGen::visitCastExpr(PrystParser::CastExprContext* ctx) {
-    auto value = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+antlrcpp::Any LLVMCodeGen::visitCastExpr(PrystParser::CastExprContext* ctx) {
+    auto value = visit(ctx->expression()).as<llvm::Value*>();
     auto targetType = getLLVMType(getTypeFromTypeContext(ctx->type()));
-    return convertType(value, targetType);
+    return antlrcpp::Any(convertType(value, targetType));
 }
 
-std::any LLVMCodeGen::visitParenExpr(PrystParser::ParenExprContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitParenExpr(PrystParser::ParenExprContext* ctx) {
     return visit(ctx->expression());
 }
 
-std::any LLVMCodeGen::visitPrefixExpr(PrystParser::PrefixExprContext* ctx) {
-    auto operand = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+antlrcpp::Any LLVMCodeGen::visitPrefixExpr(PrystParser::PrefixExprContext* ctx) {
+    auto operand = visit(ctx->expression()).as<llvm::Value*>();
 
     if (ctx->NOT()) {
         if (!operand->getType()->isIntegerTy(1)) {
             operand = builder.CreateICmpNE(operand,
                 llvm::Constant::getNullValue(operand->getType()), "tobool");
         }
-        return (llvm::Value*)builder.CreateNot(operand, "nottmp");
+        return antlrcpp::Any((llvm::Value*)builder.CreateNot(operand, "nottmp"));
     }
 
     if (ctx->MINUS()) {
         if (operand->getType()->isFloatingPointTy()) {
-            return (llvm::Value*)builder.CreateFNeg(operand, "negtmp");
+            return antlrcpp::Any((llvm::Value*)builder.CreateFNeg(operand, "negtmp"));
         }
-        return (llvm::Value*)builder.CreateNeg(operand, "negtmp");
+        return antlrcpp::Any((llvm::Value*)builder.CreateNeg(operand, "negtmp"));
     }
 
     throw std::runtime_error("Unsupported prefix operator");
 }
 
-std::any LLVMCodeGen::visitPostfixExpr(PrystParser::PostfixExprContext* ctx) {
-    auto operand = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+antlrcpp::Any LLVMCodeGen::visitPostfixExpr(PrystParser::PostfixExprContext* ctx) {
+    auto operand = visit(ctx->expression()).as<llvm::Value*>();
 
     if (ctx->INC()) {
         // Handle increment
@@ -1023,76 +1023,76 @@ std::any LLVMCodeGen::visitPostfixExpr(PrystParser::PostfixExprContext* ctx) {
         auto result = builder.CreateAdd(operand, one, "inc");
         // Store back to original location
         builder.CreateStore(result, operand);
-        return operand;  // Return original value for postfix
+        return antlrcpp::Any(operand);  // Return original value for postfix
     } else if (ctx->DEC()) {
         // Handle decrement
         auto one = llvm::ConstantInt::get(operand->getType(), 1);
         auto result = builder.CreateSub(operand, one, "dec");
         // Store back to original location
         builder.CreateStore(result, operand);
-        return operand;  // Return original value for postfix
+        return antlrcpp::Any(operand);  // Return original value for postfix
     }
 
     throw std::runtime_error("Unsupported postfix operator");
 }
 
-std::any LLVMCodeGen::visitMultiplicativeExpr(PrystParser::MultiplicativeExprContext* ctx) {
-    auto left = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
-    auto right = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
+antlrcpp::Any LLVMCodeGen::visitMultiplicativeExpr(PrystParser::MultiplicativeExprContext* ctx) {
+    auto left = visit(ctx->expression(0)).as<llvm::Value*>();
+    auto right = visit(ctx->expression(1)).as<llvm::Value*>();
 
-    if (ctx->STAR()) return createMul(left, right);
-    if (ctx->SLASH()) return createDiv(left, right);
-    if (ctx->PERCENT()) return createMod(left, right);
+    if (ctx->STAR()) return antlrcpp::Any(createMul(left, right));
+    if (ctx->SLASH()) return antlrcpp::Any(createDiv(left, right));
+    if (ctx->PERCENT()) return antlrcpp::Any(createMod(left, right));
 
     throw std::runtime_error("Unknown multiplicative operator");
 }
 
-std::any LLVMCodeGen::visitAdditiveExpr(PrystParser::AdditiveExprContext* ctx) {
-    auto left = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
-    auto right = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
+antlrcpp::Any LLVMCodeGen::visitAdditiveExpr(PrystParser::AdditiveExprContext* ctx) {
+    auto left = visit(ctx->expression(0)).as<llvm::Value*>();
+    auto right = visit(ctx->expression(1)).as<llvm::Value*>();
 
-    if (ctx->PLUS()) return createAdd(left, right);
-    if (ctx->MINUS()) return createSub(left, right);
+    if (ctx->PLUS()) return antlrcpp::Any(createAdd(left, right));
+    if (ctx->MINUS()) return antlrcpp::Any(createSub(left, right));
 
     throw std::runtime_error("Unknown additive operator");
 }
 
-std::any LLVMCodeGen::visitRelationalExpr(PrystParser::RelationalExprContext* ctx) {
-    auto left = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
-    auto right = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
+antlrcpp::Any LLVMCodeGen::visitRelationalExpr(PrystParser::RelationalExprContext* ctx) {
+    auto left = visit(ctx->expression(0)).as<llvm::Value*>();
+    auto right = visit(ctx->expression(1)).as<llvm::Value*>();
 
-    if (ctx->LT()) return createLT(left, right);
-    if (ctx->GT()) return createGT(left, right);
-    if (ctx->LE()) return createLE(left, right);
-    if (ctx->GE()) return createGE(left, right);
+    if (ctx->LT()) return antlrcpp::Any(createLT(left, right));
+    if (ctx->GT()) return antlrcpp::Any(createGT(left, right));
+    if (ctx->LE()) return antlrcpp::Any(createLE(left, right));
+    if (ctx->GE()) return antlrcpp::Any(createGE(left, right));
 
     throw std::runtime_error("Unknown relational operator");
 }
 
-std::any LLVMCodeGen::visitEqualityExpr(PrystParser::EqualityExprContext* ctx) {
-    auto left = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
-    auto right = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
+antlrcpp::Any LLVMCodeGen::visitEqualityExpr(PrystParser::EqualityExprContext* ctx) {
+    auto left = visit(ctx->expression(0)).as<llvm::Value*>();
+    auto right = visit(ctx->expression(1)).as<llvm::Value*>();
 
-    if (ctx->EQ()) return createEQ(left, right);
-    if (ctx->NEQ()) return createNEQ(left, right);
+    if (ctx->EQ()) return antlrcpp::Any(createEQ(left, right));
+    if (ctx->NEQ()) return antlrcpp::Any(createNEQ(left, right));
 
     throw std::runtime_error("Unknown equality operator");
 }
 
-std::any LLVMCodeGen::visitLogicalAndExpr(PrystParser::LogicalAndExprContext* ctx) {
-    auto left = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
-    auto right = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
-    return createAnd(left, right);
+antlrcpp::Any LLVMCodeGen::visitLogicalAndExpr(PrystParser::LogicalAndExprContext* ctx) {
+    auto left = visit(ctx->expression(0)).as<llvm::Value*>();
+    auto right = visit(ctx->expression(1)).as<llvm::Value*>();
+    return antlrcpp::Any(createAnd(left, right));
 }
 
-std::any LLVMCodeGen::visitLogicalOrExpr(PrystParser::LogicalOrExprContext* ctx) {
-    auto left = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
-    auto right = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
-    return createOr(left, right);
+antlrcpp::Any LLVMCodeGen::visitLogicalOrExpr(PrystParser::LogicalOrExprContext* ctx) {
+    auto left = visit(ctx->expression(0)).as<llvm::Value*>();
+    auto right = visit(ctx->expression(1)).as<llvm::Value*>();
+    return antlrcpp::Any(createOr(left, right));
 }
 
-std::any LLVMCodeGen::visitConditionalExpr(PrystParser::ConditionalExprContext* ctx) {
-    auto condition = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
+antlrcpp::Any LLVMCodeGen::visitConditionalExpr(PrystParser::ConditionalExprContext* ctx) {
+    auto condition = visit(ctx->expression(0)).as<llvm::Value*>();
 
     // Create basic blocks
     auto function = builder.GetInsertBlock()->getParent();
@@ -1108,14 +1108,14 @@ std::any LLVMCodeGen::visitConditionalExpr(PrystParser::ConditionalExprContext* 
 
     // Then block
     builder.SetInsertPoint(thenBlock);
-    auto thenValue = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
+    auto thenValue = visit(ctx->expression(1)).as<llvm::Value*>();
     builder.CreateBr(mergeBlock);
     thenBlock = builder.GetInsertBlock();
 
     // Else block
     function->getBasicBlockList().push_back(elseBlock);
     builder.SetInsertPoint(elseBlock);
-    auto elseValue = std::any_cast<llvm::Value*>(visit(ctx->expression(2)));
+    auto elseValue = visit(ctx->expression(2)).as<llvm::Value*>();
     builder.CreateBr(mergeBlock);
     elseBlock = builder.GetInsertBlock();
 
@@ -1126,19 +1126,19 @@ std::any LLVMCodeGen::visitConditionalExpr(PrystParser::ConditionalExprContext* 
     phi->addIncoming(thenValue, thenBlock);
     phi->addIncoming(elseValue, elseBlock);
 
-    return phi;
+    return antlrcpp::Any(phi);
 }
 
-std::any LLVMCodeGen::visitAssignmentExpr(PrystParser::AssignmentExprContext* ctx) {
-    auto target = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
-    auto value = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
+antlrcpp::Any LLVMCodeGen::visitAssignmentExpr(PrystParser::AssignmentExprContext* ctx) {
+    auto target = visit(ctx->expression(0)).as<llvm::Value*>();
+    auto value = visit(ctx->expression(1)).as<llvm::Value*>();
 
     if (target->getType() != value->getType()) {
         value = convertType(value, target->getType());
     }
 
     builder.CreateStore(value, target);
-    return value;
+    return antlrcpp::Any(value);
 }
 
 llvm::Value* LLVMCodeGen::createAdd(llvm::Value* left, llvm::Value* right) {
@@ -1321,15 +1321,15 @@ llvm::Value* LLVMCodeGen::convertType(llvm::Value* value, llvm::Type* targetType
     throw std::runtime_error("Unsupported type conversion");
 }
 
-std::any LLVMCodeGen::visitPrimary(PrystParser::PrimaryContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitPrimary(PrystParser::PrimaryContext* ctx) {
     if (hasToken(ctx->INTEGER())) {
-        return (llvm::Value*)llvm::ConstantInt::get(llvm::Type::getInt64Ty(context),
-            std::stoll(getTokenText(ctx->INTEGER())), true);
+        return antlrcpp::Any((llvm::Value*)llvm::ConstantInt::get(llvm::Type::getInt64Ty(context),
+            std::stoll(getTokenText(ctx->INTEGER())), true));
     }
 
     if (hasToken(ctx->FLOAT_LITERAL())) {
-        return (llvm::Value*)llvm::ConstantFP::get(llvm::Type::getDoubleTy(context),
-            std::stod(getTokenText(ctx->FLOAT_LITERAL())));
+        return antlrcpp::Any((llvm::Value*)llvm::ConstantFP::get(llvm::Type::getDoubleTy(context),
+            std::stod(getTokenText(ctx->FLOAT_LITERAL()))));
     }
 
     if (hasToken(ctx->STRING())) {
@@ -1346,12 +1346,12 @@ std::any LLVMCodeGen::visitPrimary(PrystParser::PrimaryContext* ctx) {
             stringConstant, llvm::MaybeAlign(1),
             str.length());
 
-        return (llvm::Value*)stringAlloc;
+        return antlrcpp::Any((llvm::Value*)stringAlloc);
     }
 
     if (hasToken(ctx->BOOLEAN())) {
-        return (llvm::Value*)llvm::ConstantInt::get(llvm::Type::getInt1Ty(context),
-            getTokenText(ctx->BOOLEAN()) == "true");
+        return antlrcpp::Any((llvm::Value*)llvm::ConstantInt::get(llvm::Type::getInt1Ty(context),
+            getTokenText(ctx->BOOLEAN()) == "true"));
     }
 
     if (hasToken(ctx->IDENTIFIER())) {
@@ -1359,8 +1359,8 @@ std::any LLVMCodeGen::visitPrimary(PrystParser::PrimaryContext* ctx) {
         if (it == valueMap.end()) {
             throw std::runtime_error("Unknown variable: " + getTokenText(ctx->IDENTIFIER()));
         }
-        return (llvm::Value*)builder.CreateLoad(it->second->getType()->getPointerElementType(),
-            it->second, getTokenText(ctx->IDENTIFIER()));
+        return antlrcpp::Any((llvm::Value*)builder.CreateLoad(it->second->getType()->getPointerElementType(),
+            it->second, getTokenText(ctx->IDENTIFIER())));
     }
 
     if (hasContext(ctx->arrayLiteral())) {
@@ -1448,14 +1448,14 @@ llvm::Type* LLVMCodeGen::getLLVMType(std::shared_ptr<Type> type) {
     throw std::runtime_error("Unknown type");
 }
 
-std::any LLVMCodeGen::visitBlock(PrystParser::BlockContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitBlock(PrystParser::BlockContext* ctx) {
     for (auto stmt : ctx->statement()) {
         visit(stmt);
     }
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitStatement(PrystParser::StatementContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitStatement(PrystParser::StatementContext* ctx) {
     if (ctx->varDecl()) return visit(ctx->varDecl());
     if (ctx->ifStmt()) return visit(ctx->ifStmt());
     if (ctx->whileStmt()) return visit(ctx->whileStmt());
@@ -1469,13 +1469,13 @@ std::any LLVMCodeGen::visitStatement(PrystParser::StatementContext* ctx) {
     throw std::runtime_error("Unsupported statement type");
 }
 
-std::any LLVMCodeGen::visitType(PrystParser::TypeContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitType(PrystParser::TypeContext* ctx) {
     // This method is used during type checking phase
     // For code generation, we use getLLVMType instead
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitLambdaExpr(PrystParser::LambdaExprContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitLambdaExpr(PrystParser::LambdaExprContext* ctx) {
     std::vector<std::pair<std::string, llvm::Type*>> parameters;
 
     // Get parameter types and names from lambdaParams
@@ -1492,7 +1492,7 @@ std::any LLVMCodeGen::visitLambdaExpr(PrystParser::LambdaExprContext* ctx) {
     if (auto returnTypeCtx = ctx->returnType()) {
         returnType = getLLVMType(getTypeFromReturnTypeContext(returnTypeCtx));
     } else if (ctx->expression()) {
-        auto exprType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression()));
+        auto exprType = visit(ctx->expression()).as<std::shared_ptr<Type>>();
         returnType = getLLVMType(exprType);
     } else {
         returnType = llvm::Type::getVoidTy(context);
@@ -1523,7 +1523,7 @@ std::any LLVMCodeGen::visitLambdaExpr(PrystParser::LambdaExprContext* ctx) {
     if (ctx->block()) {
         visit(ctx->block());
     } else if (ctx->expression()) {
-        auto value = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+        auto value = visit(ctx->expression()).as<llvm::Value*>();
         builder.CreateRet(value);
     }
 
@@ -1541,62 +1541,62 @@ std::any LLVMCodeGen::visitLambdaExpr(PrystParser::LambdaExprContext* ctx) {
 
 
 
-std::any LLVMCodeGen::visitExpressionStmt(PrystParser::ExpressionStmtContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitExpressionStmt(PrystParser::ExpressionStmtContext* ctx) {
     if (ctx->expression()) {
         return visit(ctx->expression());
     }
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitBreakStmt(PrystParser::BreakStmtContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitBreakStmt(PrystParser::BreakStmtContext* ctx) {
     auto function = builder.GetInsertBlock()->getParent();
     auto& blocks = function->getBasicBlockList();
     auto* afterBlock = &blocks.back();
     builder.CreateBr(afterBlock);
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitContinueStmt(PrystParser::ContinueStmtContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitContinueStmt(PrystParser::ContinueStmtContext* ctx) {
     auto function = builder.GetInsertBlock()->getParent();
     auto& blocks = function->getBasicBlockList();
     auto* condBlock = &blocks.front();
     builder.CreateBr(condBlock);
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitImportDecl(PrystParser::ImportDeclContext* ctx) {
-    return nullptr;
+antlrcpp::Any LLVMCodeGen::visitImportDecl(PrystParser::ImportDeclContext* ctx) {
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitImportPath(PrystParser::ImportPathContext* ctx) {
-    return nullptr;
+antlrcpp::Any LLVMCodeGen::visitImportPath(PrystParser::ImportPathContext* ctx) {
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitDeclaration(PrystParser::DeclarationContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitDeclaration(PrystParser::DeclarationContext* ctx) {
     if (ctx->functionDecl()) return visit(ctx->functionDecl());
     if (ctx->classDecl()) return visit(ctx->classDecl());
     if (ctx->varDecl()) return visit(ctx->varDecl());
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitParameters(PrystParser::ParametersContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitParameters(PrystParser::ParametersContext* ctx) {
     std::vector<llvm::Value*> params;
     for (auto param : ctx->parameter()) {
-        params.push_back(std::any_cast<llvm::Value*>(visit(param)));
+        params.push_back(visit(param).as<llvm::Value*>());
     }
-    return params;
+    return antlrcpp::Any(params);
 }
 
-std::any LLVMCodeGen::visitParameter(PrystParser::ParameterContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitParameter(PrystParser::ParameterContext* ctx) {
     auto type = getLLVMType(getTypeFromTypeContext(ctx->type()));
     auto param = builder.CreateAlloca(type, nullptr, ctx->IDENTIFIER()->getText());
     valueMap[ctx->IDENTIFIER()->getText()] = param;
-    return param;
+    return antlrcpp::Any(param);
 }
 
-std::any LLVMCodeGen::visitAssignment(PrystParser::AssignmentContext* ctx) {
-    auto target = std::any_cast<llvm::Value*>(visit(ctx->expression(0)));
-    auto value = std::any_cast<llvm::Value*>(visit(ctx->expression(1)));
+antlrcpp::Any LLVMCodeGen::visitAssignment(PrystParser::AssignmentContext* ctx) {
+    auto target = visit(ctx->expression(0)).as<llvm::Value*>();
+    auto value = visit(ctx->expression(1)).as<llvm::Value*>();
 
     if (target->getType() != value->getType()) {
         if (target->getType()->isFloatingPointTy() && value->getType()->isIntegerTy()) {
@@ -1607,26 +1607,26 @@ std::any LLVMCodeGen::visitAssignment(PrystParser::AssignmentContext* ctx) {
     }
 
     builder.CreateStore(value, target);
-    return value;
+    return antlrcpp::Any(value);
 }
 
-std::any LLVMCodeGen::visitArguments(PrystParser::ArgumentsContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitArguments(PrystParser::ArgumentsContext* ctx) {
     std::vector<llvm::Value*> args;
     for (auto arg : ctx->expression()) {
-        args.push_back(std::any_cast<llvm::Value*>(visit(arg)));
+        args.push_back(visit(arg).as<llvm::Value*>());
     }
-    return args;
+    return antlrcpp::Any(args);
 }
 
-std::any LLVMCodeGen::visitEmptyArrayLiteral(PrystParser::EmptyArrayLiteralContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitEmptyArrayLiteral(PrystParser::EmptyArrayLiteralContext* ctx) {
     auto arrayAlloc = getOrCreateArrayAlloc();
     auto size = llvm::ConstantInt::get(llvm::Type::getInt64Ty(context), 0);
     std::vector<llvm::Value*> allocArgs = {size};
     auto array = builder.CreateCall(llvm::FunctionCallee(arrayAlloc), allocArgs, "array");
-    return array;
+    return antlrcpp::Any(array);
 }
 
-std::any LLVMCodeGen::visitNonEmptyArrayLiteral(PrystParser::NonEmptyArrayLiteralContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitNonEmptyArrayLiteral(PrystParser::NonEmptyArrayLiteralContext* ctx) {
     auto arrayAlloc = getOrCreateArrayAlloc();
     auto size = llvm::ConstantInt::get(llvm::Type::getInt64Ty(context), ctx->expression().size());
     std::vector<llvm::Value*> allocArgs = {size};
@@ -1634,22 +1634,22 @@ std::any LLVMCodeGen::visitNonEmptyArrayLiteral(PrystParser::NonEmptyArrayLitera
 
     auto arraySet = module.getFunction("Array_set");
     for (size_t i = 0; i < ctx->expression().size(); i++) {
-        auto value = std::any_cast<llvm::Value*>(visit(ctx->expression(i)));
+        auto value = visit(ctx->expression(i)).as<llvm::Value*>();
         auto idx = llvm::ConstantInt::get(llvm::Type::getInt64Ty(context), i);
         std::vector<llvm::Value*> setArgs = {array, idx, value};
         builder.CreateCall(llvm::FunctionCallee(arraySet), setArgs);
     }
 
-    return array;
+    return antlrcpp::Any(array);
 }
 
-std::any LLVMCodeGen::visitEmptyMapLiteral(PrystParser::EmptyMapLiteralContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitEmptyMapLiteral(PrystParser::EmptyMapLiteralContext* ctx) {
     auto mapAlloc = getOrCreateMapAlloc();
     auto map = builder.CreateCall(llvm::FunctionCallee(mapAlloc), {}, "map");
-    return map;
+    return antlrcpp::Any(map);
 }
 
-std::any LLVMCodeGen::visitNonEmptyMapLiteral(PrystParser::NonEmptyMapLiteralContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitNonEmptyMapLiteral(PrystParser::NonEmptyMapLiteralContext* ctx) {
     auto mapAlloc = getOrCreateMapAlloc();
     auto map = builder.CreateCall(llvm::FunctionCallee(mapAlloc), {}, "map");
 
@@ -1657,11 +1657,11 @@ std::any LLVMCodeGen::visitNonEmptyMapLiteral(PrystParser::NonEmptyMapLiteralCon
     for (auto entry : ctx->mapEntry()) {
         llvm::Value* key = nullptr;
         if (entry->STRING()) {
-            key = std::any_cast<llvm::Value*>(visit(entry->STRING()));
+            key = visit(entry->STRING()).as<llvm::Value*>();
         } else if (entry->INTEGER()) {
-            key = std::any_cast<llvm::Value*>(visit(entry->INTEGER()));
+            key = visit(entry->INTEGER()).as<llvm::Value*>();
         }
-        auto value = std::any_cast<llvm::Value*>(visit(entry->expression()));
+        auto value = visit(ctx->expression()).as<llvm::Value*>();
         std::vector<llvm::Value*> setArgs;
         setArgs.push_back(map);
         setArgs.push_back(key);
@@ -1669,10 +1669,10 @@ std::any LLVMCodeGen::visitNonEmptyMapLiteral(PrystParser::NonEmptyMapLiteralCon
         builder.CreateCall(llvm::FunctionCallee(mapSet), setArgs);
     }
 
-    return map;
+    return antlrcpp::Any(map);
 }
 
-std::any LLVMCodeGen::visitMapEntry(PrystParser::MapEntryContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitMapEntry(PrystParser::MapEntryContext* ctx) {
     llvm::Value* key;
     if (hasToken(ctx->STRING())) {
         std::string str = getTokenText(ctx->STRING());
@@ -1685,8 +1685,8 @@ std::any LLVMCodeGen::visitMapEntry(PrystParser::MapEntryContext* ctx) {
         throw std::runtime_error("Map keys must be strings or integers");
     }
 
-    auto value = std::any_cast<llvm::Value*>(visit(ctx->expression()));
-    return std::make_pair(key, value);
+    auto value = visit(ctx->expression()).as<llvm::Value*>();
+    return antlrcpp::Any(std::make_pair(key, value));
 }
 
 unsigned LLVMCodeGen::getMemberIndex(llvm::Type* classType, const std::string& memberName) {
@@ -1737,17 +1737,23 @@ llvm::Type* LLVMCodeGen::createArrayType(llvm::Type* elementType) {
 }
 
 llvm::Type* LLVMCodeGen::createMapType(llvm::Type* keyType, llvm::Type* valueType) {
-    // Create map wrapper type with metadata
-    auto mapStructTy = llvm::StructType::create(context, "map");
-    std::vector<llvm::Type*> elements = {
-        llvm::Type::getInt32Ty(context),  // size
-        llvm::PointerType::get(  // entries array
-            llvm::StructType::create(context, {keyType, valueType}),
-            0
-        )
-    };
-    mapStructTy->setBody(elements);
-    return mapStructTy;
+    // Convert LLVM types to Pryst types using TypeRegistry
+    auto keyTypeObj = typeRegistry.convertLLVMTypeToType(keyType);
+    auto valueTypeObj = typeRegistry.convertLLVMTypeToType(valueType);
+
+    // Create map type name with generic parameters
+    std::string mapTypeName = "map<" + keyTypeObj->toString() + "," + valueTypeObj->toString() + ">";
+
+    // Check if type already exists in registry
+    if (auto existingType = typeRegistry.getClassType(mapTypeName)) {
+        return existingType;
+    }
+
+    // Register the map type with TypeRegistry
+    auto mapType = typeRegistry.registerMapType(keyTypeObj->toString(), valueTypeObj->toString());
+
+    // Get the registered LLVM type
+    return typeRegistry.getClassType(mapTypeName);
 }
 
 llvm::Type* LLVMCodeGen::createNullableType(llvm::Type* baseType) {
@@ -1762,20 +1768,20 @@ llvm::Type* LLVMCodeGen::createNullableType(llvm::Type* baseType) {
 }
 
 // Visitor method implementations
-std::any LLVMCodeGen::visitIdentifierList(PrystParser::IdentifierListContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitIdentifierList(PrystParser::IdentifierListContext* ctx) {
     std::vector<std::string> identifiers;
     for (auto id : ctx->IDENTIFIER()) {
         identifiers.push_back(id->getText());
     }
-    return identifiers;
+    return antlrcpp::Any(identifiers);
 }
 
-std::any LLVMCodeGen::visitInterfaceDecl(PrystParser::InterfaceDeclContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitInterfaceDecl(PrystParser::InterfaceDeclContext* ctx) {
     // TODO: Implement interface code generation
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitClassMember(PrystParser::ClassMemberContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitClassMember(PrystParser::ClassMemberContext* ctx) {
     if (auto typeCtx = ctx->type()) {
         auto memberType = getLLVMType(getTypeFromTypeContext(typeCtx));
         auto memberName = ctx->IDENTIFIER()->getText();
@@ -1793,10 +1799,10 @@ std::any LLVMCodeGen::visitClassMember(PrystParser::ClassMemberContext* ctx) {
         memberTypes[currentClass + "." + memberName] = memberType;
         memberIndices[currentClass + "." + memberName] = memberTypes.size() - 1;
     }
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitConstructorDecl(PrystParser::ConstructorDeclContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitConstructorDecl(PrystParser::ConstructorDeclContext* ctx) {
     auto className = currentClass;
     auto constructorName = "constructor." + className;
 
@@ -1805,7 +1811,7 @@ std::any LLVMCodeGen::visitConstructorDecl(PrystParser::ConstructorDeclContext* 
     paramTypes.push_back(llvm::PointerType::get(context, 0)); // this pointer
 
     if (ctx->parameters()) {
-        auto params = std::any_cast<std::vector<llvm::Type*>>(visit(ctx->parameters()));
+        auto params = visit(ctx->parameters()).as<std::vector<llvm::Type*>>();
         paramTypes.insert(paramTypes.end(), params.begin(), params.end());
     }
 
@@ -1835,10 +1841,10 @@ std::any LLVMCodeGen::visitConstructorDecl(PrystParser::ConstructorDeclContext* 
     }
 
     builder.CreateRetVoid();
-    return constructor;
+    return antlrcpp::Any(constructor);
 }
 
-std::any LLVMCodeGen::visitConstructorBlock(PrystParser::ConstructorBlockContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitConstructorBlock(PrystParser::ConstructorBlockContext* ctx) {
     // Handle member initializations and statements
     for (auto stmt : ctx->statement()) {
         // Check for this.identifier assignments
@@ -1848,7 +1854,7 @@ std::any LLVMCodeGen::visitConstructorBlock(PrystParser::ConstructorBlockContext
                 auto thisExpr = memberAccess->expression();
                 if (thisExpr->getText() == "this") {
                     auto memberName = memberAccess->IDENTIFIER()->getText();
-                    auto value = std::any_cast<llvm::Value*>(visit(assignStmt->expression(1)));
+                    auto value = visit(assignStmt->expression(1)).as<llvm::Value*>();
 
                     // Get member index from class layout
                     auto idx = memberIndices[currentClass + "." + memberName];
@@ -1865,14 +1871,14 @@ std::any LLVMCodeGen::visitConstructorBlock(PrystParser::ConstructorBlockContext
         }
         visit(stmt);
     }
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitBasicType(PrystParser::BasicTypeContext* ctx) {
-    if (ctx->INT()) return llvm::Type::getInt32Ty(context);
-    if (ctx->FLOAT()) return llvm::Type::getFloatTy(context);
-    if (ctx->BOOL()) return llvm::Type::getInt1Ty(context);
-    if (ctx->STR()) return llvm::PointerType::get(llvm::Type::getInt8Ty(context), 0);
+antlrcpp::Any LLVMCodeGen::visitBasicType(PrystParser::BasicTypeContext* ctx) {
+    if (ctx->INT()) return antlrcpp::Any(llvm::Type::getInt32Ty(context));
+    if (ctx->FLOAT()) return antlrcpp::Any(llvm::Type::getFloatTy(context));
+    if (ctx->BOOL()) return antlrcpp::Any(llvm::Type::getInt1Ty(context));
+    if (ctx->STR()) return antlrcpp::Any(llvm::PointerType::get(llvm::Type::getInt8Ty(context), 0));
     if (ctx->IDENTIFIER()) {
         // Handle class types
         auto className = ctx->IDENTIFIER()->getText();
@@ -1880,26 +1886,26 @@ std::any LLVMCodeGen::visitBasicType(PrystParser::BasicTypeContext* ctx) {
         if (!structTy) {
             throw std::runtime_error("Unknown class type: " + className);
         }
-        return llvm::PointerType::get(structTy, 0);
+        return antlrcpp::Any(llvm::PointerType::get(structTy, 0));
     }
-    return nullptr;
+    return antlrcpp::Any();
 }
 
-std::any LLVMCodeGen::visitQualifiedType(PrystParser::QualifiedTypeContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitQualifiedType(PrystParser::QualifiedTypeContext* ctx) {
     std::string typeName = ctx->getText();
     auto structTy = llvm::StructType::getTypeByName(context, "class." + typeName);
     if (!structTy) {
         throw std::runtime_error("Unknown class type: " + typeName);
     }
-    return llvm::PointerType::get(structTy, 0);
+    return antlrcpp::Any(llvm::PointerType::get(structTy, 0));
 }
 
-std::any LLVMCodeGen::visitArrayType(PrystParser::ArrayTypeContext* ctx) {
-    auto elementType = std::any_cast<llvm::Type*>(visit(ctx->basicType()));
-    return createArrayType(elementType);
+antlrcpp::Any LLVMCodeGen::visitArrayType(PrystParser::ArrayTypeContext* ctx) {
+    auto elementType = visit(ctx->basicType()).as<llvm::Type*>();
+    return antlrcpp::Any(createArrayType(elementType));
 }
 
-std::any LLVMCodeGen::visitMapType(PrystParser::MapTypeContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitMapType(PrystParser::MapTypeContext* ctx) {
     llvm::Type* keyType;
     if (ctx->keyType()->STR()) {
         keyType = llvm::PointerType::get(llvm::Type::getInt8Ty(context), 0);
@@ -1907,22 +1913,22 @@ std::any LLVMCodeGen::visitMapType(PrystParser::MapTypeContext* ctx) {
         keyType = llvm::Type::getInt32Ty(context);
     }
 
-    auto valueType = std::any_cast<llvm::Type*>(visit(ctx->type()));
-    return createMapType(keyType, valueType);
+    auto valueType = visit(ctx->type()).as<llvm::Type*>();
+    return antlrcpp::Any(createMapType(keyType, valueType));
 }
 
-std::any LLVMCodeGen::visitFunctionType(PrystParser::FunctionTypeContext* ctx) {
+antlrcpp::Any LLVMCodeGen::visitFunctionType(PrystParser::FunctionTypeContext* ctx) {
     auto returnTypeCtx = ctx->returnType();
     auto returnType = getLLVMType(getTypeFromReturnTypeContext(returnTypeCtx));
     std::vector<llvm::Type*> paramTypes;
 
     if (auto typeList = ctx->typeList()) {
         for (auto paramType : typeList->type()) {
-            paramTypes.push_back(std::any_cast<llvm::Type*>(visit(paramType)));
+            paramTypes.push_back(visit(paramType).as<llvm::Type*>());
         }
     }
 
-    return llvm::FunctionType::get(returnType, paramTypes, false);
+    return antlrcpp::Any(llvm::FunctionType::get(returnType, paramTypes, false));
 }
 
 } // namespace pryst

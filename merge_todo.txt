@@ -1,0 +1,18 @@
+ZIP FILES TO MERGE (in order):
+1. [ ] pryst.zip (base implementation)
+2. [ ] Complete TypeRegistry Implementation.zip (first set of changes)
+3. [ ] current.zip (second set of changes)
+4. [ ] pryst-current.zip (latest changes)
+
+MERGE RULES:
+- For files missing in later zips, use version from earliest zip
+- For files present in multiple zips, use most recent version
+- Merge all auxiliary files (.bak, .new, .append) into main files
+- Keep directories organized ("깔끔하게 정돈되게")
+
+DEPENDENCIES VERIFIED:
+- [x] LLVM 14.0.0
+- [x] ANTLR 4.13.2
+- [x] boehm-gc
+- [x] gtest
+- [x] cpp-httplib

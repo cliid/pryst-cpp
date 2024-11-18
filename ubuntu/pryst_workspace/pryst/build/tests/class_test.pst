@@ -1,0 +1,41 @@
+// Test file for class declarations and usage
+class Point {
+    var x: int;
+    var y: int;
+
+    constructor(x: int, y: int) {
+        this.x = x;
+        this.y = y;
+    }
+
+    func toString(): str {
+        return "Point(" + this.x + "," + this.y + ")";
+    }
+}
+
+class Container<T> {
+    var value: T;
+
+    constructor(value: T) {
+        this.value = value;
+    }
+
+    func getValue(): T {
+        return this.value;
+    }
+}
+
+// Test class usage
+func main(): void {
+    var point: Point = new Point(10, 20);
+    print(point.toString());
+
+    var intContainer: Container<int> = new Container<int>(42);
+    print(intContainer.getValue());
+
+    var strContainer: Container<str> = new Container<str>("test");
+    print(strContainer.getValue());
+
+    var mapContainer: Container<map<str,int>> = new Container<map<str,int>>({"key": 100});
+    print(mapContainer.getValue()["key"]);
+}

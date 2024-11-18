@@ -1,0 +1,7 @@
+/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/intrinsics_gen.dir
+/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/omp_gen.dir
+/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/acc_gen.dir
+/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/pryst_lib.dir
+/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/run_tests.dir
+/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/rebuild_cache.dir

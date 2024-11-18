@@ -88,6 +88,8 @@ public:
 
     // Register a map type with key and value types
     std::shared_ptr<Type> registerMapType(const std::string& keyType, const std::string& valueType);
+    // Helper method to parse and register nested map types
+    std::shared_ptr<Type> parseAndRegisterMapType(const std::string& typeStr);
 
     // Register an array type
     std::shared_ptr<Type> registerArrayType(const std::string& elementType);

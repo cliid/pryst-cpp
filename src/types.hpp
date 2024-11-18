@@ -171,64 +171,40 @@ public:
         std::cout << "Debug [MapType]: Creating map type with key=" << keyType->toString()
                   << " value=" << valueType->toString() << std::endl;
 
-        // Use global type constants for primitive types
-        switch(keyType->getKind()) {
-            case Kind::String:
-                keyType_ = STRING_TYPE;
-                break;
-            case Kind::Int:
-                keyType_ = INT_TYPE;
-                break;
-            case Kind::Float:
-                keyType_ = FLOAT_TYPE;
-                break;
-            case Kind::Bool:
-                keyType_ = BOOL_TYPE;
-                break;
-            case Kind::Array:
-                if (auto arrayType = std::dynamic_pointer_cast<ArrayType>(keyType)) {
-                    keyType_ = std::make_shared<ArrayType>(arrayType->getElementType());
-                }
-                break;
-            case Kind::Map:
-                if (auto mapType = std::dynamic_pointer_cast<MapType>(keyType)) {
-                    keyType_ = std::make_shared<MapType>(mapType->getKeyType(), mapType->getValueType());
-                }
-                break;
-            default:
-                keyType_ = keyType;  // For other types, keep original reference
-        }
+        // Store original type references to preserve identity
+        keyType_ = keyType;
+        valueType_ = valueType;
 
-        switch(valueType->getKind()) {
-            case Kind::String:
-                valueType_ = STRING_TYPE;
-                break;
-            case Kind::Int:
-                valueType_ = INT_TYPE;
-                break;
-            case Kind::Float:
-                valueType_ = FLOAT_TYPE;
-                break;
-            case Kind::Bool:
-                valueType_ = BOOL_TYPE;
-                break;
-            case Kind::Array:
-                if (auto arrayType = std::dynamic_pointer_cast<ArrayType>(valueType)) {
-                    valueType_ = std::make_shared<ArrayType>(arrayType->getElementType());
-                }
-                break;
-            case Kind::Map:
-                if (auto mapType = std::dynamic_pointer_cast<MapType>(valueType)) {
-                    valueType_ = std::make_shared<MapType>(mapType->getKeyType(), mapType->getValueType());
-                }
-                break;
-            default:
-                valueType_ = valueType;  // For other types, keep original reference
+        if (!keyType_ || keyType_->isVoidType()) {
+            throw Error("TypeError", "Invalid map key type");
+        }
+        if (!valueType_) {
+            throw Error("TypeError", "Invalid map value type");
         }
     }
 
     std::shared_ptr<Type> getKeyType() const { return keyType_; }
     std::shared_ptr<Type> getValueType() const { return valueType_; }
+
+    std::string toString() const override {
+        return "map<" + keyType_->toString() + "," + valueType_->toString() + ">";
+    }
+
+    bool isAssignableTo(const std::shared_ptr<Type>& other) const override {
+        if (auto otherMap = std::dynamic_pointer_cast<MapType>(other)) {
+            return keyType_->isAssignableTo(otherMap->keyType_) &&
+                   valueType_->isAssignableTo(otherMap->valueType_);
+        }
+        return false;
+    }
+
+    bool canConvertTo(const std::shared_ptr<Type>& other) const override {
+        if (auto otherMap = std::dynamic_pointer_cast<MapType>(other)) {
+            return keyType_->canConvertTo(otherMap->keyType_) &&
+                   valueType_->canConvertTo(otherMap->valueType_);
+        }
+        return false;
+    }
 
 private:
     std::shared_ptr<Type> keyType_;
