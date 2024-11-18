@@ -1,0 +1,185 @@
+// Binary operator type checking
+std::shared_ptr<Type> TypeChecker::checkBinaryOp(const std::string& op, std::shared_ptr<Type> left, std::shared_ptr<Type> right) {
+    // Handle nullable operands
+    if (left->isNullable() || right->isNullable()) {
+        throw std::runtime_error("Cannot perform binary operation '" + op + "' on nullable types without explicit null check");
+    }
+
+    // Arithmetic operators
+    if (op == "+" || op == "-" || op == "*" || op == "/" || op == "%") {
+        if (left->getKind() == Type::Kind::Int && right->getKind() == Type::Kind::Int) {
+            return INT_TYPE;
+        }
+        if ((left->getKind() == Type::Kind::Int || left->getKind() == Type::Kind::Float) &&
+            (right->getKind() == Type::Kind::Int || right->getKind() == Type::Kind::Float)) {
+            return FLOAT_TYPE;
+        }
+        if (op == "+" && (left->getKind() == Type::Kind::String || right->getKind() == Type::Kind::String)) {
+            return STRING_TYPE;
+        }
+        throw std::runtime_error("Invalid operand types for arithmetic operator '" + op + "'");
+    }
+
+    // Comparison operators
+    if (op == "<" || op == "<=" || op == ">" || op == ">=") {
+        if ((left->getKind() == Type::Kind::Int || left->getKind() == Type::Kind::Float) &&
+            (right->getKind() == Type::Kind::Int || right->getKind() == Type::Kind::Float)) {
+            return BOOL_TYPE;
+        }
+        if (left->getKind() == Type::Kind::String && right->getKind() == Type::Kind::String) {
+            return BOOL_TYPE;
+        }
+        throw std::runtime_error("Invalid operand types for comparison operator '" + op + "'");
+    }
+
+    // Equality operators
+    if (op == "==" || op == "!=") {
+        if (left->getKind() == right->getKind() ||
+            (left->getKind() == Type::Kind::Int && right->getKind() == Type::Kind::Float) ||
+            (left->getKind() == Type::Kind::Float && right->getKind() == Type::Kind::Int)) {
+            return BOOL_TYPE;
+        }
+        throw std::runtime_error("Cannot compare incompatible types with operator '" + op + "'");
+    }
+
+    // Logical operators
+    if (op == "&&" || op == "||") {
+        if (left->getKind() == Type::Kind::Bool && right->getKind() == Type::Kind::Bool) {
+            return BOOL_TYPE;
+        }
+        throw std::runtime_error("Logical operators require boolean operands");
+    }
+
+    throw std::runtime_error("Unknown binary operator: " + op);
+}
+
+// Unary operator type checking
+std::shared_ptr<Type> TypeChecker::checkUnaryOp(const std::string& op, std::shared_ptr<Type> operand) {
+    // Handle nullable operands
+    if (operand->isNullable()) {
+        throw std::runtime_error("Cannot perform unary operation '" + op + "' on nullable type without explicit null check");
+    }
+
+    if (op == "!" && operand->getKind() == Type::Kind::Bool) {
+        return BOOL_TYPE;
+    }
+
+    if ((op == "-" || op == "++" || op == "--") && operand->getKind() == Type::Kind::Int) {
+        return INT_TYPE;
+    }
+
+    if (op == "-" && operand->getKind() == Type::Kind::Float) {
+        return FLOAT_TYPE;
+    }
+
+    throw std::runtime_error("Invalid operand type for unary operator '" + op + "'");
+}
+
+// Type cast checking
+std::shared_ptr<Type> TypeChecker::checkTypeCast(std::shared_ptr<Type> targetType, std::shared_ptr<Type> sourceType) {
+    // Allow casting to/from nullable types
+    if (targetType->getKind() == Type::Kind::Nullable) {
+        auto innerTargetType = std::static_pointer_cast<NullableType>(targetType)->getInnerType();
+        if (sourceType->getKind() == Type::Kind::Nullable) {
+            auto innerSourceType = std::static_pointer_cast<NullableType>(sourceType)->getInnerType();
+            // Check if inner types are compatible
+            checkTypeCast(innerTargetType, innerSourceType);
+            return targetType;
+        }
+        // Allow casting non-nullable to nullable if types are compatible
+        checkTypeCast(innerTargetType, sourceType);
+        return targetType;
+    }
+
+    // Don't allow casting from nullable to non-nullable without explicit null check
+    if (sourceType->getKind() == Type::Kind::Nullable) {
+        throw std::runtime_error("Cannot cast from nullable type to non-nullable type without explicit null check");
+    }
+
+    // Handle primitive type conversions
+    if (targetType->getKind() == Type::Kind::Int &&
+        (sourceType->getKind() == Type::Kind::Float || sourceType->getKind() == Type::Kind::Int)) {
+        return targetType;
+    }
+    if (targetType->getKind() == Type::Kind::Float &&
+        (sourceType->getKind() == Type::Kind::Int || sourceType->getKind() == Type::Kind::Float)) {
+        return targetType;
+    }
+    if (targetType->getKind() == Type::Kind::String) {
+        // Allow casting any primitive type to string
+        if (sourceType->getKind() == Type::Kind::Int ||
+            sourceType->getKind() == Type::Kind::Float ||
+            sourceType->getKind() == Type::Kind::Bool ||
+            sourceType->getKind() == Type::Kind::String) {
+            return targetType;
+        }
+    }
+    if (targetType->getKind() == Type::Kind::Bool &&
+        (sourceType->getKind() == Type::Kind::Int || sourceType->getKind() == Type::Kind::Bool)) {
+        return targetType;
+    }
+
+    throw std::runtime_error("Invalid type cast from " + sourceType->toString() + " to " + targetType->toString());
+}
+
+// Interface declaration visitor
+std::any TypeChecker::visitInterfaceDecl(PrystParser::InterfaceDeclContext* ctx) {
+    // TODO: Implement interface type checking
+    return nullptr;
+}
+
+// Type visitors
+std::any TypeChecker::visitBasicType(PrystParser::BasicTypeContext* ctx) {
+    return getTypeFromTypeContext(ctx->parent);
+}
+
+std::any TypeChecker::visitArrayType(PrystParser::ArrayTypeContext* ctx) {
+    auto elementType = getTypeFromTypeContext(ctx->basicType());
+    return std::make_shared<ArrayType>(elementType);
+}
+
+std::any TypeChecker::visitMapType(PrystParser::MapTypeContext* ctx) {
+    auto keyType = ctx->keyType()->STR() ? STRING_TYPE : INT_TYPE;
+    auto valueType = getTypeFromTypeContext(ctx->type());
+    return std::make_shared<MapType>(keyType, valueType);
+}
+
+std::any TypeChecker::visitFunctionType(PrystParser::FunctionTypeContext* ctx) {
+    auto returnType = getTypeFromTypeContext(ctx->type());
+    std::vector<std::shared_ptr<Type>> paramTypes;
+    if (auto typeList = ctx->typeList()) {
+        for (auto paramType : typeList->type()) {
+            paramTypes.push_back(getTypeFromTypeContext(paramType));
+        }
+    }
+    return std::make_shared<FunctionType>(returnType, paramTypes);
+}
+
+// Lambda expression visitors
+std::any TypeChecker::visitLambdaExprInline(PrystParser::LambdaExprInlineContext* ctx) {
+    pushScope();
+    std::vector<std::shared_ptr<Type>> paramTypes;
+
+    if (ctx->lambdaParams()) {
+        for (size_t i = 0; i < ctx->lambdaParams()->type().size(); i++) {
+            auto paramType = getTypeFromTypeContext(ctx->lambdaParams()->type(i));
+            paramTypes.push_back(paramType);
+            declareVariable(ctx->lambdaParams()->IDENTIFIER(i)->getText(), paramType);
+        }
+    }
+
+    auto exprType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression()));
+    auto funcType = std::make_shared<FunctionType>(exprType, paramTypes);
+
+    popScope();
+    return funcType;
+}
+
+// Map entry visitors
+std::any TypeChecker::visitMapEntry(PrystParser::MapEntryContext* ctx) {
+    return visit(ctx->expression());
+}
+
+std::any TypeChecker::visitMapKey(PrystParser::MapKeyContext* ctx) {
+    return STRING_TYPE;  // Map keys are always strings in Pryst
+}

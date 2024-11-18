@@ -1,0 +1,78 @@
+std::any TypeChecker::visitEmptyArrayLiteral(PrystParser::EmptyArrayLiteralContext* ctx) {
+    std::cout << "Debug [visitEmptyArrayLiteral]: Processing empty array literal" << std::endl;
+    // For empty arrays, we need to infer the element type from context
+    // Default to Object type if no context available
+    return std::make_shared<pryst::ArrayType>(pryst::OBJECT_TYPE);
+}
+
+std::any TypeChecker::visitNonEmptyArrayLiteral(PrystParser::NonEmptyArrayLiteralContext* ctx) {
+    std::cout << "Debug [visitNonEmptyArrayLiteral]: Processing non-empty array literal" << std::endl;
+    if (ctx->expression().empty()) {
+        throw Error("TypeError", "Array literal must contain at least one element");
+    }
+
+    // Visit first expression to get the element type
+    auto firstExprType = std::any_cast<std::shared_ptr<pryst::Type>>(visit(ctx->expression(0)));
+    std::cout << "Debug [visitNonEmptyArrayLiteral]: First element type: " << firstExprType->toString() << std::endl;
+
+    // Check that all elements have compatible types
+    for (size_t i = 1; i < ctx->expression().size(); i++) {
+        auto elemType = std::any_cast<std::shared_ptr<pryst::Type>>(visit(ctx->expression(i)));
+        std::cout << "Debug [visitNonEmptyArrayLiteral]: Element " << i << " type: " << elemType->toString() << std::endl;
+        if (!isAssignable(firstExprType, elemType)) {
+            throw Error("TypeError", "Incompatible types in array literal");
+        }
+    }
+
+    return std::make_shared<pryst::ArrayType>(firstExprType);
+}
+
+std::any TypeChecker::visitEmptyMapLiteral(PrystParser::EmptyMapLiteralContext* ctx) {
+    std::cout << "Debug [visitEmptyMapLiteral]: Processing empty map literal" << std::endl;
+    // For empty maps, default to string keys and object values
+    return std::make_shared<pryst::MapType>(pryst::STRING_TYPE, pryst::OBJECT_TYPE);
+}
+
+std::any TypeChecker::visitNonEmptyMapLiteral(PrystParser::NonEmptyMapLiteralContext* ctx) {
+    std::cout << "Debug [visitNonEmptyMapLiteral]: Processing non-empty map literal" << std::endl;
+    if (ctx->mapEntry().empty()) {
+        throw Error("TypeError", "Map literal must contain at least one entry");
+    }
+
+    // Visit first entry to get key and value types
+    auto firstEntry = ctx->mapEntry(0);
+    auto firstKeyType = std::any_cast<std::shared_ptr<pryst::Type>>(visit(firstEntry->mapKey()));
+    auto firstValueType = std::any_cast<std::shared_ptr<pryst::Type>>(visit(firstEntry->expression()));
+
+    std::cout << "Debug [visitNonEmptyMapLiteral]: First entry - Key: " << firstKeyType->toString()
+              << ", Value: " << firstValueType->toString() << std::endl;
+
+    // Check that all entries have compatible types
+    for (size_t i = 1; i < ctx->mapEntry().size(); i++) {
+        auto entry = ctx->mapEntry(i);
+        auto keyType = std::any_cast<std::shared_ptr<pryst::Type>>(visit(entry->mapKey()));
+        auto valueType = std::any_cast<std::shared_ptr<pryst::Type>>(visit(entry->expression()));
+
+        std::cout << "Debug [visitNonEmptyMapLiteral]: Entry " << i << " - Key: " << keyType->toString()
+                  << ", Value: " << valueType->toString() << std::endl;
+
+        if (!isAssignable(firstValueType, valueType)) {
+            throw Error("TypeError", "Incompatible value types in map literal");
+        }
+    }
+
+    return std::make_shared<pryst::MapType>(pryst::STRING_TYPE, firstValueType);
+}
+
+std::any TypeChecker::visitMapEntry(PrystParser::MapEntryContext* ctx) {
+    std::cout << "Debug [visitMapEntry]: Processing map entry" << std::endl;
+    return visit(ctx->expression());
+}
+
+std::any TypeChecker::visitMapKey(PrystParser::MapKeyContext* ctx) {
+    std::cout << "Debug [visitMapKey]: Processing map key" << std::endl;
+    // Map keys are always strings in Pryst
+    return pryst::STRING_TYPE;
+}
+
+} // namespace pryst

@@ -1,0 +1,10 @@
+// Add to registerNullableType method in TypeRegistry
+std::cout << "Debug [registerNullableType]: Base type before nullable: "
+          << typeName.substr(0, typeName.length() - 1) << std::endl;
+auto baseType = getCachedType(typeName.substr(0, typeName.length() - 1));
+if (!baseType) {
+    std::cout << "Debug [registerNullableType]: Base type not found in cache" << std::endl;
+} else {
+    std::cout << "Debug [registerNullableType]: Base type found: "
+              << baseType->toString() << std::endl;
+}

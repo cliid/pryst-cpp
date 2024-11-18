@@ -1,0 +1,156 @@
+// Identifier list visitor
+std::any LLVMCodeGen::visitIdentifierList(PrystParser::IdentifierListContext* ctx) {
+    std::vector<std::string> identifiers;
+    for (auto id : ctx->IDENTIFIER()) {
+        identifiers.push_back(id->getText());
+    }
+    return identifiers;
+}
+
+// Interface declaration visitor
+std::any LLVMCodeGen::visitInterfaceDecl(PrystParser::InterfaceDeclContext* ctx) {
+    // TODO: Implement interface code generation
+    return nullptr;
+}
+
+// Class member visitor
+std::any LLVMCodeGen::visitClassMember(PrystParser::ClassMemberContext* ctx) {
+    if (ctx->type()) {
+        auto memberType = std::any_cast<llvm::Type*>(visit(ctx->type()));
+        auto memberName = ctx->IDENTIFIER()->getText();
+
+        // Handle static members
+        if (ctx->STATIC()) {
+            // Create global variable for static member
+            auto staticMember = module->getOrInsertGlobal(
+                currentClassName + "::" + memberName,
+                memberType
+            );
+            if (auto global = llvm::dyn_cast<llvm::GlobalVariable>(staticMember)) {
+                global->setLinkage(llvm::GlobalValue::ExternalLinkage);
+                global->setInitializer(llvm::Constant::getNullValue(memberType));
+            }
+        }
+
+        // Add to class layout
+        currentClassLayout[memberName] = memberType;
+    }
+    return nullptr;
+}
+
+// Constructor declaration visitor
+std::any LLVMCodeGen::visitConstructorDecl(PrystParser::ConstructorDeclContext* ctx) {
+    auto className = currentClassName;
+    auto constructorName = "constructor." + className;
+
+    // Create function type for constructor
+    std::vector<llvm::Type*> paramTypes;
+    paramTypes.push_back(llvm::PointerType::get(context, 0)); // this pointer
+
+    if (ctx->parameters()) {
+        auto params = std::any_cast<std::vector<llvm::Type*>>(visit(ctx->parameters()));
+        paramTypes.insert(paramTypes.end(), params.begin(), params.end());
+    }
+
+    auto constructorType = llvm::FunctionType::get(
+        llvm::Type::getVoidTy(context),
+        paramTypes,
+        false
+    );
+
+    // Create constructor function
+    auto constructor = llvm::Function::Create(
+        constructorType,
+        llvm::Function::ExternalLinkage,
+        constructorName,
+        module.get()
+    );
+
+    // Create entry block
+    auto entry = llvm::BasicBlock::Create(context, "entry", constructor);
+    builder.SetInsertPoint(entry);
+
+    // Store constructor for the constructor block visitor
+    currentConstructor = constructor;
+
+    if (ctx->constructorBlock()) {
+        visit(ctx->constructorBlock());
+    }
+
+    builder.CreateRetVoid();
+    return constructor;
+}
+
+// Constructor block visitor
+std::any LLVMCodeGen::visitConstructorBlock(PrystParser::ConstructorBlockContext* ctx) {
+    // Handle super constructor call if present
+    if (ctx->SUPER()) {
+        auto superClass = currentClassType->getParentClass();
+        if (superClass) {
+            std::vector<llvm::Value*> superArgs;
+            superArgs.push_back(currentConstructor->arg_begin()); // this pointer
+
+            if (ctx->arguments()) {
+                auto args = std::any_cast<std::vector<llvm::Value*>>(visit(ctx->arguments()));
+                superArgs.insert(superArgs.end(), args.begin(), args.end());
+            }
+
+            // Call super constructor
+            auto superCtor = module->getFunction("constructor." + superClass->getName().str());
+            if (superCtor) {
+                builder.CreateCall(superCtor, superArgs);
+            }
+        }
+    }
+
+    // Handle member initializations and statements
+    for (auto stmt : ctx->statement()) {
+        visit(stmt);
+    }
+
+    return nullptr;
+}
+
+// Type visitors
+std::any LLVMCodeGen::visitBasicType(PrystParser::BasicTypeContext* ctx) {
+    if (ctx->INT()) return llvm::Type::getInt32Ty(context);
+    if (ctx->FLOAT()) return llvm::Type::getFloatTy(context);
+    if (ctx->BOOL()) return llvm::Type::getInt1Ty(context);
+    if (ctx->STR()) return llvm::PointerType::get(llvm::Type::getInt8Ty(context), 0);
+    if (ctx->IDENTIFIER()) {
+        // Handle class types
+        auto className = ctx->IDENTIFIER()->getText();
+        if (auto classType = module->getTypeByName("class." + className)) {
+            return llvm::PointerType::get(classType, 0);
+        }
+    }
+    return nullptr;
+}
+
+std::any LLVMCodeGen::visitArrayType(PrystParser::ArrayTypeContext* ctx) {
+    auto elementType = std::any_cast<llvm::Type*>(visit(ctx->basicType()));
+    // Create array type wrapper (implementation dependent on runtime array structure)
+    return createArrayType(elementType);
+}
+
+std::any LLVMCodeGen::visitMapType(PrystParser::MapTypeContext* ctx) {
+    auto keyType = ctx->keyType()->STR() ?
+        llvm::PointerType::get(llvm::Type::getInt8Ty(context), 0) :
+        llvm::Type::getInt32Ty(context);
+    auto valueType = std::any_cast<llvm::Type*>(visit(ctx->type()));
+    // Create map type wrapper (implementation dependent on runtime map structure)
+    return createMapType(keyType, valueType);
+}
+
+std::any LLVMCodeGen::visitFunctionType(PrystParser::FunctionTypeContext* ctx) {
+    auto returnType = std::any_cast<llvm::Type*>(visit(ctx->type()));
+    std::vector<llvm::Type*> paramTypes;
+
+    if (auto typeList = ctx->typeList()) {
+        for (auto paramType : typeList->type()) {
+            paramTypes.push_back(std::any_cast<llvm::Type*>(visit(paramType)));
+        }
+    }
+
+    return llvm::FunctionType::get(returnType, paramTypes, false);
+}

@@ -1,0 +1,92 @@
+#pragma once
+
+#include <string>
+#include <functional>
+#include <map>
+#include "runtime_registry.hpp"
+
+namespace pryst {
+namespace runtime {
+namespace web {
+
+class Request {
+public:
+    std::string method;
+    std::string path;
+    std::map<std::string, std::string> headers;
+    std::string body;
+
+    Request(std::string method = "GET", std::string path = "/",
+            std::map<std::string, std::string> headers = {},
+            std::string body = "")
+        : method(method), path(path), headers(headers), body(body) {}
+};
+
+class Response {
+public:
+    int status;
+    std::map<std::string, std::string> headers;
+    std::string body;
+    std::string contentType;
+
+    Response() : status(200) {}
+
+    void setContent(const std::string& content, const std::string& type) {
+        body = content;
+        contentType = type;
+        headers["Content-Type"] = type;
+    }
+};
+
+class WebServer {
+public:
+    WebServer() {}
+
+    void get(const std::string& path, std::function<void(Request&, Response&)> handler) {
+        routes[path] = handler;
+    }
+
+    void start(int port) {
+        // TODO: Implement actual server startup
+        // For now, just simulate success
+    }
+
+private:
+    std::map<std::string, std::function<void(Request&, Response&)>> routes;
+};
+
+// Register web types with runtime
+inline void registerWebTypes(RuntimeRegistry& registry) {
+    // Create LLVM struct types for web classes
+    auto& context = registry.getModule()->getContext();
+
+    // Request class type
+    std::vector<llvm::Type*> requestFields;
+    requestFields.push_back(llvm::Type::getInt8PtrTy(context));  // method
+    requestFields.push_back(llvm::Type::getInt8PtrTy(context));  // path
+    requestFields.push_back(llvm::Type::getInt8PtrTy(context));  // headers
+    requestFields.push_back(llvm::Type::getInt8PtrTy(context));  // body
+    auto requestType = llvm::StructType::create(context, requestFields, "struct.pryst.web.Request");
+
+    // Response class type
+    std::vector<llvm::Type*> responseFields;
+    responseFields.push_back(llvm::Type::getInt32Ty(context));   // status
+    responseFields.push_back(llvm::Type::getInt8PtrTy(context)); // headers
+    responseFields.push_back(llvm::Type::getInt8PtrTy(context)); // body
+    responseFields.push_back(llvm::Type::getInt8PtrTy(context)); // contentType
+    auto responseType = llvm::StructType::create(context, responseFields, "struct.pryst.web.Response");
+
+    // WebServer class type
+    std::vector<llvm::Type*> serverFields;
+    serverFields.push_back(llvm::Type::getInt8PtrTy(context));   // routes
+    auto serverType = llvm::StructType::create(context, serverFields, "struct.pryst.web.WebServer");
+
+    // Register classes with runtime
+    registry.registerClass("Request", "pryst::web::Request", requestType);
+    registry.registerClass("Response", "pryst::web::Response", responseType);
+    registry.registerClass("WebServer", "pryst::web::WebServer", serverType);
+}
+
+} // namespace web
+} // namespace runtime
+} // namespace pryst
