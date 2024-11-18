@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/pryst-cpp
+CMAKE_SOURCE_DIR = /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/pryst-cpp/build
+CMAKE_BINARY_DIR = /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/pryst_lib.dir/depend.make
@@ -72,758 +72,660 @@ include CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o: ../src/array_impl.cpp
 CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/array_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/array_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/array_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/array_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/array_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/array_impl.cpp > CMakeFiles/pryst_lib.dir/src/array_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/array_impl.cpp > CMakeFiles/pryst_lib.dir/src/array_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/array_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/array_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/array_impl.cpp -o CMakeFiles/pryst_lib.dir/src/array_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/array_impl.cpp -o CMakeFiles/pryst_lib.dir/src/array_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o: ../src/array_registry.cpp
 CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/array_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/array_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/array_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/array_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/array_registry.cpp > CMakeFiles/pryst_lib.dir/src/array_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/array_registry.cpp > CMakeFiles/pryst_lib.dir/src/array_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/array_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/array_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/array_registry.cpp -o CMakeFiles/pryst_lib.dir/src/array_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/array_registry.cpp -o CMakeFiles/pryst_lib.dir/src/array_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/compiler.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/compiler.cpp.o: ../src/compiler.cpp
 CMakeFiles/pryst_lib.dir/src/compiler.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pryst_lib.dir/src/compiler.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/compiler.cpp.o -MF CMakeFiles/pryst_lib.dir/src/compiler.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/compiler.cpp.o -c /home/ubuntu/pryst-cpp/src/compiler.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pryst_lib.dir/src/compiler.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/compiler.cpp.o -MF CMakeFiles/pryst_lib.dir/src/compiler.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/compiler.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/compiler.cpp
 
 CMakeFiles/pryst_lib.dir/src/compiler.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/compiler.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/compiler.cpp > CMakeFiles/pryst_lib.dir/src/compiler.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/compiler.cpp > CMakeFiles/pryst_lib.dir/src/compiler.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/compiler.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/compiler.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/compiler.cpp -o CMakeFiles/pryst_lib.dir/src/compiler.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/compiler.cpp -o CMakeFiles/pryst_lib.dir/src/compiler.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o: ../src/diagnostic_error_listener.cpp
 CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o -MF CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o -c /home/ubuntu/pryst-cpp/src/diagnostic_error_listener.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o -MF CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/diagnostic_error_listener.cpp
 
 CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/diagnostic_error_listener.cpp > CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/diagnostic_error_listener.cpp > CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/diagnostic_error_listener.cpp -o CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/diagnostic_error_listener.cpp -o CMakeFiles/pryst_lib.dir/src/diagnostic_error_listener.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o: ../src/error_impl.cpp
 CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/error_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/error_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/error_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/error_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/error_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/error_impl.cpp > CMakeFiles/pryst_lib.dir/src/error_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/error_impl.cpp > CMakeFiles/pryst_lib.dir/src/error_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/error_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/error_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/error_impl.cpp -o CMakeFiles/pryst_lib.dir/src/error_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/error_impl.cpp -o CMakeFiles/pryst_lib.dir/src/error_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o: ../src/error_registry.cpp
 CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/error_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/error_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/error_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/error_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/error_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/error_registry.cpp > CMakeFiles/pryst_lib.dir/src/error_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/error_registry.cpp > CMakeFiles/pryst_lib.dir/src/error_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/error_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/error_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/error_registry.cpp -o CMakeFiles/pryst_lib.dir/src/error_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/error_registry.cpp -o CMakeFiles/pryst_lib.dir/src/error_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o: ../src/generated/PrystLexer.cpp
 CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o -c /home/ubuntu/pryst-cpp/src/generated/PrystLexer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystLexer.cpp
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/generated/PrystLexer.cpp > CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystLexer.cpp > CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/generated/PrystLexer.cpp -o CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystLexer.cpp -o CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o: ../src/generated/PrystParser.cpp
 CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o -c /home/ubuntu/pryst-cpp/src/generated/PrystParser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParser.cpp
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/generated/PrystParser.cpp > CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParser.cpp > CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/generated/PrystParser.cpp -o CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParser.cpp -o CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o: ../src/generated/PrystParserBaseVisitor.cpp
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o -c /home/ubuntu/pryst-cpp/src/generated/PrystParserBaseVisitor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParserBaseVisitor.cpp
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/generated/PrystParserBaseVisitor.cpp > CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParserBaseVisitor.cpp > CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/generated/PrystParserBaseVisitor.cpp -o CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParserBaseVisitor.cpp -o CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o: ../src/generated/PrystParserVisitor.cpp
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o -c /home/ubuntu/pryst-cpp/src/generated/PrystParserVisitor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParserVisitor.cpp
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/generated/PrystParserVisitor.cpp > CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParserVisitor.cpp > CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/generated/PrystParserVisitor.cpp -o CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.s
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o: ../src/generated/src/PrystLexer.cpp
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o -c /home/ubuntu/pryst-cpp/src/generated/src/PrystLexer.cpp
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/generated/src/PrystLexer.cpp > CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.i
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/generated/src/PrystLexer.cpp -o CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.s
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o: ../src/generated/src/PrystParser.cpp
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o -c /home/ubuntu/pryst-cpp/src/generated/src/PrystParser.cpp
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/generated/src/PrystParser.cpp > CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.i
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/generated/src/PrystParser.cpp -o CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.s
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o: ../src/generated/src/PrystParserBaseVisitor.cpp
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o -c /home/ubuntu/pryst-cpp/src/generated/src/PrystParserBaseVisitor.cpp
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/generated/src/PrystParserBaseVisitor.cpp > CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.i
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/generated/src/PrystParserBaseVisitor.cpp -o CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.s
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o: ../src/generated/src/PrystParserVisitor.cpp
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o -MF CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o -c /home/ubuntu/pryst-cpp/src/generated/src/PrystParserVisitor.cpp
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/generated/src/PrystParserVisitor.cpp > CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.i
-
-CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/generated/src/PrystParserVisitor.cpp -o CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParserVisitor.cpp -o CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o: ../src/io_impl.cpp
 CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/io_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/io_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/io_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/io_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/io_impl.cpp > CMakeFiles/pryst_lib.dir/src/io_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/io_impl.cpp > CMakeFiles/pryst_lib.dir/src/io_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/io_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/io_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/io_impl.cpp -o CMakeFiles/pryst_lib.dir/src/io_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/io_impl.cpp -o CMakeFiles/pryst_lib.dir/src/io_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o: ../src/io_registry.cpp
 CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/io_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/io_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/io_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/io_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/io_registry.cpp > CMakeFiles/pryst_lib.dir/src/io_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/io_registry.cpp > CMakeFiles/pryst_lib.dir/src/io_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/io_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/io_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/io_registry.cpp -o CMakeFiles/pryst_lib.dir/src/io_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/io_registry.cpp -o CMakeFiles/pryst_lib.dir/src/io_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/io_test.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/io_test.cpp.o: ../src/io_test.cpp
 CMakeFiles/pryst_lib.dir/src/io_test.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/pryst_lib.dir/src/io_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/io_test.cpp.o -MF CMakeFiles/pryst_lib.dir/src/io_test.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/io_test.cpp.o -c /home/ubuntu/pryst-cpp/src/io_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/pryst_lib.dir/src/io_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/io_test.cpp.o -MF CMakeFiles/pryst_lib.dir/src/io_test.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/io_test.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/io_test.cpp
 
 CMakeFiles/pryst_lib.dir/src/io_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/io_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/io_test.cpp > CMakeFiles/pryst_lib.dir/src/io_test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/io_test.cpp > CMakeFiles/pryst_lib.dir/src/io_test.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/io_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/io_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/io_test.cpp -o CMakeFiles/pryst_lib.dir/src/io_test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/io_test.cpp -o CMakeFiles/pryst_lib.dir/src/io_test.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o: ../src/llvm_codegen.cpp
 CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o -MF CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o -c /home/ubuntu/pryst-cpp/src/llvm_codegen.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o -MF CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/llvm_codegen.cpp
 
 CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/llvm_codegen.cpp > CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/llvm_codegen.cpp > CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/llvm_codegen.cpp -o CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/llvm_codegen.cpp -o CMakeFiles/pryst_lib.dir/src/llvm_codegen.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/main.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/main.cpp.o: ../src/main.cpp
 CMakeFiles/pryst_lib.dir/src/main.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/pryst_lib.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/main.cpp.o -MF CMakeFiles/pryst_lib.dir/src/main.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/main.cpp.o -c /home/ubuntu/pryst-cpp/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/pryst_lib.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/main.cpp.o -MF CMakeFiles/pryst_lib.dir/src/main.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/main.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/main.cpp
 
 CMakeFiles/pryst_lib.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/main.cpp > CMakeFiles/pryst_lib.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/main.cpp > CMakeFiles/pryst_lib.dir/src/main.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/main.cpp -o CMakeFiles/pryst_lib.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/main.cpp -o CMakeFiles/pryst_lib.dir/src/main.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o: ../src/map_impl.cpp
 CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/map_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/map_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/map_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/map_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/map_impl.cpp > CMakeFiles/pryst_lib.dir/src/map_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/map_impl.cpp > CMakeFiles/pryst_lib.dir/src/map_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/map_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/map_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/map_impl.cpp -o CMakeFiles/pryst_lib.dir/src/map_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/map_impl.cpp -o CMakeFiles/pryst_lib.dir/src/map_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o: ../src/parser_test.cpp
 CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o -MF CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o -c /home/ubuntu/pryst-cpp/src/parser_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o -MF CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/parser_test.cpp
 
 CMakeFiles/pryst_lib.dir/src/parser_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/parser_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/parser_test.cpp > CMakeFiles/pryst_lib.dir/src/parser_test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/parser_test.cpp > CMakeFiles/pryst_lib.dir/src/parser_test.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/parser_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/parser_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/parser_test.cpp -o CMakeFiles/pryst_lib.dir/src/parser_test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/parser_test.cpp -o CMakeFiles/pryst_lib.dir/src/parser_test.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime.cpp.o: ../src/runtime.cpp
 CMakeFiles/pryst_lib.dir/src/runtime.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime.cpp > CMakeFiles/pryst_lib.dir/src/runtime.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime.cpp > CMakeFiles/pryst_lib.dir/src/runtime.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime.cpp -o CMakeFiles/pryst_lib.dir/src/runtime.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime.cpp -o CMakeFiles/pryst_lib.dir/src/runtime.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o: ../src/runtime/array_bindings.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/array_bindings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/array_bindings.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/array_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/array_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/array_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.s
-
-CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
-CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o: ../src/runtime/array_impl.cpp
-CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/array_impl.cpp
-
-CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/array_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.i
-
-CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/array_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/array_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o: ../src/runtime/array_registry.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/array_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/array_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/array_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/array_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/array_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/array_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o: ../src/runtime/error_bindings.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/error_bindings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/error_bindings.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/error_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/error_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/error_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.s
-
-CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
-CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o: ../src/runtime/error_impl.cpp
-CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/error_impl.cpp
-
-CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/error_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.i
-
-CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/error_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/error_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o: ../src/runtime/error_registry.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/error_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/error_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/error_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/error_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/error_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/error_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o: ../src/runtime/io.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/io.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/io.cpp > CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io.cpp > CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/io.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o: ../src/runtime/io_bindings.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/io_bindings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io_bindings.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/io_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/io_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o: ../src/runtime/io_impl.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/io_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/io_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/io_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/io_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o: ../src/runtime/io_registry.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/io_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/io_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/io_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/io_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/io_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o: ../src/runtime/map_bindings.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/map_bindings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/map_bindings.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/map_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/map_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/map_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/map_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/map_bindings.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o: ../src/runtime/map_impl.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/map_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/map_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/map_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/map_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/map_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/map_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/map_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o: ../src/runtime/runtime_registry.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/runtime_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/runtime_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/runtime_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/runtime_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/runtime_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/runtime_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/runtime_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o: ../src/runtime/string_bindings.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/string_bindings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/string_bindings.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/string_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/string_bindings.cpp > CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/string_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/string_bindings.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/string_bindings.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o: ../src/runtime/string_impl.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/string_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/string_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/string_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/string_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/string_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/string_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/string_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o: ../src/runtime/string_registry.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/string_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/string_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/string_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/string_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/string_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/string_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o: ../src/runtime/web.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/web.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/web.cpp > CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web.cpp > CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/web.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o: ../src/runtime/web_impl.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/web_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/web_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web_impl.cpp > CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/web_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web_impl.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o: ../src/runtime/web_request.cpp
 CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/web_request.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web_request.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/web_request.cpp > CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web_request.cpp > CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/web_request.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.s
-
-CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
-CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o: ../src/runtime/web_types.cpp
-CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime/web_types.cpp
-
-CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime/web_types.cpp > CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.i
-
-CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime/web_types.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web_request.cpp -o CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o: ../src/runtime_registry.cpp
 CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/runtime_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/runtime_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime_registry.cpp > CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/runtime_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime_registry.cpp -o CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o: ../src/string_impl.cpp
 CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/string_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/string_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/string_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/string_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/string_impl.cpp > CMakeFiles/pryst_lib.dir/src/string_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/string_impl.cpp > CMakeFiles/pryst_lib.dir/src/string_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/string_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/string_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/string_impl.cpp -o CMakeFiles/pryst_lib.dir/src/string_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/string_impl.cpp -o CMakeFiles/pryst_lib.dir/src/string_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o: ../src/string_registry.cpp
 CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/string_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/string_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/string_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/string_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/string_registry.cpp > CMakeFiles/pryst_lib.dir/src/string_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/string_registry.cpp > CMakeFiles/pryst_lib.dir/src/string_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/string_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/string_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/string_registry.cpp -o CMakeFiles/pryst_lib.dir/src/string_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/string_registry.cpp -o CMakeFiles/pryst_lib.dir/src/string_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o: ../src/test_runner.cpp
 CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o -MF CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o -c /home/ubuntu/pryst-cpp/src/test_runner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o -MF CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/test_runner.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/test_runner.cpp
 
 CMakeFiles/pryst_lib.dir/src/test_runner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/test_runner.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/test_runner.cpp > CMakeFiles/pryst_lib.dir/src/test_runner.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/test_runner.cpp > CMakeFiles/pryst_lib.dir/src/test_runner.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/test_runner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/test_runner.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/test_runner.cpp -o CMakeFiles/pryst_lib.dir/src/test_runner.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/test_runner.cpp -o CMakeFiles/pryst_lib.dir/src/test_runner.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o: ../src/type_checker.cpp
 CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o -MF CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o -c /home/ubuntu/pryst-cpp/src/type_checker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o -MF CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/type_checker.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/type_checker.cpp
 
 CMakeFiles/pryst_lib.dir/src/type_checker.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/type_checker.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/type_checker.cpp > CMakeFiles/pryst_lib.dir/src/type_checker.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/type_checker.cpp > CMakeFiles/pryst_lib.dir/src/type_checker.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/type_checker.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/type_checker.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/type_checker.cpp -o CMakeFiles/pryst_lib.dir/src/type_checker.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/type_checker.cpp -o CMakeFiles/pryst_lib.dir/src/type_checker.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o: ../src/type_registry.cpp
 CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o -c /home/ubuntu/pryst-cpp/src/type_registry.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o -MF CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/type_registry.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/type_registry.cpp
 
 CMakeFiles/pryst_lib.dir/src/type_registry.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/type_registry.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/type_registry.cpp > CMakeFiles/pryst_lib.dir/src/type_registry.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/type_registry.cpp > CMakeFiles/pryst_lib.dir/src/type_registry.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/type_registry.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/type_registry.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/type_registry.cpp -o CMakeFiles/pryst_lib.dir/src/type_registry.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/type_registry.cpp -o CMakeFiles/pryst_lib.dir/src/type_registry.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/types.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/types.cpp.o: ../src/types.cpp
 CMakeFiles/pryst_lib.dir/src/types.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CXX object CMakeFiles/pryst_lib.dir/src/types.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/types.cpp.o -MF CMakeFiles/pryst_lib.dir/src/types.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/types.cpp.o -c /home/ubuntu/pryst-cpp/src/types.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CXX object CMakeFiles/pryst_lib.dir/src/types.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/types.cpp.o -MF CMakeFiles/pryst_lib.dir/src/types.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/types.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/types.cpp
 
 CMakeFiles/pryst_lib.dir/src/types.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/types.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/types.cpp > CMakeFiles/pryst_lib.dir/src/types.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/types.cpp > CMakeFiles/pryst_lib.dir/src/types.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/types.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/types.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/types.cpp -o CMakeFiles/pryst_lib.dir/src/types.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/types.cpp -o CMakeFiles/pryst_lib.dir/src/types.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o: ../src/web_impl.cpp
 CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CXX object CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o -c /home/ubuntu/pryst-cpp/src/web_impl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CXX object CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o -MF CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/web_impl.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/web_impl.cpp
 
 CMakeFiles/pryst_lib.dir/src/web_impl.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/web_impl.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/web_impl.cpp > CMakeFiles/pryst_lib.dir/src/web_impl.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/web_impl.cpp > CMakeFiles/pryst_lib.dir/src/web_impl.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/web_impl.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/web_impl.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/web_impl.cpp -o CMakeFiles/pryst_lib.dir/src/web_impl.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/web_impl.cpp -o CMakeFiles/pryst_lib.dir/src/web_impl.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/web_request.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/web_request.cpp.o: ../src/web_request.cpp
 CMakeFiles/pryst_lib.dir/src/web_request.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/pryst_lib.dir/src/web_request.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/web_request.cpp.o -MF CMakeFiles/pryst_lib.dir/src/web_request.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/web_request.cpp.o -c /home/ubuntu/pryst-cpp/src/web_request.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CXX object CMakeFiles/pryst_lib.dir/src/web_request.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/web_request.cpp.o -MF CMakeFiles/pryst_lib.dir/src/web_request.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/web_request.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/web_request.cpp
 
 CMakeFiles/pryst_lib.dir/src/web_request.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/web_request.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/web_request.cpp > CMakeFiles/pryst_lib.dir/src/web_request.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/web_request.cpp > CMakeFiles/pryst_lib.dir/src/web_request.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/web_request.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/web_request.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/web_request.cpp -o CMakeFiles/pryst_lib.dir/src/web_request.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/web_request.cpp -o CMakeFiles/pryst_lib.dir/src/web_request.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/web_types.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/web_types.cpp.o: ../src/web_types.cpp
 CMakeFiles/pryst_lib.dir/src/web_types.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building CXX object CMakeFiles/pryst_lib.dir/src/web_types.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/web_types.cpp.o -MF CMakeFiles/pryst_lib.dir/src/web_types.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/web_types.cpp.o -c /home/ubuntu/pryst-cpp/src/web_types.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CXX object CMakeFiles/pryst_lib.dir/src/web_types.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/web_types.cpp.o -MF CMakeFiles/pryst_lib.dir/src/web_types.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/web_types.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/web_types.cpp
 
 CMakeFiles/pryst_lib.dir/src/web_types.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/web_types.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/web_types.cpp > CMakeFiles/pryst_lib.dir/src/web_types.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/web_types.cpp > CMakeFiles/pryst_lib.dir/src/web_types.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/web_types.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/web_types.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/web_types.cpp -o CMakeFiles/pryst_lib.dir/src/web_types.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/web_types.cpp -o CMakeFiles/pryst_lib.dir/src/web_types.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/webserver.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/webserver.cpp.o: ../src/webserver.cpp
 CMakeFiles/pryst_lib.dir/src/webserver.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building CXX object CMakeFiles/pryst_lib.dir/src/webserver.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/webserver.cpp.o -MF CMakeFiles/pryst_lib.dir/src/webserver.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/webserver.cpp.o -c /home/ubuntu/pryst-cpp/src/webserver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CXX object CMakeFiles/pryst_lib.dir/src/webserver.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/webserver.cpp.o -MF CMakeFiles/pryst_lib.dir/src/webserver.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/webserver.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/webserver.cpp
 
 CMakeFiles/pryst_lib.dir/src/webserver.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/webserver.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/webserver.cpp > CMakeFiles/pryst_lib.dir/src/webserver.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/webserver.cpp > CMakeFiles/pryst_lib.dir/src/webserver.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/webserver.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/webserver.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/webserver.cpp -o CMakeFiles/pryst_lib.dir/src/webserver.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/webserver.cpp -o CMakeFiles/pryst_lib.dir/src/webserver.cpp.s
 
 CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o: CMakeFiles/pryst_lib.dir/flags.make
 CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o: ../src/webserver_test.cpp
 CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o: CMakeFiles/pryst_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building CXX object CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o -MF CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o -c /home/ubuntu/pryst-cpp/src/webserver_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CXX object CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o -MF CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o.d -o CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/webserver_test.cpp
 
 CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/src/webserver_test.cpp > CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/webserver_test.cpp > CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.i
 
 CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/src/webserver_test.cpp -o CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/webserver_test.cpp -o CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.s
 
 # Object files for target pryst_lib
 pryst_lib_OBJECTS = \
@@ -837,10 +739,6 @@ pryst_lib_OBJECTS = \
 "CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o" \
-"CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o" \
-"CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o" \
-"CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o" \
-"CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/io_test.cpp.o" \
@@ -850,10 +748,8 @@ pryst_lib_OBJECTS = \
 "CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o" \
-"CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o" \
-"CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o" \
@@ -868,7 +764,6 @@ pryst_lib_OBJECTS = \
 "CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o" \
-"CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o" \
 "CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o" \
@@ -895,10 +790,6 @@ libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/generated/PrystLexer.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/generated/PrystParser.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/generated/PrystParserBaseVisitor.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.o
-libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o
-libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o
-libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o
-libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/io_impl.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/io_registry.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/io_test.cpp.o
@@ -908,10 +799,8 @@ libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/map_impl.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/parser_test.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.o
-libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/array_registry.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.o
-libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/error_registry.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/io.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/io_bindings.cpp.o
@@ -926,7 +815,6 @@ libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/string_registry.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/web.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/web_impl.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.o
-libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/runtime_registry.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/string_impl.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/string_registry.cpp.o
@@ -941,7 +829,7 @@ libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/webserver.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/src/webserver_test.cpp.o
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/build.make
 libpryst_lib.a: CMakeFiles/pryst_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Linking CXX static library libpryst_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Linking CXX static library libpryst_lib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/pryst_lib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pryst_lib.dir/link.txt --verbose=$(VERBOSE)
 
@@ -954,6 +842,6 @@ CMakeFiles/pryst_lib.dir/clean:
 .PHONY : CMakeFiles/pryst_lib.dir/clean
 
 CMakeFiles/pryst_lib.dir/depend:
-	cd /home/ubuntu/pryst-cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/pryst-cpp /home/ubuntu/pryst-cpp /home/ubuntu/pryst-cpp/build /home/ubuntu/pryst-cpp/build /home/ubuntu/pryst-cpp/build/CMakeFiles/pryst_lib.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/pryst_lib.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/pryst_lib.dir/depend
 

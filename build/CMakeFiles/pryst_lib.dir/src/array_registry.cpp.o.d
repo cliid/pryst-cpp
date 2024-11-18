@@ -1,6 +1,7 @@
 CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o: \
- /home/ubuntu/pryst-cpp/src/array_registry.cpp /usr/include/stdc-predef.h \
- /home/ubuntu/pryst-cpp/src/runtime/runtime_registry.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/array_registry.cpp \
+ /usr/include/stdc-predef.h \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/runtime_registry.hpp \
  /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -307,7 +308,7 @@ CMakeFiles/pryst_lib.dir/src/array_registry.cpp.o: \
  /usr/lib/llvm-14/include/llvm/IR/GlobalVariable.h \
  /usr/lib/llvm-14/include/llvm/IR/ProfileSummary.h \
  /usr/lib/llvm-14/include/llvm/Support/CodeGen.h \
- /home/ubuntu/pryst-cpp/src/runtime/array_impl.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/array_impl.hpp \
  /usr/lib/llvm-14/include/llvm/IR/IRBuilder.h \
  /usr/lib/llvm-14/include/llvm/IR/ConstantFolder.h \
  /usr/lib/llvm-14/include/llvm/IR/Constants.h \

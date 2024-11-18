@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/pryst-cpp
+CMAKE_SOURCE_DIR = /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/pryst-cpp/build
+CMAKE_BINARY_DIR = /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build
 
 # Utility rule file for omp_gen.
 
@@ -78,6 +78,6 @@ CMakeFiles/omp_gen.dir/clean:
 .PHONY : CMakeFiles/omp_gen.dir/clean
 
 CMakeFiles/omp_gen.dir/depend:
-	cd /home/ubuntu/pryst-cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/pryst-cpp /home/ubuntu/pryst-cpp /home/ubuntu/pryst-cpp/build /home/ubuntu/pryst-cpp/build /home/ubuntu/pryst-cpp/build/CMakeFiles/omp_gen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/omp_gen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/omp_gen.dir/depend
 

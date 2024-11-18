@@ -1,7 +1,8 @@
 CMakeFiles/pryst_lib.dir/src/compiler.cpp.o: \
- /home/ubuntu/pryst-cpp/src/compiler.cpp /usr/include/stdc-predef.h \
- /home/ubuntu/pryst-cpp/src/compiler.hpp /usr/include/c++/11/memory \
- /usr/include/c++/11/bits/stl_algobase.h \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/compiler.cpp \
+ /usr/include/stdc-predef.h \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/compiler.hpp \
+ /usr/include/c++/11/memory /usr/include/c++/11/bits/stl_algobase.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -552,20 +553,20 @@ CMakeFiles/pryst_lib.dir/src/compiler.cpp.o: \
  /usr/lib/llvm-14/include/llvm/Target/CGPassBuilderOption.h \
  /usr/lib/llvm-14/include/llvm/Target/TargetOptions.h \
  /usr/lib/llvm-14/include/llvm/MC/MCTargetOptions.h \
- /home/ubuntu/pryst-cpp/src/type_registry.hpp \
- /home/ubuntu/pryst-cpp/src/types.hpp \
- /home/ubuntu/pryst-cpp/src/error.hpp \
- /home/ubuntu/pryst-cpp/src/runtime/runtime_registry.hpp \
- /home/ubuntu/pryst-cpp/src/type_checker.hpp \
- /home/ubuntu/pryst-cpp/src/generated/PrystParserBaseVisitor.h \
- /home/ubuntu/pryst-cpp/src/generated/PrystParserVisitor.h \
- /home/ubuntu/pryst-cpp/src/generated/PrystParser.h \
- /home/ubuntu/pryst-cpp/src/llvm_type_converter.hpp \
- /home/ubuntu/pryst-cpp/src/runtime/web_types.hpp \
- /home/ubuntu/pryst-cpp/src/runtime/web.hpp \
- /home/ubuntu/pryst-cpp/src/llvm_codegen.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/type_registry.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/types.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/error.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/runtime_registry.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/type_checker.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParserBaseVisitor.h \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParserVisitor.h \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated/PrystParser.h \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/llvm_type_converter.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web_types.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime/web.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/llvm_codegen.hpp \
  /usr/lib/llvm-14/include/llvm/IR/Verifier.h \
- /home/ubuntu/pryst-cpp/src/class_type_registry.hpp \
+ /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/class_type_registry.hpp \
  /usr/lib/llvm-14/include/llvm/Support/TargetSelect.h \
  /usr/lib/llvm-14/include/llvm/Config/Targets.def \
  /usr/lib/llvm-14/include/llvm/Config/AsmPrinters.def \

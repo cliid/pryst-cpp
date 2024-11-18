@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/pryst-cpp
+CMAKE_SOURCE_DIR = /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/pryst-cpp/build
+CMAKE_BINARY_DIR = /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/run_tests.dir/depend.make
@@ -72,72 +72,72 @@ include CMakeFiles/run_tests.dir/flags.make
 CMakeFiles/run_tests.dir/tests/test_runner.cpp.o: CMakeFiles/run_tests.dir/flags.make
 CMakeFiles/run_tests.dir/tests/test_runner.cpp.o: ../tests/test_runner.cpp
 CMakeFiles/run_tests.dir/tests/test_runner.cpp.o: CMakeFiles/run_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/run_tests.dir/tests/test_runner.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/test_runner.cpp.o -MF CMakeFiles/run_tests.dir/tests/test_runner.cpp.o.d -o CMakeFiles/run_tests.dir/tests/test_runner.cpp.o -c /home/ubuntu/pryst-cpp/tests/test_runner.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/run_tests.dir/tests/test_runner.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/test_runner.cpp.o -MF CMakeFiles/run_tests.dir/tests/test_runner.cpp.o.d -o CMakeFiles/run_tests.dir/tests/test_runner.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/test_runner.cpp
 
 CMakeFiles/run_tests.dir/tests/test_runner.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/run_tests.dir/tests/test_runner.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/tests/test_runner.cpp > CMakeFiles/run_tests.dir/tests/test_runner.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/test_runner.cpp > CMakeFiles/run_tests.dir/tests/test_runner.cpp.i
 
 CMakeFiles/run_tests.dir/tests/test_runner.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/tests/test_runner.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/tests/test_runner.cpp -o CMakeFiles/run_tests.dir/tests/test_runner.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/test_runner.cpp -o CMakeFiles/run_tests.dir/tests/test_runner.cpp.s
 
 CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o: CMakeFiles/run_tests.dir/flags.make
 CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o: ../tests/unit/parser/parser_test.cpp
 CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o: CMakeFiles/run_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o -MF CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o.d -o CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o -c /home/ubuntu/pryst-cpp/tests/unit/parser/parser_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o -MF CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o.d -o CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/parser/parser_test.cpp
 
 CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/tests/unit/parser/parser_test.cpp > CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/parser/parser_test.cpp > CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.i
 
 CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/tests/unit/parser/parser_test.cpp -o CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/parser/parser_test.cpp -o CMakeFiles/run_tests.dir/tests/unit/parser/parser_test.cpp.s
 
 CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o: CMakeFiles/run_tests.dir/flags.make
 CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o: ../tests/unit/runtime/io_test.cpp
 CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o: CMakeFiles/run_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o -MF CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o.d -o CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o -c /home/ubuntu/pryst-cpp/tests/unit/runtime/io_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o -MF CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o.d -o CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/runtime/io_test.cpp
 
 CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/tests/unit/runtime/io_test.cpp > CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/runtime/io_test.cpp > CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.i
 
 CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/tests/unit/runtime/io_test.cpp -o CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/runtime/io_test.cpp -o CMakeFiles/run_tests.dir/tests/unit/runtime/io_test.cpp.s
 
 CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o: CMakeFiles/run_tests.dir/flags.make
 CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o: ../tests/unit/types/map_type_test.cpp
 CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o: CMakeFiles/run_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o -MF CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o.d -o CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o -c /home/ubuntu/pryst-cpp/tests/unit/types/map_type_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o -MF CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o.d -o CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/types/map_type_test.cpp
 
 CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/tests/unit/types/map_type_test.cpp > CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/types/map_type_test.cpp > CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.i
 
 CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/tests/unit/types/map_type_test.cpp -o CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/types/map_type_test.cpp -o CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.s
 
 CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o: CMakeFiles/run_tests.dir/flags.make
 CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o: ../tests/unit/web/webserver_test.cpp
 CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o: CMakeFiles/run_tests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o -MF CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o.d -o CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o -c /home/ubuntu/pryst-cpp/tests/unit/web/webserver_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o -MF CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o.d -o CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o -c /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/web/webserver_test.cpp
 
 CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst-cpp/tests/unit/web/webserver_test.cpp > CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/web/webserver_test.cpp > CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.i
 
 CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst-cpp/tests/unit/web/webserver_test.cpp -o CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/tests/unit/web/webserver_test.cpp -o CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.s
 
 # Object files for target run_tests
 run_tests_OBJECTS = \
@@ -157,8 +157,6 @@ run_tests: CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o
 run_tests: CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o
 run_tests: CMakeFiles/run_tests.dir/build.make
 run_tests: libpryst_lib.a
-run_tests: /usr/local/lib/libgtest.a
-run_tests: /usr/local/lib/libgtest_main.a
 run_tests: /usr/local/lib/libantlr4-runtime.so
 run_tests: /usr/lib/llvm-14/lib/libLLVMCore.a
 run_tests: /usr/lib/llvm-14/lib/libLLVMSupport.a
@@ -218,9 +216,10 @@ run_tests: /usr/lib/llvm-14/lib/libLLVMSupport.a
 run_tests: /usr/lib/x86_64-linux-gnu/libz.so
 run_tests: /usr/lib/x86_64-linux-gnu/libtinfo.so
 run_tests: /usr/lib/llvm-14/lib/libLLVMDemangle.a
+run_tests: /usr/local/lib/libgtest_main.a
 run_tests: /usr/local/lib/libgtest.a
 run_tests: CMakeFiles/run_tests.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable run_tests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable run_tests"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/run_tests.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -232,6 +231,6 @@ CMakeFiles/run_tests.dir/clean:
 .PHONY : CMakeFiles/run_tests.dir/clean
 
 CMakeFiles/run_tests.dir/depend:
-	cd /home/ubuntu/pryst-cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/pryst-cpp /home/ubuntu/pryst-cpp /home/ubuntu/pryst-cpp/build /home/ubuntu/pryst-cpp/build /home/ubuntu/pryst-cpp/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles/run_tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/run_tests.dir/depend
 

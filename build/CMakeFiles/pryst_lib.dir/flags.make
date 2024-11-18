@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ubuntu/pryst-cpp/src -I/home/ubuntu/pryst-cpp/src/include -I/home/ubuntu/pryst-cpp/src/generated -I/home/ubuntu/pryst-cpp/src/runtime -I/usr/lib/llvm-14/include -isystem /usr/local/include/antlr4-runtime
+CXX_INCLUDES = -I/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src -I/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/include -I/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/generated -I/home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/src/runtime -I/usr/lib/llvm-14/include -isystem /usr/local/include/antlr4-runtime
 
 CXX_FLAGS =  -g -O0 -g -std=gnu++17
 

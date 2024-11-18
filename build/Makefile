@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/pryst-cpp
+CMAKE_SOURCE_DIR = /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/pryst-cpp/build
+CMAKE_BINARY_DIR = /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/pryst-cpp/build/CMakeFiles /home/ubuntu/pryst-cpp/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/pryst-cpp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/pryst_versions/current_version/ubuntu/pryst-workspace/pryst/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -421,102 +421,6 @@ src/generated/PrystParserVisitor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/PrystParserVisitor.cpp.s
 .PHONY : src/generated/PrystParserVisitor.cpp.s
 
-src/generated/src/PrystLexer.o: src/generated/src/PrystLexer.cpp.o
-.PHONY : src/generated/src/PrystLexer.o
-
-# target to build an object file
-src/generated/src/PrystLexer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.o
-.PHONY : src/generated/src/PrystLexer.cpp.o
-
-src/generated/src/PrystLexer.i: src/generated/src/PrystLexer.cpp.i
-.PHONY : src/generated/src/PrystLexer.i
-
-# target to preprocess a source file
-src/generated/src/PrystLexer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.i
-.PHONY : src/generated/src/PrystLexer.cpp.i
-
-src/generated/src/PrystLexer.s: src/generated/src/PrystLexer.cpp.s
-.PHONY : src/generated/src/PrystLexer.s
-
-# target to generate assembly for a file
-src/generated/src/PrystLexer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystLexer.cpp.s
-.PHONY : src/generated/src/PrystLexer.cpp.s
-
-src/generated/src/PrystParser.o: src/generated/src/PrystParser.cpp.o
-.PHONY : src/generated/src/PrystParser.o
-
-# target to build an object file
-src/generated/src/PrystParser.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.o
-.PHONY : src/generated/src/PrystParser.cpp.o
-
-src/generated/src/PrystParser.i: src/generated/src/PrystParser.cpp.i
-.PHONY : src/generated/src/PrystParser.i
-
-# target to preprocess a source file
-src/generated/src/PrystParser.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.i
-.PHONY : src/generated/src/PrystParser.cpp.i
-
-src/generated/src/PrystParser.s: src/generated/src/PrystParser.cpp.s
-.PHONY : src/generated/src/PrystParser.s
-
-# target to generate assembly for a file
-src/generated/src/PrystParser.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystParser.cpp.s
-.PHONY : src/generated/src/PrystParser.cpp.s
-
-src/generated/src/PrystParserBaseVisitor.o: src/generated/src/PrystParserBaseVisitor.cpp.o
-.PHONY : src/generated/src/PrystParserBaseVisitor.o
-
-# target to build an object file
-src/generated/src/PrystParserBaseVisitor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.o
-.PHONY : src/generated/src/PrystParserBaseVisitor.cpp.o
-
-src/generated/src/PrystParserBaseVisitor.i: src/generated/src/PrystParserBaseVisitor.cpp.i
-.PHONY : src/generated/src/PrystParserBaseVisitor.i
-
-# target to preprocess a source file
-src/generated/src/PrystParserBaseVisitor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.i
-.PHONY : src/generated/src/PrystParserBaseVisitor.cpp.i
-
-src/generated/src/PrystParserBaseVisitor.s: src/generated/src/PrystParserBaseVisitor.cpp.s
-.PHONY : src/generated/src/PrystParserBaseVisitor.s
-
-# target to generate assembly for a file
-src/generated/src/PrystParserBaseVisitor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserBaseVisitor.cpp.s
-.PHONY : src/generated/src/PrystParserBaseVisitor.cpp.s
-
-src/generated/src/PrystParserVisitor.o: src/generated/src/PrystParserVisitor.cpp.o
-.PHONY : src/generated/src/PrystParserVisitor.o
-
-# target to build an object file
-src/generated/src/PrystParserVisitor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.o
-.PHONY : src/generated/src/PrystParserVisitor.cpp.o
-
-src/generated/src/PrystParserVisitor.i: src/generated/src/PrystParserVisitor.cpp.i
-.PHONY : src/generated/src/PrystParserVisitor.i
-
-# target to preprocess a source file
-src/generated/src/PrystParserVisitor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.i
-.PHONY : src/generated/src/PrystParserVisitor.cpp.i
-
-src/generated/src/PrystParserVisitor.s: src/generated/src/PrystParserVisitor.cpp.s
-.PHONY : src/generated/src/PrystParserVisitor.s
-
-# target to generate assembly for a file
-src/generated/src/PrystParserVisitor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/generated/src/PrystParserVisitor.cpp.s
-.PHONY : src/generated/src/PrystParserVisitor.cpp.s
-
 src/io_impl.o: src/io_impl.cpp.o
 .PHONY : src/io_impl.o
 
@@ -733,30 +637,6 @@ src/runtime/array_bindings.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/array_bindings.cpp.s
 .PHONY : src/runtime/array_bindings.cpp.s
 
-src/runtime/array_impl.o: src/runtime/array_impl.cpp.o
-.PHONY : src/runtime/array_impl.o
-
-# target to build an object file
-src/runtime/array_impl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.o
-.PHONY : src/runtime/array_impl.cpp.o
-
-src/runtime/array_impl.i: src/runtime/array_impl.cpp.i
-.PHONY : src/runtime/array_impl.i
-
-# target to preprocess a source file
-src/runtime/array_impl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.i
-.PHONY : src/runtime/array_impl.cpp.i
-
-src/runtime/array_impl.s: src/runtime/array_impl.cpp.s
-.PHONY : src/runtime/array_impl.s
-
-# target to generate assembly for a file
-src/runtime/array_impl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/array_impl.cpp.s
-.PHONY : src/runtime/array_impl.cpp.s
-
 src/runtime/array_registry.o: src/runtime/array_registry.cpp.o
 .PHONY : src/runtime/array_registry.o
 
@@ -804,30 +684,6 @@ src/runtime/error_bindings.s: src/runtime/error_bindings.cpp.s
 src/runtime/error_bindings.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/error_bindings.cpp.s
 .PHONY : src/runtime/error_bindings.cpp.s
-
-src/runtime/error_impl.o: src/runtime/error_impl.cpp.o
-.PHONY : src/runtime/error_impl.o
-
-# target to build an object file
-src/runtime/error_impl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.o
-.PHONY : src/runtime/error_impl.cpp.o
-
-src/runtime/error_impl.i: src/runtime/error_impl.cpp.i
-.PHONY : src/runtime/error_impl.i
-
-# target to preprocess a source file
-src/runtime/error_impl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.i
-.PHONY : src/runtime/error_impl.cpp.i
-
-src/runtime/error_impl.s: src/runtime/error_impl.cpp.s
-.PHONY : src/runtime/error_impl.s
-
-# target to generate assembly for a file
-src/runtime/error_impl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/error_impl.cpp.s
-.PHONY : src/runtime/error_impl.cpp.s
 
 src/runtime/error_registry.o: src/runtime/error_registry.cpp.o
 .PHONY : src/runtime/error_registry.o
@@ -1164,30 +1020,6 @@ src/runtime/web_request.s: src/runtime/web_request.cpp.s
 src/runtime/web_request.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/web_request.cpp.s
 .PHONY : src/runtime/web_request.cpp.s
-
-src/runtime/web_types.o: src/runtime/web_types.cpp.o
-.PHONY : src/runtime/web_types.o
-
-# target to build an object file
-src/runtime/web_types.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.o
-.PHONY : src/runtime/web_types.cpp.o
-
-src/runtime/web_types.i: src/runtime/web_types.cpp.i
-.PHONY : src/runtime/web_types.i
-
-# target to preprocess a source file
-src/runtime/web_types.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.i
-.PHONY : src/runtime/web_types.cpp.i
-
-src/runtime/web_types.s: src/runtime/web_types.cpp.s
-.PHONY : src/runtime/web_types.s
-
-# target to generate assembly for a file
-src/runtime/web_types.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst_lib.dir/build.make CMakeFiles/pryst_lib.dir/src/runtime/web_types.cpp.s
-.PHONY : src/runtime/web_types.cpp.s
 
 src/runtime_registry.o: src/runtime_registry.cpp.o
 .PHONY : src/runtime_registry.o
@@ -1640,18 +1472,6 @@ help:
 	@echo "... src/generated/PrystParserVisitor.o"
 	@echo "... src/generated/PrystParserVisitor.i"
 	@echo "... src/generated/PrystParserVisitor.s"
-	@echo "... src/generated/src/PrystLexer.o"
-	@echo "... src/generated/src/PrystLexer.i"
-	@echo "... src/generated/src/PrystLexer.s"
-	@echo "... src/generated/src/PrystParser.o"
-	@echo "... src/generated/src/PrystParser.i"
-	@echo "... src/generated/src/PrystParser.s"
-	@echo "... src/generated/src/PrystParserBaseVisitor.o"
-	@echo "... src/generated/src/PrystParserBaseVisitor.i"
-	@echo "... src/generated/src/PrystParserBaseVisitor.s"
-	@echo "... src/generated/src/PrystParserVisitor.o"
-	@echo "... src/generated/src/PrystParserVisitor.i"
-	@echo "... src/generated/src/PrystParserVisitor.s"
 	@echo "... src/io_impl.o"
 	@echo "... src/io_impl.i"
 	@echo "... src/io_impl.s"
@@ -1679,18 +1499,12 @@ help:
 	@echo "... src/runtime/array_bindings.o"
 	@echo "... src/runtime/array_bindings.i"
 	@echo "... src/runtime/array_bindings.s"
-	@echo "... src/runtime/array_impl.o"
-	@echo "... src/runtime/array_impl.i"
-	@echo "... src/runtime/array_impl.s"
 	@echo "... src/runtime/array_registry.o"
 	@echo "... src/runtime/array_registry.i"
 	@echo "... src/runtime/array_registry.s"
 	@echo "... src/runtime/error_bindings.o"
 	@echo "... src/runtime/error_bindings.i"
 	@echo "... src/runtime/error_bindings.s"
-	@echo "... src/runtime/error_impl.o"
-	@echo "... src/runtime/error_impl.i"
-	@echo "... src/runtime/error_impl.s"
 	@echo "... src/runtime/error_registry.o"
 	@echo "... src/runtime/error_registry.i"
 	@echo "... src/runtime/error_registry.s"
@@ -1733,9 +1547,6 @@ help:
 	@echo "... src/runtime/web_request.o"
 	@echo "... src/runtime/web_request.i"
 	@echo "... src/runtime/web_request.s"
-	@echo "... src/runtime/web_types.o"
-	@echo "... src/runtime/web_types.i"
-	@echo "... src/runtime/web_types.s"
 	@echo "... src/runtime_registry.o"
 	@echo "... src/runtime_registry.i"
 	@echo "... src/runtime_registry.s"

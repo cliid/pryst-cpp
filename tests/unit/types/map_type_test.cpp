@@ -98,5 +98,70 @@ TEST_F(MapTypeTest, ComplexNestedTypes) {
     ASSERT_EQ(complexType, cachedType) << "Cached complex type does not match registered type";
 }
 
+TEST_F(MapTypeTest, MapTypeComparison) {
+    auto mapStrInt = typeRegistry->registerMapType("str", "int");
+    auto mapStrFloat = typeRegistry->registerMapType("str", "float");
+    auto mapStrStr = typeRegistry->registerMapType("str", "str");
+
+    ASSERT_FALSE(mapStrInt->isAssignableTo(mapStrFloat));
+    ASSERT_TRUE(mapStrInt->isAssignableTo(mapStrInt));
+    ASSERT_TRUE(mapStrInt->canConvertTo(mapStrFloat));
+    ASSERT_FALSE(mapStrInt->canConvertTo(mapStrStr));
+}
+
+TEST_F(MapTypeTest, MapTypeErrors) {
+    ASSERT_THROW(typeRegistry->registerMapType("void", "int"), Error) << "Should not allow void as key type";
+    ASSERT_THROW(typeRegistry->registerMapType("str", "invalid"), Error) << "Should handle invalid value type";
+    ASSERT_THROW(typeRegistry->registerMapType("str", "map<void,int>"), Error) << "Should not allow void in nested maps";
+
+    // Test recursive map type errors
+    ASSERT_THROW(typeRegistry->registerMapType("map<void,int>", "int"), Error) << "Should not allow void in key map type";
+    ASSERT_THROW(typeRegistry->registerMapType("str", "map<int,void>"), Error) << "Should not allow void in value map type";
+}
+
+TEST_F(MapTypeTest, MapTypeConversion) {
+    auto mapStrInt = typeRegistry->registerMapType("str", "int");
+    auto mapStrFloat = typeRegistry->registerMapType("str", "float");
+    auto mapStrStr = typeRegistry->registerMapType("str", "str");
+    auto mapStrIntArray = typeRegistry->registerMapType("str", "int[]");
+
+    // Test type assignability
+    ASSERT_FALSE(mapStrInt->isAssignableTo(mapStrFloat)) << "map<str,int> should not be assignable to map<str,float>";
+    ASSERT_TRUE(mapStrInt->isAssignableTo(mapStrInt)) << "map<str,int> should be assignable to itself";
+    ASSERT_FALSE(mapStrInt->isAssignableTo(mapStrIntArray)) << "map<str,int> should not be assignable to map<str,int[]>";
+
+    // Test type conversion
+    ASSERT_TRUE(mapStrInt->canConvertTo(mapStrFloat)) << "map<str,int> should be convertible to map<str,float>";
+    ASSERT_FALSE(mapStrInt->canConvertTo(mapStrStr)) << "map<str,int> should not be convertible to map<str,str>";
+    ASSERT_FALSE(mapStrInt->canConvertTo(mapStrIntArray)) << "map<str,int> should not be convertible to map<str,int[]>";
+}
+
+TEST_F(MapTypeTest, NullableMapType) {
+    auto mapType = typeRegistry->registerMapType("str", "int");
+    auto nullableType = typeRegistry->makeTypeNullable(mapType);
+
+    ASSERT_TRUE(nullableType->isNullable()) << "Nullable map type should be nullable";
+    ASSERT_EQ(nullableType->toString(), "map<str,int>?") << "Nullable map type string representation incorrect";
+}
+
+TEST_F(MapTypeTest, RecursiveMapTypeCaching) {
+    // Test deeply nested recursive map type
+    auto nestedType = typeRegistry->registerMapType("str", "int");
+    auto recursiveType = typeRegistry->registerMapType("map<str,int>", "map<str,int>");
+
+    // Verify type identity is preserved through caching
+    auto cachedNested = typeRegistry->getCachedType("map<str,int>");
+    auto cachedRecursive = typeRegistry->getCachedType("map<map<str,int>,map<str,int>>");
+
+    ASSERT_EQ(nestedType, cachedNested) << "Nested map type identity not preserved";
+    ASSERT_EQ(recursiveType, cachedRecursive) << "Recursive map type identity not preserved";
+
+    // Verify type structure
+    auto recursiveMapType = std::dynamic_pointer_cast<MapType>(recursiveType);
+    ASSERT_TRUE(recursiveMapType) << "Failed to cast to MapType";
+    ASSERT_EQ(recursiveMapType->getKeyType()->toString(), "map<str,int>") << "Key type mismatch";
+    ASSERT_EQ(recursiveMapType->getValueType()->toString(), "map<str,int>") << "Value type mismatch";
+}
+
 } // namespace test
 } // namespace pryst
