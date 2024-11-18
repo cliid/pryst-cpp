@@ -6,6 +6,8 @@
 #include <vector>
 #include <stdexcept>
 #include "../error.hpp"
+#include "runtime_registry.hpp"
+#include "llvm/IR/Module.h"
 
 namespace pryst {
 namespace io {
@@ -121,6 +123,9 @@ public:
     bool isOpen() const { return isOpen_; }
     const std::string& filename() const { return filename_; }
 };
+
+// Function to register File class with runtime registry
+void registerFileClass(pryst::runtime::RuntimeRegistry& registry, llvm::Module* module);
 
 } // namespace io
 } // namespace pryst

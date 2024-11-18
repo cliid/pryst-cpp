@@ -1,0 +1,13 @@
+void testParser() {
+    let x = 42;
+    let y = "Hello";
+    let z = [1, 2, 3];
+    assert(x == 42);
+    assert(y == "Hello");
+    assert(z.length == 3);
+}
+
+void main() {
+    testParser();
+    print("Parser test passed!");
+}

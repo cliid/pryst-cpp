@@ -1,5 +1,5 @@
 
-// Generated from /home/ubuntu/pryst_workspace/pryst/src/PrystParser.g4 by ANTLR 4.13.2
+// Generated from PrystParser.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -8,7 +8,7 @@
 #include "PrystParser.h"
 
 
-namespace pryst {
+namespace pryst::parser {
 
 /**
  * This class defines an abstract visitor for a parse tree
@@ -179,4 +179,4 @@ public:
 
 };
 
-}  // namespace pryst
+}  // namespace pryst::parser

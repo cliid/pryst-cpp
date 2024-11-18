@@ -1,4 +1,6 @@
 #include "compiler.hpp"
+#include "type_checker.hpp"
+#include "llvm_codegen.hpp"
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/Module.h>
 #include <llvm/IR/IRBuilder.h>
@@ -21,7 +23,6 @@
 #include <string>
 
 namespace pryst {
-    // Forward declarations if needed
 } // namespace pryst
 
 using namespace pryst;

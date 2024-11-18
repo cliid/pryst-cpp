@@ -1,5 +1,5 @@
 
-// Generated from /home/ubuntu/pryst_workspace/pryst/src/PrystParser.g4 by ANTLR 4.13.2
+// Generated from PrystParser.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -7,7 +7,7 @@
 #include "antlr4-runtime.h"
 
 
-namespace pryst {
+namespace pryst::parser {
 
 
 class  PrystParser : public antlr4::Parser {
@@ -1446,4 +1446,4 @@ public:
 private:
 };
 
-}  // namespace pryst
+}  // namespace pryst::parser

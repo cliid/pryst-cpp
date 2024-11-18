@@ -2,16 +2,19 @@
 
 #include <memory>
 #include <string>
+#include <antlr4-runtime.h>
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"
 #include "llvm/IR/IRBuilder.h"
 #include "llvm/Target/TargetMachine.h"
 #include "type_registry.hpp"
-#include "type_checker.hpp"
-#include "llvm_codegen.hpp"
 #include "runtime/runtime_registry.hpp"
 
 namespace pryst {
+
+// Forward declarations
+class TypeChecker;
+class LLVMCodeGen;
 
 class Compiler {
 public:

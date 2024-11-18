@@ -1737,17 +1737,23 @@ llvm::Type* LLVMCodeGen::createArrayType(llvm::Type* elementType) {
 }
 
 llvm::Type* LLVMCodeGen::createMapType(llvm::Type* keyType, llvm::Type* valueType) {
-    // Create map wrapper type with metadata
-    auto mapStructTy = llvm::StructType::create(context, "map");
-    std::vector<llvm::Type*> elements = {
-        llvm::Type::getInt32Ty(context),  // size
-        llvm::PointerType::get(  // entries array
-            llvm::StructType::create(context, {keyType, valueType}),
-            0
-        )
-    };
-    mapStructTy->setBody(elements);
-    return mapStructTy;
+    // Convert LLVM types to Pryst types using TypeRegistry
+    auto keyTypeObj = typeRegistry.convertLLVMTypeToType(keyType);
+    auto valueTypeObj = typeRegistry.convertLLVMTypeToType(valueType);
+
+    // Create map type name with generic parameters
+    std::string mapTypeName = "map<" + keyTypeObj->toString() + "," + valueTypeObj->toString() + ">";
+
+    // Check if type already exists in registry
+    if (auto existingType = typeRegistry.getClassType(mapTypeName)) {
+        return existingType;
+    }
+
+    // Register the map type with TypeRegistry
+    auto mapType = typeRegistry.registerMapType(keyTypeObj->toString(), valueTypeObj->toString());
+
+    // Get the registered LLVM type
+    return typeRegistry.getClassType(mapTypeName);
 }
 
 llvm::Type* LLVMCodeGen::createNullableType(llvm::Type* baseType) {

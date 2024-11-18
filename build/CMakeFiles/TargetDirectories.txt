@@ -1,0 +1,7 @@
+/home/ubuntu/pryst-cpp/build/CMakeFiles/intrinsics_gen.dir
+/home/ubuntu/pryst-cpp/build/CMakeFiles/omp_gen.dir
+/home/ubuntu/pryst-cpp/build/CMakeFiles/acc_gen.dir
+/home/ubuntu/pryst-cpp/build/CMakeFiles/pryst_lib.dir
+/home/ubuntu/pryst-cpp/build/CMakeFiles/run_tests.dir
+/home/ubuntu/pryst-cpp/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/pryst-cpp/build/CMakeFiles/rebuild_cache.dir

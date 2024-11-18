@@ -228,3 +228,76 @@ void StringImpl::registerInLLVM(llvm::Module* module, llvm::IRBuilder<>& builder
 
 } // namespace core
 } // namespace pryst
+extern "C" {
+
+void* pryst_core_String_new(const char* value) {
+    return new pryst::core::StringImpl(value ? value : "");
+}
+
+size_t pryst_core_String_length(void* str) {
+    auto* string = static_cast<pryst::core::StringImpl*>(str);
+    return string ? string->length() : 0;
+}
+
+char* pryst_core_String_substring(void* str, size_t start, size_t length) {
+    if (!str) return nullptr;
+    auto* string = static_cast<pryst::core::StringImpl*>(str);
+    std::string result = string->substring(start, length);
+    char* cstr = new char[result.length() + 1];
+    std::strcpy(cstr, result.c_str());
+    return cstr;
+}
+
+int pryst_core_String_indexOf(void* str, const char* search) {
+    if (!str || !search) return -1;
+    auto* string = static_cast<pryst::core::StringImpl*>(str);
+    return string->indexOf(search);
+}
+
+int pryst_core_String_lastIndexOf(void* str, const char* search) {
+    if (!str || !search) return -1;
+    auto* string = static_cast<pryst::core::StringImpl*>(str);
+    return string->lastIndexOf(search);
+}
+
+char* pryst_core_String_replace(void* str, const char* from, const char* to) {
+    if (!str || !from || !to) return nullptr;
+    auto* string = static_cast<pryst::core::StringImpl*>(str);
+    std::string result = string->replace(from, to);
+    char* cstr = new char[result.length() + 1];
+    std::strcpy(cstr, result.c_str());
+    return cstr;
+}
+
+void* pryst_core_String_split(void* str, const char* delimiter) {
+    if (!str || !delimiter) return nullptr;
+    auto* string = static_cast<pryst::core::StringImpl*>(str);
+    auto result = string->split(delimiter);
+    // Note: This needs proper array handling in the runtime
+    // For now, returning nullptr as placeholder
+    return nullptr;
+}
+
+char* pryst_core_String_trim(void* str) {
+    if (!str) return nullptr;
+    auto* string = static_cast<pryst::core::StringImpl*>(str);
+    std::string result = string->trim();
+    char* cstr = new char[result.length() + 1];
+    std::strcpy(cstr, result.c_str());
+    return cstr;
+}
+
+char* pryst_core_String_toString(void* str) {
+    if (!str) return nullptr;
+    auto* string = static_cast<pryst::core::StringImpl*>(str);
+    std::string result = string->toString();
+    char* cstr = new char[result.length() + 1];
+    std::strcpy(cstr, result.c_str());
+    return cstr;
+}
+
+void pryst_core_String_delete(void* str) {
+    delete static_cast<pryst::core::StringImpl*>(str);
+}
+
+} // extern "C"

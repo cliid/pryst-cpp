@@ -8,7 +8,6 @@
 #include <llvm/IR/Verifier.h>
 #include "generated/PrystParserBaseVisitor.h"
 #include "generated/PrystParser.h"
-#include "type_checker.hpp"
 #include "type_registry.hpp"
 #include "class_type_registry.hpp"
 #include <any>
@@ -18,8 +17,10 @@
 
 namespace pryst {
 
-class LLVMCodeGen :
-    public PrystParserBaseVisitor {
+// Forward declarations
+class TypeChecker;
+
+class LLVMCodeGen final : public pryst::parser::PrystParserBaseVisitor {
 private:
     llvm::LLVMContext& context;
     llvm::Module& module;
@@ -51,6 +52,8 @@ private:
     llvm::Value* convertToFloat(llvm::Value* value);
     llvm::Value* convertType(llvm::Value* value, llvm::Type* targetType);
     llvm::Type* getLLVMType(std::shared_ptr<Type> type);
+    virtual std::any visitBreakStmt(PrystParser::BreakStmtContext *ctx) override;
+    virtual std::any visitContinueStmt(PrystParser::ContinueStmtContext *ctx) override;
     std::vector<llvm::Type*> getLLVMTypes(const std::vector<std::shared_ptr<Type>>& types);
     std::shared_ptr<Type> getTypeFromTypeContext(PrystParser::TypeContext* ctx);
     std::shared_ptr<Type> getTypeFromReturnTypeContext(PrystParser::ReturnTypeContext* ctx);
@@ -118,48 +121,59 @@ public:
     virtual std::any visitExpressionStmt(PrystParser::ExpressionStmtContext* ctx) override;
 
     // Types
-    virtual std::any visitType(PrystParser::TypeContext* ctx) override;
-    virtual std::any visitBasicType(PrystParser::BasicTypeContext* ctx) override;
-    virtual std::any visitQualifiedType(PrystParser::QualifiedTypeContext* ctx) override;
-    virtual std::any visitArrayType(PrystParser::ArrayTypeContext* ctx) override;
-    virtual std::any visitMapType(PrystParser::MapTypeContext* ctx) override;
-    virtual std::any visitFunctionType(PrystParser::FunctionTypeContext* ctx) override;
+    virtual std::any visitType(PrystParser::TypeContext *ctx) override;
+    virtual std::any visitBasicType(PrystParser::BasicTypeContext *ctx) override;
+    virtual std::any visitQualifiedType(PrystParser::QualifiedTypeContext *ctx) override;
+    virtual std::any visitArrayType(PrystParser::ArrayTypeContext *ctx) override;
+    virtual std::any visitMapType(PrystParser::MapTypeContext *ctx) override;
+    virtual std::any visitFunctionType(PrystParser::FunctionTypeContext *ctx) override;
 
     // Expressions
-    virtual std::any visitPrimaryExpr(PrystParser::PrimaryExprContext* ctx) override;
-    virtual std::any visitConstructorExpr(PrystParser::ConstructorExprContext* ctx) override;
-    virtual std::any visitMemberAccessExpr(PrystParser::MemberAccessExprContext* ctx) override;
-    virtual std::any visitNullableChain(PrystParser::NullableChainContext* ctx) override;
-    virtual std::any visitMethodCallExpr(PrystParser::MethodCallExprContext* ctx) override;
-    virtual std::any visitArrayAccessExpr(PrystParser::ArrayAccessExprContext* ctx) override;
-    virtual std::any visitCastExpr(PrystParser::CastExprContext* ctx) override;
-    virtual std::any visitParenExpr(PrystParser::ParenExprContext* ctx) override;
-    virtual std::any visitPrefixExpr(PrystParser::PrefixExprContext* ctx) override;
-    virtual std::any visitPostfixExpr(PrystParser::PostfixExprContext* ctx) override;
-    virtual std::any visitMultiplicativeExpr(PrystParser::MultiplicativeExprContext* ctx) override;
-    virtual std::any visitAdditiveExpr(PrystParser::AdditiveExprContext* ctx) override;
-    virtual std::any visitRelationalExpr(PrystParser::RelationalExprContext* ctx) override;
-    virtual std::any visitEqualityExpr(PrystParser::EqualityExprContext* ctx) override;
-    virtual std::any visitLogicalAndExpr(PrystParser::LogicalAndExprContext* ctx) override;
-    virtual std::any visitLogicalOrExpr(PrystParser::LogicalOrExprContext* ctx) override;
-    virtual std::any visitConditionalExpr(PrystParser::ConditionalExprContext* ctx) override;
-    virtual std::any visitAssignmentExpr(PrystParser::AssignmentExprContext* ctx) override;
-    virtual std::any visitLambdaExpr(PrystParser::LambdaExprContext* ctx) override;
-
+    virtual std::any visitPrimaryExpr(PrystParser::PrimaryExprContext *ctx) override;
+    virtual std::any visitConstructorExpr(PrystParser::ConstructorExprContext *ctx) override;
+    virtual std::any visitMemberAccessExpr(PrystParser::MemberAccessExprContext *ctx) override;
+    virtual std::any visitNullableChain(PrystParser::NullableChainContext *ctx) override;
+    virtual std::any visitMethodCallExpr(PrystParser::MethodCallExprContext *ctx) override;
+    virtual std::any visitArrayAccessExpr(PrystParser::ArrayAccessExprContext *ctx) override;
+    virtual std::any visitCastExpr(PrystParser::CastExprContext *ctx) override;
+    virtual std::any visitParenExpr(PrystParser::ParenExprContext *ctx) override;
+    virtual std::any visitPrefixExpr(PrystParser::PrefixExprContext *ctx) override;
+    virtual std::any visitPostfixExpr(PrystParser::PostfixExprContext *ctx) override;
+    virtual std::any visitMultiplicativeExpr(PrystParser::MultiplicativeExprContext *ctx) override;
+    virtual std::any visitAdditiveExpr(PrystParser::AdditiveExprContext *ctx) override;
+    virtual std::any visitRelationalExpr(PrystParser::RelationalExprContext *ctx) override;
+    virtual std::any visitEqualityExpr(PrystParser::EqualityExprContext *ctx) override;
+    virtual std::any visitLogicalAndExpr(PrystParser::LogicalAndExprContext *ctx) override;
+    virtual std::any visitLogicalOrExpr(PrystParser::LogicalOrExprContext *ctx) override;
+    virtual std::any visitConditionalExpr(PrystParser::ConditionalExprContext *ctx) override;
+    virtual std::any visitAssignmentExpr(PrystParser::AssignmentExprContext *ctx) override;
+    virtual std::any visitLambdaExpr(PrystParser::LambdaExprContext *ctx) override;
+    virtual std::any visitNullableMethodCallExpr(PrystParser::NullableMethodCallExprContext *ctx) override;
+    virtual std::any visitLogicalAndExpr(PrystParser::LogicalAndExprContext *ctx) override;
+    virtual std::any visitLogicalOrExpr(PrystParser::LogicalOrExprContext *ctx) override;
+    virtual std::any visitEqualityExpr(PrystParser::EqualityExprContext *ctx) override;
+    virtual std::any visitPrefixExpr(PrystParser::PrefixExprContext *ctx) override;
+    virtual std::any visitPostfixExpr(PrystParser::PostfixExprContext *ctx) override;
+    virtual std::any visitChainedCall(PrystParser::ChainedCallContext *ctx) override;
+    virtual std::any visitMapKey(PrystParser::MapKeyContext *ctx) override;
+    virtual std::any visitErrorMember(PrystParser::ErrorMemberContext *ctx) override;
+    virtual std::any visitNullableChain(PrystParser::NullableChainContext *ctx) override;
+    virtual std::any visitStringLiteral(PrystParser::StringLiteralContext *ctx) override;
+    virtual std::any visitLambdaParams(PrystParser::LambdaParamsContext *ctx) override;
     // Class-related
-    virtual std::any visitClassDecl(PrystParser::ClassDeclContext* ctx) override;
-    virtual std::any visitInterfaceDecl(PrystParser::InterfaceDeclContext* ctx) override;
-    virtual std::any visitClassMember(PrystParser::ClassMemberContext* ctx) override;
-    virtual std::any visitConstructorDecl(PrystParser::ConstructorDeclContext* ctx) override;
-    virtual std::any visitConstructorBlock(PrystParser::ConstructorBlockContext* ctx) override;
+    virtual std::any visitClassDecl(PrystParser::ClassDeclContext *ctx) override;
+    virtual std::any visitInterfaceDecl(PrystParser::InterfaceDeclContext *ctx) override;
+    virtual std::any visitClassMember(PrystParser::ClassMemberContext *ctx) override;
+    virtual std::any visitConstructorDecl(PrystParser::ConstructorDeclContext *ctx) override;
+    virtual std::any visitConstructorBlock(PrystParser::ConstructorBlockContext *ctx) override;
 
     // Literals and arguments
-    virtual std::any visitArguments(PrystParser::ArgumentsContext* ctx) override;
-    virtual std::any visitEmptyArrayLiteral(PrystParser::EmptyArrayLiteralContext* ctx) override;
-    virtual std::any visitNonEmptyArrayLiteral(PrystParser::NonEmptyArrayLiteralContext* ctx) override;
-    virtual std::any visitEmptyMapLiteral(PrystParser::EmptyMapLiteralContext* ctx) override;
-    virtual std::any visitNonEmptyMapLiteral(PrystParser::NonEmptyMapLiteralContext* ctx) override;
-    virtual std::any visitMapEntry(PrystParser::MapEntryContext* ctx) override;
+    virtual std::any visitArguments(PrystParser::ArgumentsContext *ctx) override;
+    virtual std::any visitEmptyArrayLiteral(PrystParser::EmptyArrayLiteralContext *ctx) override;
+    virtual std::any visitNonEmptyArrayLiteral(PrystParser::NonEmptyArrayLiteralContext *ctx) override;
+    virtual std::any visitEmptyMapLiteral(PrystParser::EmptyMapLiteralContext *ctx) override;
+    virtual std::any visitNonEmptyMapLiteral(PrystParser::NonEmptyMapLiteralContext *ctx) override;
+    virtual std::any visitMapEntry(PrystParser::MapEntryContext *ctx) override;
 };
 
 } // namespace pryst

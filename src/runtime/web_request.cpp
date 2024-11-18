@@ -1,4 +1,5 @@
 #include "web_request.hpp"
+#include "validation_error.hpp"
 #include <nlohmann/json.hpp>
 #include <sstream>
 

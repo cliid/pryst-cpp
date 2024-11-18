@@ -1,8 +1,8 @@
 #pragma once
 
 #include "antlr4-runtime.h"
-#include "PrystParserBaseVisitor.h"
-#include "PrystParser.h"
+#include "generated/PrystParserBaseVisitor.h"
+#include "generated/PrystParser.h"
 #include "types.hpp"
 #include "llvm_type_converter.hpp"
 #include "error.hpp"
@@ -17,7 +17,10 @@
 
 namespace pryst {
 
-class TypeChecker : public PrystParserBaseVisitor {
+// Forward declarations
+class LLVMCodeGen;
+
+class TypeChecker : public pryst::parser::PrystParserBaseVisitor {
 private:
     std::vector<std::unordered_map<std::string, std::shared_ptr<Type>>> scopes;
     std::shared_ptr<Type> currentFunctionReturnType;
@@ -46,33 +49,8 @@ private:
     std::shared_ptr<Type> getLambdaType(PrystParser::LambdaExprContext* ctx);
 
 public:
-    TypeChecker(llvm::LLVMContext& context, TypeRegistry& typeRegistry, pryst::runtime::RuntimeRegistry& runtimeRegistry)
-        : currentFunctionReturnType(nullptr)
-        , lastExpressionType(nullptr)
-        , isInLoop(false)
-        , context_(context)
-        , typeRegistry_(typeRegistry)
-        , runtimeRegistry_(runtimeRegistry)
-        , converter_(context) {
-        pushScope(); // Global scope
-
-        // Register core namespaces first, before any type registration
-        if (!typeRegistry_.isNamespaceRegistered("pryst")) {
-            typeRegistry_.registerNamespace("pryst");
-        }
-        if (!typeRegistry_.isNamespaceRegistered("pryst::web")) {
-            typeRegistry_.registerNamespace("pryst::web");
-        }
-
-        // Initialize global scope with all registered types
-        initializeGlobalScope();
-    }
-
-    virtual ~TypeChecker() override {
-        while (!scopes.empty()) {
-            popScope();
-        }
-    }
+    TypeChecker(llvm::LLVMContext& context, TypeRegistry& typeRegistry, pryst::runtime::RuntimeRegistry& runtimeRegistry);
+    virtual ~TypeChecker() override;
 
     // Visit methods for declarations
     std::any visitProgram(PrystParser::ProgramContext* ctx) override;

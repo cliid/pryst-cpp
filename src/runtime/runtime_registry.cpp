@@ -50,6 +50,15 @@ void RuntimeRegistry::registerClass(const std::string& name, const std::string& 
     if (name != fullName) {
         classes[fullName] = classType;
     }
+
+    // Create and register the Type object in TypeRegistry
+    if (typeRegistry) {
+        auto classTypeObj = std::make_shared<pryst::ClassType>(fullName);
+        typeRegistry->cacheType(fullName, classTypeObj);
+        if (name != fullName) {
+            typeRegistry->cacheType(name, classTypeObj);
+        }
+    }
 }
 
 void RuntimeRegistry::registerClassMethod(const std::string& className, const ClassMethod& method) {
@@ -97,6 +106,7 @@ void RuntimeRegistry::registerBuiltins() {
 
     // Register core namespaces first
     typeRegistry->registerNamespace("pryst");
+    typeRegistry->registerNamespace("pryst::io");
     typeRegistry->registerNamespace("pryst::web");
 
     // Remove web types registration from here since it's called in Compiler constructor

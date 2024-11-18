@@ -1081,8 +1081,9 @@ llvm::Type* TypeRegistry::convertTypeToLLVMType(std::shared_ptr<Type> type) {
         std::vector<llvm::Type*> elementTypes = {keyType, valueType};
         std::string mapTypeName = "map<" + mapType->getKeyType()->toString() + "," + mapType->getValueType()->toString() + ">";
 
-        // Check if we already have this type registered
-        if (classTypes.find(mapTypeName) != classTypes.end()) {
+        // Check if we already have this type registered with exact generic parameters
+        auto existingType = getCachedType(mapTypeName);
+        if (existingType) {
             return classTypes[mapTypeName];
         }
 
@@ -1090,23 +1091,16 @@ llvm::Type* TypeRegistry::convertTypeToLLVMType(std::shared_ptr<Type> type) {
         auto mapStructType = llvm::StructType::create(context_, elementTypes, mapTypeName);
         classTypes[mapTypeName] = mapStructType;
 
-        // Cache the map type in typeCache
+        // Cache the map type with full generic parameter information
         cacheType(mapTypeName, mapType);
 
-        // Also register any potential LLVM-suffixed versions
-        std::string suffixedName = mapTypeName + ".0";
-        classTypes[suffixedName] = mapStructType;
-        cacheType(suffixedName, mapType);
-
-        // Register members for both names
+        // Register members
         std::vector<std::pair<std::string, llvm::Type*>> mapMembers;
         mapMembers.push_back({"key", keyType});
         mapMembers.push_back({"value", valueType});
         classMemberInfo[mapTypeName] = mapMembers;
-        classMemberInfo[suffixedName] = mapMembers;
 
-        std::cout << "Debug [convertTypeToLLVMType]: Created and registered map struct type: " << mapTypeName
-                  << " and " << suffixedName << std::endl;
+        std::cout << "Debug [convertTypeToLLVMType]: Created and registered map type: " << mapTypeName << std::endl;
         return mapStructType;
     }
 
@@ -1154,37 +1148,104 @@ llvm::Type* TypeRegistry::convertTypeToLLVMType(std::shared_ptr<Type> type) {
     throw Error("TypeError", errorMsg);
 }
 
+// Helper method to parse and register nested map types
+std::shared_ptr<Type> TypeRegistry::parseAndRegisterMapType(const std::string& typeStr) {
+    size_t start = typeStr.find('<'), end = typeStr.rfind('>');
+    if (start == std::string::npos || end == std::string::npos) {
+        throw Error("TypeError", "Invalid map type format: " + typeStr);
+    }
+    std::string types = typeStr.substr(start + 1, end - start - 1);
+    size_t comma = types.find(',');
+    if (comma == std::string::npos) {
+        throw Error("TypeError", "Invalid map type format, missing comma: " + typeStr);
+    }
+    return registerMapType(types.substr(0, comma), types.substr(comma + 1));
+}
+
 // Register a map type with key and value types
 std::shared_ptr<Type> TypeRegistry::registerMapType(const std::string& keyType, const std::string& valueType) {
     std::cout << "Debug [registerMapType]: Registering map type with key=" << keyType << " value=" << valueType << std::endl;
 
-    // Get or convert key type
-    auto keyTypeObj = getCachedType(keyType);
-    if (!keyTypeObj) {
-        throw Error("TypeError", "Unknown key type: " + keyType);
-    }
-
-    // Get or convert value type
-    auto valueTypeObj = getCachedType(valueType);
-    if (!valueTypeObj) {
-        throw Error("TypeError", "Unknown value type: " + valueType);
-    }
-
-    // Create map type
-    auto mapType = std::make_shared<MapType>(keyTypeObj, valueTypeObj);
+    // First check if this exact map type is already cached
     std::string mapTypeName = "map<" + keyType + "," + valueType + ">";
-
-    // Convert to LLVM type and cache
-    auto llvmType = convertTypeToLLVMType(mapType);
-    if (!llvmType) {
-        throw Error("TypeError", "Failed to convert map type to LLVM type");
+    auto existingType = getCachedType(mapTypeName);
+    if (existingType) {
+        std::cout << "Debug [registerMapType]: Found existing map type: " << mapTypeName << std::endl;
+        return existingType;
     }
 
-    // Cache the type
+    // Get or register key and value types recursively
+    std::shared_ptr<Type> keyTypeObj;
+    std::shared_ptr<Type> valueTypeObj;
+
+    // Handle nested map types in key
+    if (keyType.find("map<") == 0) {
+        size_t pos = keyType.find(",");
+        if (pos != std::string::npos) {
+            std::string innerKey = keyType.substr(4, pos - 4);
+            std::string innerValue = keyType.substr(pos + 1, keyType.length() - pos - 2);
+            keyTypeObj = registerMapType(innerKey, innerValue);
+        }
+    } else {
+        keyTypeObj = getCachedType(keyType);
+    }
+
+    // Handle nested map types in value
+    if (valueType.find("map<") == 0) {
+        size_t pos = valueType.find(",");
+        if (pos != std::string::npos) {
+            std::string innerKey = valueType.substr(4, pos - 4);
+            std::string innerValue = valueType.substr(pos + 1, valueType.length() - pos - 2);
+            valueTypeObj = registerMapType(innerKey, innerValue);
+        }
+    } else {
+        // Try registering array type if value type ends with []
+        if (valueType.length() > 2 && valueType.substr(valueType.length() - 2) == "[]") {
+            std::string elementType = valueType.substr(0, valueType.length() - 2);
+            valueTypeObj = registerArrayType(elementType);
+        } else {
+            valueTypeObj = getCachedType(valueType);
+        }
+    }
+
+    if (!keyTypeObj || !valueTypeObj) {
+        throw Error("TypeError", "Unknown type in map: key=" + keyType + " value=" + valueType);
+    }
+
+    // Create and cache map type
+    auto mapType = std::make_shared<MapType>(keyTypeObj, valueTypeObj);
     cacheType(mapTypeName, mapType);
 
     std::cout << "Debug [registerMapType]: Successfully registered map type: " << mapTypeName << std::endl;
     return mapType;
+}
+
+// Helper method to parse and register nested map types
+std::shared_ptr<Type> TypeRegistry::parseAndRegisterMapType(const std::string& typeStr) {
+    std::cout << "Debug [parseAndRegisterMapType]: Parsing map type string: " << typeStr << std::endl;
+
+    // Check if it's a map type
+    if (typeStr.substr(0, 4) != "map<") {
+        throw Error("TypeError", "Invalid map type format: " + typeStr);
+    }
+
+    // Extract the inner types
+    std::string innerTypes = typeStr.substr(4, typeStr.length() - 5);  // Remove 'map<' and '>'
+    size_t commaPos = innerTypes.find(',');
+    if (commaPos == std::string::npos) {
+        throw Error("TypeError", "Invalid map type format (missing comma): " + typeStr);
+    }
+
+    std::string keyType = innerTypes.substr(0, commaPos);
+    std::string valueType = innerTypes.substr(commaPos + 1);
+
+    // Trim any whitespace
+    keyType.erase(0, keyType.find_first_not_of(" "));
+    keyType.erase(keyType.find_last_not_of(" ") + 1);
+    valueType.erase(0, valueType.find_first_not_of(" "));
+    valueType.erase(valueType.find_last_not_of(" ") + 1);
+
+    return registerMapType(keyType, valueType);
 }
 
 // Register an array type

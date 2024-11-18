@@ -5,9 +5,9 @@
 namespace pryst {
 namespace core {
 
-void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
+void registerStringClass(pryst::runtime::RuntimeRegistry& registry, llvm::Module* module) {
     // Get String struct type from module
-    auto stringStructTy = module->getTypeByName("struct.pryst.core.String");
+    auto stringStructTy = llvm::StructType::getTypeByName(module->getContext(), "struct.pryst.core.String");
     if (!stringStructTy) {
         throw std::runtime_error("String struct type not found in module");
     }
@@ -16,7 +16,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     registry.registerClass("String", "pryst::core::String", stringStructTy);
 
     // Register constructor
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "String",  // Using class name as constructor name
         (void*)pryst_core_String_new,
         {"str"},  // value
@@ -24,7 +24,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     });
 
     // Register length method
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "length",
         (void*)pryst_core_String_length,
         {},  // no parameters
@@ -32,7 +32,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     });
 
     // Register substring method
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "substring",
         (void*)pryst_core_String_substring,
         {"int", "int"},  // start, length
@@ -40,7 +40,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     });
 
     // Register indexOf method
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "indexOf",
         (void*)pryst_core_String_indexOf,
         {"str"},  // search string
@@ -48,7 +48,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     });
 
     // Register lastIndexOf method
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "lastIndexOf",
         (void*)pryst_core_String_lastIndexOf,
         {"str"},  // search string
@@ -56,7 +56,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     });
 
     // Register replace method
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "replace",
         (void*)pryst_core_String_replace,
         {"str", "str"},  // from, to
@@ -64,7 +64,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     });
 
     // Register split method
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "split",
         (void*)pryst_core_String_split,
         {"str"},  // delimiter
@@ -72,7 +72,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     });
 
     // Register trim method
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "trim",
         (void*)pryst_core_String_trim,
         {},  // no parameters
@@ -80,7 +80,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     });
 
     // Register toString method
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "toString",
         (void*)pryst_core_String_toString,
         {},  // no parameters
@@ -88,7 +88,7 @@ void registerStringClass(RuntimeRegistry& registry, llvm::Module* module) {
     });
 
     // Register destructor
-    registry.registerClassMethod("String", {
+    registry.registerClassMethod("String", pryst::runtime::ClassMethod{
         "delete",
         (void*)pryst_core_String_delete,
         {},  // no parameters
