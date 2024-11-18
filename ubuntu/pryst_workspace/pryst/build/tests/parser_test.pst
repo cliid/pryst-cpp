@@ -1,0 +1,13 @@
+func testParser(): void {
+    var x: int = 42;
+    var y: str = "Hello";
+    var z: int[] = [1, 2, 3];
+    assert(x == 42);
+    assert(y == "Hello");
+    assert(z.length == 3);
+}
+
+func main(): void {
+    testParser();
+    print("Parser test passed!");
+}

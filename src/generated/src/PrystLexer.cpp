@@ -1,5 +1,5 @@
 
-// Generated from src/PrystLexer.g4 by ANTLR 4.13.1
+// Generated from src/PrystLexer.g4 by ANTLR 4.13.2
 
 
 #include "PrystLexer.h"
@@ -7,6 +7,7 @@
 
 using namespace antlr4;
 
+using namespace pryst;
 
 
 using namespace antlr4;
@@ -45,7 +46,7 @@ struct PrystLexerStaticData final {
 #if ANTLR4_USE_THREAD_LOCAL_CACHE
 static thread_local
 #endif
-PrystLexerStaticData *prystlexerLexerStaticData = nullptr;
+std::unique_ptr<PrystLexerStaticData> prystlexerLexerStaticData = nullptr;
 
 void prystlexerLexerInitialize() {
 #if ANTLR4_USE_THREAD_LOCAL_CACHE
@@ -332,7 +333,7 @@ void prystlexerLexerInitialize() {
   for (size_t i = 0; i < count; i++) { 
     staticData->decisionToDFA.emplace_back(staticData->atn->getDecisionState(i), i);
   }
-  prystlexerLexerStaticData = staticData.release();
+  prystlexerLexerStaticData = std::move(staticData);
 }
 
 }

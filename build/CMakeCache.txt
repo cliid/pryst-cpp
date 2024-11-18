@@ -288,7 +288,7 @@ pryst_IS_TOP_LEVEL:STATIC=ON
 pryst_SOURCE_DIR:STATIC=/home/ubuntu/pryst-cpp
 
 //Dependencies for the target
-pryst_lib_LIB_DEPENDS:STATIC=general;antlr4_runtime;general;LLVMCore;general;LLVMSupport;general;LLVMIRReader;general;LLVMAnalysis;general;LLVMBitWriter;general;LLVMMCJIT;general;LLVMOrcJIT;general;LLVMX86CodeGen;general;LLVMX86CodeGen;general;LLVMX86AsmParser;general;LLVMX86Desc;general;LLVMX86Disassembler;general;LLVMX86Info;general;gc;general;pthread;general;dl;
+pryst_lib_LIB_DEPENDS:STATIC=general;antlr4_runtime;general;LLVMCore;general;LLVMSupport;general;LLVMIRReader;general;LLVMAnalysis;general;LLVMBitWriter;general;LLVMMCJIT;general;LLVMOrcJIT;general;LLVMX86CodeGen;general;LLVMX86CodeGen;general;LLVMX86AsmParser;general;LLVMX86Desc;general;LLVMX86Disassembler;general;LLVMX86Info;
 
 
 ########################

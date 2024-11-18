@@ -1,23 +1,30 @@
 #include <gtest/gtest.h>
+#include <filesystem>
 #include <string>
-#include <cstdlib>
+#include "../src/compiler.hpp"
 
-// Set up test environment
-class TestEnvironment : public ::testing::Environment {
-public:
+namespace fs = std::filesystem;
+
+class PrystTest : public ::testing::Test {
+protected:
     void SetUp() override {
-        // Get test files directory from environment variable
-        const char* testFilesDir = std::getenv("TEST_FILES_DIR");
-        if (testFilesDir) {
-            printf("Test files directory: %s\n", testFilesDir);
-        } else {
-            printf("Warning: TEST_FILES_DIR environment variable not set\n");
+        compiler = std::make_unique<pryst::Compiler>();
+    }
+
+    std::unique_ptr<pryst::Compiler> compiler;
+};
+
+// Auto-discover and run all .pst test files
+TEST_F(PrystTest, RunAllTests) {
+    for(const auto& entry : fs::recursive_directory_iterator("tests/unit")) {
+        if(entry.path().extension() == ".pst") {
+            std::cout << "Running test file: " << entry.path() << std::endl;
+            EXPECT_TRUE(compiler->compileFile(entry.path().string()));
         }
     }
-};
+}
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
-    testing::AddGlobalTestEnvironment(new TestEnvironment);
     return RUN_ALL_TESTS();
 }

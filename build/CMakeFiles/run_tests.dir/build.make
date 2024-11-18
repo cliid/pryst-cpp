@@ -157,6 +157,8 @@ run_tests: CMakeFiles/run_tests.dir/tests/unit/types/map_type_test.cpp.o
 run_tests: CMakeFiles/run_tests.dir/tests/unit/web/webserver_test.cpp.o
 run_tests: CMakeFiles/run_tests.dir/build.make
 run_tests: libpryst_lib.a
+run_tests: /usr/local/lib/libgtest.a
+run_tests: /usr/local/lib/libgtest_main.a
 run_tests: /usr/local/lib/libantlr4-runtime.so
 run_tests: /usr/lib/llvm-14/lib/libLLVMCore.a
 run_tests: /usr/lib/llvm-14/lib/libLLVMSupport.a
@@ -213,12 +215,9 @@ run_tests: /usr/lib/llvm-14/lib/libLLVMMC.a
 run_tests: /usr/lib/llvm-14/lib/libLLVMBinaryFormat.a
 run_tests: /usr/lib/llvm-14/lib/libLLVMDebugInfoCodeView.a
 run_tests: /usr/lib/llvm-14/lib/libLLVMSupport.a
+run_tests: /usr/lib/x86_64-linux-gnu/libz.so
 run_tests: /usr/lib/x86_64-linux-gnu/libtinfo.so
 run_tests: /usr/lib/llvm-14/lib/libLLVMDemangle.a
-run_tests: /usr/lib/x86_64-linux-gnu/libz.so
-run_tests: /usr/lib/x86_64-linux-gnu/libssl.so
-run_tests: /usr/lib/x86_64-linux-gnu/libcrypto.so
-run_tests: /usr/local/lib/libgtest_main.a
 run_tests: /usr/local/lib/libgtest.a
 run_tests: CMakeFiles/run_tests.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/pryst-cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable run_tests"

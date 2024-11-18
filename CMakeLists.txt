@@ -23,22 +23,13 @@ file(GLOB_RECURSE SOURCE_FILES
     "src/generated/*.cpp"
 )
 
-# Collect all test files
-file(GLOB_RECURSE TEST_FILES
-    "${CMAKE_SOURCE_DIR}/tests/unit/types/*.cpp"
-    "${CMAKE_SOURCE_DIR}/tests/unit/parser/*.cpp"
-    "${CMAKE_SOURCE_DIR}/tests/unit/runtime/*.cpp"
-    "${CMAKE_SOURCE_DIR}/tests/unit/web/*.cpp"
-    "${CMAKE_SOURCE_DIR}/tests/test_runner.cpp"
-)
-
 # Create test directory structure
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/tests/unit/types)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/tests/unit/parser)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/tests/unit/runtime)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/tests/unit/web)
 
-# Copy test files from unit test directories
+# Copy test files
 file(GLOB_RECURSE PST_TEST_FILES_UNIT
     "${CMAKE_SOURCE_DIR}/tests/unit/types/*.pst"
     "${CMAKE_SOURCE_DIR}/tests/unit/parser/*.pst"
@@ -46,16 +37,11 @@ file(GLOB_RECURSE PST_TEST_FILES_UNIT
     "${CMAKE_SOURCE_DIR}/tests/unit/web/*.pst"
 )
 
-# Copy each test file to its corresponding directory in build
 foreach(TEST_FILE ${PST_TEST_FILES_UNIT})
     file(RELATIVE_PATH REL_PATH "${CMAKE_SOURCE_DIR}/tests/unit" ${TEST_FILE})
     get_filename_component(TEST_DIR ${REL_PATH} DIRECTORY)
     file(COPY ${TEST_FILE} DESTINATION "${CMAKE_BINARY_DIR}/tests/unit/${TEST_DIR}")
 endforeach()
-
-# Copy any remaining test files from root test directory
-file(GLOB PST_TEST_FILES_ROOT "${CMAKE_SOURCE_DIR}/tests/*.pst")
-file(COPY ${PST_TEST_FILES_ROOT} DESTINATION ${CMAKE_BINARY_DIR}/tests)
 
 # Main library
 add_library(pryst_lib ${SOURCE_FILES})
@@ -86,11 +72,19 @@ target_link_libraries(pryst_lib
 )
 
 # Test executable
-add_executable(run_tests ${TEST_FILES})
+add_executable(run_tests
+    tests/test_runner.cpp
+    tests/unit/parser/parser_test.cpp
+    tests/unit/runtime/io_test.cpp
+    tests/unit/types/map_type_test.cpp
+    tests/unit/web/webserver_test.cpp
+)
+
 target_link_libraries(run_tests
+    PRIVATE
     pryst_lib
-    GTest::GTest
-    GTest::Main
+    GTest::gtest
+    GTest::gtest_main
     antlr4_runtime
     pthread
     ${llvm_libs}
@@ -100,6 +94,3 @@ target_link_libraries(run_tests
 set_target_properties(run_tests PROPERTIES
     ENVIRONMENT "TEST_FILES_DIR=${CMAKE_BINARY_DIR}/tests"
 )
-
-# Clean up build artifacts
-file(REMOVE_RECURSE "${CMAKE_SOURCE_DIR}/src/test/*.o" "${CMAKE_SOURCE_DIR}/src/test/*.o.d")

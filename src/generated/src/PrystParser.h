@@ -1,5 +1,5 @@
 
-// Generated from src/PrystParser.g4 by ANTLR 4.13.1
+// Generated from src/PrystParser.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -7,6 +7,7 @@
 #include "antlr4-runtime.h"
 
 
+namespace pryst {
 
 
 class  PrystParser : public antlr4::Parser {
@@ -17,16 +18,15 @@ public:
     INTERFACE = 14, EXTENDS = 15, IMPLEMENTS = 16, RETURN = 17, IF = 18, 
     ELSE = 19, WHILE = 20, FOR = 21, IN = 22, IMPORT = 23, MODULE = 24, 
     TRY = 25, CATCH = 26, FINALLY = 27, AS = 28, BREAK = 29, CONTINUE = 30, 
-    NEW = 31, MAP = 32, FROM = 33, THIS = 34, NULL_LIT = 35, OPEN = 36, 
-    FILE = 37, ERROR = 38, NULL_COALESCE = 39, PLUS = 40, MINUS = 41, STAR = 42, 
-    SLASH = 43, PERCENT = 44, ASSIGN = 45, EQ = 46, NEQ = 47, LT = 48, GT = 49, 
-    LE = 50, GE = 51, AND = 52, OR = 53, NOT = 54, QUESTION_MARK = 55, COLON = 56, 
-    ARROW = 57, INC = 58, DEC = 59, LPAREN = 60, RPAREN = 61, LBRACE = 62, 
-    RBRACE = 63, LBRACK = 64, RBRACK = 65, SEMICOLON = 66, COMMA = 67, DOT = 68, 
-    DOUBLE_COLON = 69, READ = 70, WRITE = 71, READ_TO_STRING = 72, WRITE_ALL = 73, 
-    CLOSE = 74, IDENTIFIER = 75, STRING = 76, STRING_START = 77, STRING_MIDDLE = 78, 
-    STRING_END = 79, WS = 80, COMMENT = 81, BLOCK_COMMENT = 82, INVALID_CHAR = 83, 
-    INVALID_IDENTIFIER = 84, INTERP_WS = 85
+    NEW = 31, MAP = 32, FROM = 33, THIS = 34, NULL_LIT = 35, ERROR = 36, 
+    NULL_COALESCE = 37, PLUS = 38, MINUS = 39, STAR = 40, SLASH = 41, PERCENT = 42, 
+    ASSIGN = 43, EQ = 44, NEQ = 45, LT = 46, GT = 47, LE = 48, GE = 49, 
+    AND = 50, OR = 51, NOT = 52, QUESTION_MARK = 53, COLON = 54, ARROW = 55, 
+    INC = 56, DEC = 57, LPAREN = 58, RPAREN = 59, LBRACE = 60, RBRACE = 61, 
+    LBRACK = 62, RBRACK = 63, SEMICOLON = 64, COMMA = 65, DOT = 66, DOUBLE_COLON = 67, 
+    IDENTIFIER = 68, STRING = 69, STRING_START = 70, STRING_MIDDLE = 71, 
+    STRING_END = 72, WS = 73, COMMENT = 74, BLOCK_COMMENT = 75, INVALID_CHAR = 76, 
+    INVALID_IDENTIFIER = 77, INTERP_WS = 78
   };
 
   enum {
@@ -1446,3 +1446,4 @@ public:
 private:
 };
 
+}  // namespace pryst

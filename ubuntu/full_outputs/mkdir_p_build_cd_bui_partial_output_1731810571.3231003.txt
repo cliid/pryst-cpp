@@ -1,0 +1,3035 @@
+-- Found LLVM 14.0.6
+-- Using LLVMConfig.cmake in: /usr/lib/llvm-14/cmake
+-- LLVM Libs from llvm-config: -lLLVM-14
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ubuntu/pryst_workspace/pryst/build
+[  0%] Built target antlr4_generation
+Consolidate compiler generated dependencies of target pryst
+[  1%] Building CXX object CMakeFiles/pryst.dir/src/main.cpp.o
+[  2%] Building CXX object CMakeFiles/pryst.dir/src/compiler.cpp.o
+[  3%] Building CXX object CMakeFiles/pryst.dir/src/type_checker.cpp.o
+[  4%] Building CXX object CMakeFiles/pryst.dir/src/llvm_codegen.cpp.o
+[  5%] Building CXX object CMakeFiles/pryst.dir/src/generated/PrystLexer.cpp.o
+[  6%] Building CXX object CMakeFiles/pryst.dir/src/generated/PrystParser.cpp.o
+[  7%] Building CXX object CMakeFiles/pryst.dir/src/generated/PrystParserBaseVisitor.cpp.o
+[  8%] Building CXX object CMakeFiles/pryst.dir/src/generated/PrystParserVisitor.cpp.o
+[ 10%] Linking CXX executable pryst
+[ 32%] Built target pryst
+[ 37%] Built target copy_test_files
+Consolidate compiler generated dependencies of target parser_test
+[ 38%] Building CXX object CMakeFiles/parser_test.dir/src/test/parser_test.cpp.o
+[ 39%] Building CXX object CMakeFiles/parser_test.dir/src/compiler.cpp.o
+[ 40%] Building CXX object CMakeFiles/parser_test.dir/src/type_checker.cpp.o
+[ 41%] Building CXX object CMakeFiles/parser_test.dir/src/llvm_codegen.cpp.o
+[ 42%] Building CXX object CMakeFiles/parser_test.dir/src/generated/PrystLexer.cpp.o
+[ 43%] Building CXX object CMakeFiles/parser_test.dir/src/generated/PrystParser.cpp.o
+[ 44%] Building CXX object CMakeFiles/parser_test.dir/src/generated/PrystParserBaseVisitor.cpp.o
+[ 46%] Building CXX object CMakeFiles/parser_test.dir/src/generated/PrystParserVisitor.cpp.o
+[ 47%] Linking CXX executable parser_test
+[ 67%] Built target parser_test
+Consolidate compiler generated dependencies of target webserver_test
+[ 68%] Building CXX object CMakeFiles/webserver_test.dir/src/test/webserver_test.cpp.o
+[ 69%] Building CXX object CMakeFiles/webserver_test.dir/src/compiler.cpp.o
+[ 70%] Building CXX object CMakeFiles/webserver_test.dir/src/type_checker.cpp.o
+[ 71%] Building CXX object CMakeFiles/webserver_test.dir/src/llvm_codegen.cpp.o
+[ 73%] Building CXX object CMakeFiles/webserver_test.dir/src/generated/PrystLexer.cpp.o
+[ 74%] Building CXX object CMakeFiles/webserver_test.dir/src/generated/PrystParser.cpp.o
+[ 75%] Building CXX object CMakeFiles/webserver_test.dir/src/generated/PrystParserBaseVisitor.cpp.o
+[ 76%] Building CXX object CMakeFiles/webserver_test.dir/src/generated/PrystParserVisitor.cpp.o
+[ 77%] Linking CXX executable webserver_test
+[100%] Built target webserver_test
+GNU gdb (Ubuntu 12.1-0ubuntu1~22.04.2) 12.1
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./pryst...
+(gdb) break MapImpl::has
+Breakpoint 1 at 0x13271e: file /home/ubuntu/pryst_workspace/pryst/src/runtime/map_impl.cpp, line 31.
+(gdb) break MapImpl::get
+Breakpoint 2 at 0x132690: file /home/ubuntu/pryst_workspace/pryst/src/runtime/map_impl.cpp, line 26.
+(gdb) break MapImpl::set
+Breakpoint 3 at 0x1325db: file /home/ubuntu/pryst_workspace/pryst/src/runtime/map_impl.cpp, line 18.
+(gdb) break MapImpl::keys
+Breakpoint 4 at 0x1328f3: file /home/ubuntu/pryst_workspace/pryst/src/runtime/map_impl.cpp, line 50.
+(gdb) break MapImpl::values
+Breakpoint 5 at 0x1329ef: file /home/ubuntu/pryst_workspace/pryst/src/runtime/map_impl.cpp, line 59.
+(gdb) break MapImpl::size
+Breakpoint 6 at 0x132aea: file /home/ubuntu/pryst_workspace/pryst/src/runtime/map_impl.cpp, line 69.
+(gdb) run
+Starting program: /home/ubuntu/pryst_workspace/pryst/build/pryst ../examples/map_test.pr
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+DEBUG: Starting Garbage Collector initialization...
+DEBUG: GC temporarily disabled for testing
+Ambiguity detected between index 5 and 5
+Ambiguity detected between index 42 and 46
+Ambiguity detected between index 92 and 98
+Ambiguity detected between index 103 and 107
+Ambiguity detected between index 143 and 147
+Ambiguity detected between index 156 and 162
+Ambiguity detected between index 218 and 224
+Ambiguity detected between index 229 and 233
+Ambiguity detected between index 310 and 311
+Ambiguity detected between index 338 and 344
+Ambiguity detected between index 353 and 354
+TypeRegistry full constructor called
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: str -> str
+Debug [cacheType]: Current cache contents before adding:
+Debug [cacheType]: Cached with fully qualified name: str
+Debug [cacheType]: Final cache contents:
+  - str -> str
+Debug [cacheType]: ===========================================
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: int -> int
+Debug [cacheType]: Current cache contents before adding:
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: int
+Debug [cacheType]: Final cache contents:
+  - int -> int
+  - str -> str
+Debug [cacheType]: ===========================================
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: float -> float
+Debug [cacheType]: Current cache contents before adding:
+  - int -> int
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: float
+Debug [cacheType]: Final cache contents:
+  - float -> float
+  - int -> int
+  - str -> str
+Debug [cacheType]: ===========================================
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: bool -> bool
+Debug [cacheType]: Current cache contents before adding:
+  - float -> float
+  - int -> int
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: bool
+Debug [cacheType]: Final cache contents:
+  - bool -> bool
+  - float -> float
+  - int -> int
+  - str -> str
+Debug [cacheType]: ===========================================
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: int? -> int?
+Debug [cacheType]: Current cache contents before adding:
+  - bool -> bool
+  - float -> float
+  - int -> int
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: int?
+Debug [cacheType]: Final cache contents:
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - int -> int
+  - str -> str
+Debug [cacheType]: ===========================================
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: str? -> str?
+Debug [cacheType]: Current cache contents before adding:
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - int -> int
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: str?
+Debug [cacheType]: Final cache contents:
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - int -> int
+  - str -> str
+Debug [cacheType]: ===========================================
+Debug [registerPrimitiveMethods]: Registering primitive methods
+Debug [registerPrimitiveMethods]: Registered primitive methods for int, float, bool, and str
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Registering full namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering full namespace: pryst::web
+Debug [registerBuiltins]: Registering core types
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [pushScope]: Creating new scope
+Debug [isNamespaceRegistered]: Checking namespace: pryst
+Debug [isNamespaceRegistered]: Found direct registration for pryst
+Debug [isNamespaceRegistered]: Checking namespace: pryst::web
+Debug [isNamespaceRegistered]: Found direct registration for pryst::web
+Debug [initializeGlobalScope]: Initializing global scope with registered types
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [initializeGlobalScope]: Registering web types
+Debug [registerWebTypes]: Starting web types registration
+Debug [registerWebTypes]: Registering namespaces
+Debug [isNamespaceRegistered]: Checking namespace: pryst
+Debug [isNamespaceRegistered]: Found direct registration for pryst
+Debug [isNamespaceRegistered]: Checking namespace: pryst::web
+Debug [isNamespaceRegistered]: Found direct registration for pryst::web
+Debug [registerWebTypes]: Creating class types
+Debug [registerWebTypes]: Caching types
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - int -> int
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: pryst::web::Request
+Debug [cacheType]: Also cached with short name: Request
+Debug [cacheType]: Final cache contents:
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: ===========================================
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: pryst::web::Response
+Debug [cacheType]: Also cached with short name: Response
+Debug [cacheType]: Final cache contents:
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: ===========================================
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: pryst::web::WebServer
+Debug [cacheType]: Also cached with short name: WebServer
+Debug [cacheType]: Final cache contents:
+  - WebServer -> pryst::web::WebServer
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: ===========================================
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - WebServer -> pryst::web::WebServer
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [registerWebTypes]: Creating LLVM types
+
+Debug [getCachedType]: ===========================================
+Debug [getCachedType]: Looking up type: str
+Debug [getCachedType]: Current type cache contents:
+  - WebServer -> pryst::web::WebServer
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [getCachedType]: Current registered namespaces:
+  - pryst::web
+  - pryst
+Debug [getCachedType]: Found exact match for str
+Debug [MapType]: Creating map type with key=str value=str
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: map<str,str> -> map
+Debug [cacheType]: Current cache contents before adding:
+  - WebServer -> pryst::web::WebServer
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: map<str,str>
+Debug [cacheType]: Final cache contents:
+  - map<str,str> -> map
+  - WebServer -> pryst::web::WebServer
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: ===========================================
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type map
+Debug [convertTypeToLLVMType]: Converting type: map
+Debug [convertTypeToLLVMType]: Before map type cast, type kind=Map, type address=0x5555558f8390, typeid=N5pryst7MapTypeE
+Debug [convertTypeToLLVMType]: Converting map type with key=str value=str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: map<str,str> -> map
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str> -> map
+  - WebServer -> pryst::web::WebServer
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: Type map<str,str> already cached with value map
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: map<str,str>.0 -> map
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str> -> map
+  - WebServer -> pryst::web::WebServer
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - Response -> pryst::web::Response
+  - pryst::web::Response -> pryst::web::Response
+  - str? -> str?
+  - int? -> int?
+  - bool -> bool
+  - float -> float
+  - pryst::web::Request -> pryst::web::Request
+  - int -> int
+  - Request -> pryst::web::Request
+  - str -> str
+Debug [cacheType]: Cached with fully qualified name: map<str,str>.0
+Debug [cacheType]: Final cache contents:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: ===========================================
+Debug [convertTypeToLLVMType]: Created and registered map struct type: map<str,str> and map<str,str>.0
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type map
+Debug [convertTypeToLLVMType]: Converting type: map
+Debug [convertTypeToLLVMType]: Before map type cast, type kind=Map, type address=0x5555558f8390, typeid=N5pryst7MapTypeE
+Debug [convertTypeToLLVMType]: Converting map type with key=str value=str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [registerWebTypes]: Creating LLVM struct types
+Debug [registerWebTypes]: Registering classes with members
+Debug [registerClass]: Attempting to register class: pryst::web::Request
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 0
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 1
+%"map<str,str>" = type { i8*, i8* }Debug [convertLLVMTypeToType]: Raw type: 
+%"map<str,str>" = type { i8*, i8* }Debug [convertLLVMTypeToType]: Converting LLVM type: 
+Debug [convertLLVMTypeToType]: Found class type: map<str,str>
+Debug [hasClass]: Checking for class: map<str,str>
+Debug [hasClass]: Found exact match for map<str,str>
+
+Debug [getCachedType]: ===========================================
+Debug [getCachedType]: Looking up type: map<str,str>
+Debug [getCachedType]: Current type cache contents:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [getCachedType]: Current registered namespaces:
+  - pryst::web
+  - pryst
+Debug [getCachedType]: Found exact match for map<str,str>
+Debug [convertLLVMTypeToType]: Using cached type for map<str,str>
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [registerClass]: Successfully registered class pryst::web::Request
+Debug [registerClass]: Attempting to register class: pryst::web::Response
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 0
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i32Debug [convertLLVMTypeToType]: Raw type: 
+i32Debug [convertLLVMTypeToType]: Converting LLVM type: 
+Debug [convertLLVMTypeToType]: Identified as INT_TYPE
+Debug [convertLLVMTypeToType]: Adding method toString to INT_TYPE
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 0
+Debug [convertLLVMTypeToType]: Is function: 1
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8* ()Debug [convertLLVMTypeToType]: Raw type: 
+i8* ()Debug [convertLLVMTypeToType]: Converting LLVM type: 
+Debug [convertLLVMTypeToType]: Found function type
+i8*Debug [convertLLVMTypeToType]: Function return type: 
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Making return type nullable
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 0
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 1
+%"map<str,str>" = type { i8*, i8* }Debug [convertLLVMTypeToType]: Raw type: 
+%"map<str,str>" = type { i8*, i8* }Debug [convertLLVMTypeToType]: Converting LLVM type: 
+Debug [convertLLVMTypeToType]: Found class type: map<str,str>
+Debug [hasClass]: Checking for class: map<str,str>
+Debug [hasClass]: Found exact match for map<str,str>
+
+Debug [getCachedType]: ===========================================
+Debug [getCachedType]: Looking up type: map<str,str>
+Debug [getCachedType]: Current type cache contents:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [getCachedType]: Current registered namespaces:
+  - pryst::web
+  - pryst
+Debug [getCachedType]: Found exact match for map<str,str>
+Debug [convertLLVMTypeToType]: Using cached type for map<str,str>
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [registerClass]: Successfully registered class pryst::web::Response
+Debug [registerClass]: Attempting to register class: pryst::web::WebServer
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [registerClass]: Successfully registered class pryst::web::WebServer
+Debug [registerWebTypes]: Registering in runtime registry
+Debug [registerWebTypes]: Registering constructors and methods
+Registering constructor for class pryst::web::Response
+Debug [hasClass]: Checking for class: pryst::web::Response
+Debug [hasClass]: Found exact match for pryst::web::Response
+Registering constructor for class pryst::web::WebServer
+Debug [hasClass]: Checking for class: pryst::web::WebServer
+Debug [hasClass]: Found exact match for pryst::web::WebServer
+Debug [registerWebTypes]: All web types registered successfully
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [initializeGlobalScope]: Adding type map<str,str>.0 to global scope
+Debug [initializeGlobalScope]: Adding type Request to global scope
+Debug [initializeGlobalScope]: Adding type int to global scope
+Debug [initializeGlobalScope]: Adding type pryst::web::Request to global scope
+Debug [initializeGlobalScope]: Adding type float to global scope
+Debug [initializeGlobalScope]: Adding type str? to global scope
+Debug [initializeGlobalScope]: Adding type str to global scope
+Debug [initializeGlobalScope]: Adding type int? to global scope
+Debug [initializeGlobalScope]: Adding type pryst::web::Response to global scope
+Debug [initializeGlobalScope]: Adding type bool to global scope
+Debug [initializeGlobalScope]: Adding type Response to global scope
+Debug [initializeGlobalScope]: Adding type pryst::web::WebServer to global scope
+Debug [initializeGlobalScope]: Adding type WebServer to global scope
+Debug [initializeGlobalScope]: Adding type map<str,str> to global scope
+Debug [visitProgram]: Processing program
+Debug [visitImportDecl]: Processing import declaration
+Debug [visitImportDecl]: Registering parent namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [visitImportDecl]: Registering parent namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [visitImportDecl]: Full import path: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [visitImportDecl]: Pre-registering web types
+Debug [registerWebTypes]: Starting web types registration
+Debug [registerWebTypes]: Registering namespaces
+Debug [isNamespaceRegistered]: Checking namespace: pryst
+Debug [isNamespaceRegistered]: Found direct registration for pryst
+Debug [isNamespaceRegistered]: Checking namespace: pryst::web
+Debug [isNamespaceRegistered]: Found direct registration for pryst::web
+Debug [registerWebTypes]: Creating class types
+Debug [registerWebTypes]: Caching types
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [registerWebTypes]: Creating LLVM types
+
+Debug [getCachedType]: ===========================================
+Debug [getCachedType]: Looking up type: str
+Debug [getCachedType]: Current type cache contents:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [getCachedType]: Current registered namespaces:
+  - pryst::web
+  - pryst
+Debug [getCachedType]: Found exact match for str
+Debug [MapType]: Creating map type with key=str value=str
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: map<str,str> -> map
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type map<str,str> already cached with value map
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type map
+Debug [convertTypeToLLVMType]: Converting type: map
+Debug [convertTypeToLLVMType]: Before map type cast, type kind=Map, type address=0x555555901980, typeid=N5pryst7MapTypeE
+Debug [convertTypeToLLVMType]: Converting map type with key=str value=str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type map
+Debug [convertTypeToLLVMType]: Converting type: map
+Debug [convertTypeToLLVMType]: Before map type cast, type kind=Map, type address=0x555555901980, typeid=N5pryst7MapTypeE
+Debug [convertTypeToLLVMType]: Converting map type with key=str value=str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [getLLVMType]: Converting type str
+Debug [convertTypeToLLVMType]: Converting type: str
+Debug [convertTypeToLLVMType]: Created string type (i8*)
+Debug [registerWebTypes]: Creating LLVM struct types
+Debug [registerWebTypes]: Registering classes with members
+Debug [registerClass]: Attempting to register class: pryst::web::Request
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 0
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 1
+%"map<str,str>" = type { i8*, i8* }Debug [convertLLVMTypeToType]: Raw type: 
+%"map<str,str>" = type { i8*, i8* }Debug [convertLLVMTypeToType]: Converting LLVM type: 
+Debug [convertLLVMTypeToType]: Found class type: map<str,str>
+Debug [hasClass]: Checking for class: map<str,str>
+Debug [hasClass]: Found exact match for map<str,str>
+
+Debug [getCachedType]: ===========================================
+Debug [getCachedType]: Looking up type: map<str,str>
+Debug [getCachedType]: Current type cache contents:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [getCachedType]: Current registered namespaces:
+  - pryst::web
+  - pryst
+Debug [getCachedType]: Found exact match for map<str,str>
+Debug [convertLLVMTypeToType]: Using cached type for map<str,str>
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [registerClass]: Successfully registered class pryst::web::Request
+Debug [registerClass]: Attempting to register class: pryst::web::Response
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 0
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i32Debug [convertLLVMTypeToType]: Raw type: 
+i32Debug [convertLLVMTypeToType]: Converting LLVM type: 
+Debug [convertLLVMTypeToType]: Identified as INT_TYPE
+Debug [convertLLVMTypeToType]: Adding method toString to INT_TYPE
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 0
+Debug [convertLLVMTypeToType]: Is function: 1
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8* ()Debug [convertLLVMTypeToType]: Raw type: 
+i8* ()Debug [convertLLVMTypeToType]: Converting LLVM type: 
+Debug [convertLLVMTypeToType]: Found function type
+i8*Debug [convertLLVMTypeToType]: Function return type: 
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Making return type nullable
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 0
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 1
+%"map<str,str>" = type { i8*, i8* }Debug [convertLLVMTypeToType]: Raw type: 
+%"map<str,str>" = type { i8*, i8* }Debug [convertLLVMTypeToType]: Converting LLVM type: 
+Debug [convertLLVMTypeToType]: Found class type: map<str,str>
+Debug [hasClass]: Checking for class: map<str,str>
+Debug [hasClass]: Found exact match for map<str,str>
+
+Debug [getCachedType]: ===========================================
+Debug [getCachedType]: Looking up type: map<str,str>
+Debug [getCachedType]: Current type cache contents:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [getCachedType]: Current registered namespaces:
+  - pryst::web
+  - pryst
+Debug [getCachedType]: Found exact match for map<str,str>
+Debug [convertLLVMTypeToType]: Using cached type for map<str,str>
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [registerClass]: Successfully registered class pryst::web::Response
+Debug [registerClass]: Attempting to register class: pryst::web::WebServer
+Debug [convertLLVMTypeToType]: Starting type conversion
+Debug [convertLLVMTypeToType]: Initial type info:
+Debug [convertLLVMTypeToType]: Is pointer: 1
+Debug [convertLLVMTypeToType]: Is function: 0
+Debug [convertLLVMTypeToType]: Is struct: 0
+i8*Debug [convertLLVMTypeToType]: Raw type: 
+i8*Debug [convertLLVMTypeToType]: Converting LLVM type: 
+i8Debug [convertLLVMTypeToType]: Processing pointer type with element: 
+Debug [convertLLVMTypeToType]: Identified as STRING_TYPE
+Debug [isTypeNullable]: Checking pointer type
+Debug [isTypeNullable]: Basic type is nullable
+Debug [convertLLVMTypeToType]: Creating nullable STRING_TYPE
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [registerClass]: Successfully registered class pryst::web::WebServer
+Debug [registerWebTypes]: Registering in runtime registry
+Debug [registerWebTypes]: Registering constructors and methods
+Registering constructor for class pryst::web::Response
+Debug [hasClass]: Checking for class: pryst::web::Response
+Debug [hasClass]: Found exact match for pryst::web::Response
+Registering constructor for class pryst::web::WebServer
+Debug [hasClass]: Checking for class: pryst::web::WebServer
+Debug [hasClass]: Found exact match for pryst::web::WebServer
+Debug [registerWebTypes]: All web types registered successfully
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [visitImportPath]: Processing import path
+Debug [visitDeclaration]: Processing declaration
+Debug [visitFunctionDecl]: Processing function declaration
+Debug [visitFunctionDecl]: Function name: main
+Debug [getTypeFromReturnTypeContext]: Processing return type context
+Debug [getTypeFromReturnTypeContext]: Processing type for return type
+Debug [getTypeFromTypeContext]: Processing type context
+Debug [getTypeFromTypeContext]: Context text: void
+Debug [visitBasicType]: Processing basic type
+Debug [visitBasicType]: Created type: void
+Debug [visitFunctionDecl]: Function return type: void
+Debug [pushScope]: Creating new scope
+Debug [pushScope]: Preserving type pryst::web::Request in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [pushScope]: Preserving type pryst::web::Request in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [pushScope]: Preserving type pryst::web::Response in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [pushScope]: Preserving type pryst::web::WebServer in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [pushScope]: Preserving type pryst::web::Response in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [pushScope]: Preserving type pryst::web::WebServer in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [visitFunctionDecl]: Registered function main in global scope with type function
+Debug [visitBlock]: Processing block
+Debug [pushScope]: Creating new scope
+Debug [pushScope]: Preserving type pryst::web::WebServer in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [pushScope]: Preserving type pryst::web::Response in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [pushScope]: Preserving type pryst::web::WebServer in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [pushScope]: Preserving type pryst::web::Response in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [pushScope]: Preserving type pryst::web::Request in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [pushScope]: Preserving type pryst::web::Request in new scope
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [visitExpressionStmt]: Processing expression statement
+Debug [visitFunctionCallExpr]: Processing function call expression
+Debug [visitFunctionCallExpr]: Function name: println
+Error during compilation: ReferenceError: Undefined variable: println
+Compilation failed. Aborting.
+Debug [popScope]: Removing current scope
+Debug [popScope]: Preserving type pryst::web::Request in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [popScope]: Preserving type pryst::web::Request in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [popScope]: Preserving type pryst::web::Response in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [popScope]: Preserving type pryst::web::WebServer in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [popScope]: Preserving type pryst::web::Response in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [popScope]: Preserving type pryst::web::WebServer in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [popScope]: Removing current scope
+Debug [popScope]: Preserving type pryst::web::WebServer in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [popScope]: Preserving type pryst::web::Response in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [popScope]: Preserving type pryst::web::WebServer in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [popScope]: Preserving type pryst::web::Response in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [popScope]: Preserving type pryst::web::Request in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [popScope]: Preserving type pryst::web::Request in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [popScope]: Removing current scope
+Debug [popScope]: Preserving type pryst::web::Request in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [popScope]: Preserving type pryst::web::Request in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Request -> pryst::web::Request
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Request already cached with value pryst::web::Request
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Request -> pryst::web::Request
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Request already cached with value pryst::web::Request
+Debug [popScope]: Preserving type pryst::web::Response in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [popScope]: Preserving type pryst::web::WebServer in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+Debug [popScope]: Preserving type pryst::web::Response in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::Response -> pryst::web::Response
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::Response already cached with value pryst::web::Response
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: Response -> pryst::web::Response
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type Response already cached with value pryst::web::Response
+Debug [popScope]: Preserving type pryst::web::WebServer in registry
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: pryst::web::WebServer -> pryst::web::WebServer
+Debug [cacheType]: Registering namespace before caching: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type pryst::web::WebServer already cached with value pryst::web::WebServer
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+Debug [popScope]: Registering namespace: pryst
+Debug [registerNamespace]: Registering namespace: pryst
+Debug [registerNamespace]: Namespace already registered: pryst
+Debug [popScope]: Registering namespace: pryst::web
+Debug [registerNamespace]: Registering namespace: pryst::web
+Debug [registerNamespace]: Namespace already registered: pryst::web
+
+Debug [cacheType]: ===========================================
+Debug [cacheType]: Attempting to cache type: WebServer -> pryst::web::WebServer
+Debug [cacheType]: Current cache contents before adding:
+  - map<str,str>.0 -> map
+  - Request -> pryst::web::Request
+  - int -> int
+  - pryst::web::Request -> pryst::web::Request
+  - float -> float
+  - str? -> str?
+  - str -> str
+  - int? -> int?
+  - pryst::web::Response -> pryst::web::Response
+  - bool -> bool
+  - Response -> pryst::web::Response
+  - pryst::web::WebServer -> pryst::web::WebServer
+  - WebServer -> pryst::web::WebServer
+  - map<str,str> -> map
+Debug [cacheType]: Type WebServer already cached with value pryst::web::WebServer
+[Inferior 1 (process 89651) exited with code 01]
+(gdb) 
