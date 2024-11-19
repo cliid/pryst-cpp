@@ -10,6 +10,7 @@
 
 namespace pryst {
 
+class TypeChecker;  // Add forward declaration for TypeChecker
 class Type;
 class PrimitiveType;
 class ArrayType;
@@ -20,6 +21,7 @@ class InterfaceType;
 class ErrorPropagationType;
 class NullableType;
 class GenericType;
+class TypeChecker;
 
 extern std::shared_ptr<Type> INT_TYPE;
 extern std::shared_ptr<Type> FLOAT_TYPE;
@@ -46,6 +48,7 @@ public:
         Any,
         Nullable,
         Generic,
+        MetaType,
         Null
     };
 
@@ -86,6 +89,8 @@ public:
     virtual bool canBeNull() const {
         return isNullable();
     }
+
+    virtual bool isClassType() const { return kind_ == Kind::Class; }
 
     virtual std::shared_ptr<Type> makeNullable() {
         if (isNullable()) return std::static_pointer_cast<Type>(shared_from_this());
@@ -313,6 +318,28 @@ private:
     std::shared_ptr<ClassType> baseClass_;
     std::vector<std::shared_ptr<InterfaceType>> interfaces_;
     std::unordered_map<std::string, std::shared_ptr<Type>> fields_;
+};
+
+class InterfaceType : public Type {
+public:
+    explicit InterfaceType(const std::string& name)
+        : Type(Kind::Interface), name_(name) {}
+
+    const std::string& getName() const { return name_; }
+
+    void addMethod(const std::string& name, std::shared_ptr<Type> returnType,
+                  const std::vector<std::shared_ptr<Type>>& paramTypes = {}) override {
+        auto functionType = std::make_shared<FunctionType>(returnType, paramTypes);
+        methods_[name] = std::static_pointer_cast<Type>(functionType);
+    }
+
+    std::string toString() const override {
+        return name_;
+    }
+
+private:
+    std::string name_;
+    std::unordered_map<std::string, std::shared_ptr<Type>> methods_;
 };
 
 class ErrorPropagationType : public Type {

@@ -9,13 +9,17 @@
 #include "string_impl.hpp"
 #include "array_impl.hpp"
 #include "../error.hpp"
+#include "runtime_type_ops.hpp"
 #include <iostream>
 
 namespace pryst {
 namespace runtime {
 
+RuntimeRegistry* RuntimeRegistry::instance = nullptr;
+
 RuntimeRegistry::RuntimeRegistry(llvm::Module* mod)
-    : module(mod), typeRegistry(nullptr) {}
+    : module(mod), typeRegistry(nullptr) {
+}
 
 void RuntimeRegistry::setTypeRegistry(TypeRegistry* registry) {
     typeRegistry = registry;
@@ -46,24 +50,58 @@ void RuntimeRegistry::registerClass(const std::string& name, const std::string& 
     classType.name = name;
     classType.fullName = fullName;
     classType.llvmType = type;
+    classType.baseClass = nullptr;
     classes[name] = classType;
-    if (name != fullName) {
-        classes[fullName] = classType;
+    if (name != fullName) classes[fullName] = classType;
+}
+
+bool RuntimeRegistry::isSubclassOf(const char* derivedType, const char* baseType) const {
+    if (!derivedType || !baseType) return false;
+    if (auto it = classes.find(derivedType); it != classes.end()) {
+        for (const ClassType* c = &it->second; c; c = c->baseClass) {
+            if (c->fullName == baseType) return true;
+        }
     }
+    return false;
 }
 
 void RuntimeRegistry::registerClassMethod(const std::string& className, const ClassMethod& method) {
     auto it = classes.find(className);
     if (it != classes.end()) {
         it->second.methods.push_back(method);
-        // If this class exists under multiple names, update all instances
-        std::string otherName = (it->first == it->second.name) ? it->second.fullName : it->second.name;
-        auto otherIt = classes.find(otherName);
-        if (otherIt != classes.end()) {
-            otherIt->second.methods.push_back(method);
-        }
     }
 }
+
+void RuntimeRegistry::setBaseClass(const std::string& derivedClass, const std::string& baseClass) {
+    auto derived = classes.find(derivedClass);
+    auto base = classes.find(baseClass);
+    if (derived != classes.end() && base != classes.end()) {
+        derived->second.baseClass = &base->second;
+    }
+}
+
+const char* RuntimeRegistry::getObjectType(void* obj) const {
+    if (!obj) return "null";
+
+    // The first field of our objects is always the type identifier string
+    const char* typeId = *reinterpret_cast<const char**>(obj);
+    if (!typeId) return "Object";
+
+    auto it = classes.find(typeId);
+    return it != classes.end() ? it->second.fullName.c_str() : "Object";
+}
+
+bool RuntimeRegistry::isNullable(void* obj) const {
+    if (!obj) return true;  // null objects are inherently nullable
+    const char* typeId = *reinterpret_cast<const char**>(obj);
+    if (!typeId) return false;
+
+    // Check if the type ends with '?' indicating nullable
+    size_t len = strlen(typeId);
+    return len > 0 && typeId[len - 1] == '?';
+}
+
+
 
 const ClassType* RuntimeRegistry::getClass(const std::string& name) const {
     // Try exact match first
@@ -98,6 +136,10 @@ void RuntimeRegistry::registerBuiltins() {
     // Register core namespaces first
     typeRegistry->registerNamespace("pryst");
     typeRegistry->registerNamespace("pryst::web");
+
+    // Register type operators
+    registerFunction("instanceof", (void*)pryst_runtime_instanceof);
+    registerFunction("typeof", (void*)pryst_runtime_typeof);
 
     // Remove web types registration from here since it's called in Compiler constructor
     std::cout << "Debug [registerBuiltins]: Registering core types" << std::endl;
@@ -323,6 +365,14 @@ void RuntimeRegistry::registerWebTypes() {
         {},
         "void"
     ));
+}
+
+void RuntimeRegistry::registerInheritance(const std::string& derived, const std::string& base) {
+    setBaseClass(derived, base);  // Reuse existing setBaseClass method
+}
+
+void RuntimeRegistry::registerNullableType(const std::string& typeName) {
+    nullableTypes[typeName] = true;
 }
 
 } // namespace runtime

@@ -179,11 +179,19 @@ void LLVMCodeGen::initModule(const std::string& moduleName) {
 void LLVMCodeGen::initializeRuntime() {
     auto i8PtrTy = llvm::Type::getInt8PtrTy(context);
     auto i64Ty = llvm::Type::getInt64Ty(context);
+    auto i1Ty = llvm::Type::getInt1Ty(context);
     auto voidTy = llvm::Type::getVoidTy(context);
 
     // Initialize GC allocation function
     auto gcAllocType = llvm::FunctionType::get(i8PtrTy, {i64Ty}, false);
     module.getOrInsertFunction("GC_malloc", gcAllocType);
+
+    // Initialize runtime type operations
+    auto instanceofType = llvm::FunctionType::get(i1Ty, {i8PtrTy, i8PtrTy}, false);
+    module.getOrInsertFunction("pryst_runtime_instanceof", instanceofType);
+
+    auto typeofType = llvm::FunctionType::get(i8PtrTy, {i8PtrTy}, false);
+    module.getOrInsertFunction("pryst_runtime_typeof", typeofType);
 
     // Initialize String allocation and operations
     auto stringAllocType = llvm::FunctionType::get(i8PtrTy, {i64Ty}, false);

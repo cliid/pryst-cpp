@@ -38,6 +38,8 @@ MAP: 'map';
 FROM: 'from';
 THIS: 'this';
 NULL_LIT: 'null';
+INSTANCEOF: 'instanceof';
+TYPEOF: 'typeof';
 ERROR: 'error';
 NULL_COALESCE: '??';
 

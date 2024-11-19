@@ -11,12 +11,9 @@
 #include "llvm/IR/LLVMContext.h"
 #include "types.hpp"
 #include "error.hpp"
+#include "runtime/runtime_registry.hpp"
 
 namespace pryst {
-
-namespace runtime {
-class RuntimeRegistry;  // Forward declaration
-}
 
 class TypeRegistry {
 public:
@@ -30,11 +27,28 @@ public:
     void registerClass(const std::string& className,
                       const std::vector<std::pair<std::string, llvm::Type*>>& members);
 
+    // Register a new interface type
+    void registerInterfaceType(std::shared_ptr<InterfaceType> interfaceType) {
+        cacheType(interfaceType->getName(), interfaceType);
+    }
+
     // Register inheritance relationship
-    void registerInheritance(const std::string& derived, const std::string& base);
+    void registerInheritance(const std::string& derived, const std::string& base) {
+        inheritance[derived] = base;
+        runtimeRegistry_.registerInheritance(derived, base);
+    }
 
     // Check if derived class inherits from base class
-    bool isSubclassOf(const std::string& derived, const std::string& base) const;
+    bool isSubclassOf(const std::string& derived, const std::string& base) const {
+        std::string current = derived;
+        while (!current.empty()) {
+            if (current == base) return true;
+            auto it = inheritance.find(current);
+            if (it == inheritance.end()) break;
+            current = it->second;
+        }
+        return false;
+    }
 
     // Get the LLVM type for a class
     llvm::StructType* getClassType(const std::string& className);
@@ -81,10 +95,16 @@ public:
     }
 
     // Check if a type is nullable
-    bool isTypeNullable(llvm::Type* type) const;
+    bool isTypeNullable(llvm::Type* type) const {
+        return nullableTypes.find(type->getStructName().str()) != nullableTypes.end();
+    }
 
     // Register a type as nullable
-    void registerNullableType(const std::string& typeName);
+    void registerNullableType(const std::string& typeName) {
+        nullableTypes.insert(typeName);
+        // Also register with runtime registry for runtime type checks
+        runtimeRegistry_.registerNullableType(typeName);
+    }
 
     // Register a map type with key and value types
     std::shared_ptr<Type> registerMapType(const std::string& keyType, const std::string& valueType);
@@ -97,6 +117,7 @@ public:
 
     // Get the LLVM context
     llvm::LLVMContext& getContext() { return context_; }
+    llvm::Type* getBoolType() const { return classTypes.at("bool"); }
 
     // Cache management for Pryst types
     std::shared_ptr<Type> getCachedType(const std::string& typeName) const;

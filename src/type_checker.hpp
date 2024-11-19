@@ -1,15 +1,14 @@
 #pragma once
 
+#include "generated/PrystParserBaseVisitor.h"
+#include "generated/PrystParser.h"
+#include "generated/PrystLexer.h"
 #include "antlr4-runtime.h"
-#include "PrystParserBaseVisitor.h"
-#include "PrystParser.h"
 #include "types.hpp"
-#include "llvm_type_converter.hpp"
-#include "error.hpp"
-#include <llvm/IR/LLVMContext.h>
 #include "type_registry.hpp"
 #include "runtime/runtime_registry.hpp"
-#include "runtime/web_types.hpp"
+#include "llvm_type_converter.hpp"
+#include <llvm/IR/LLVMContext.h>
 #include <memory>
 #include <string>
 #include <vector>
@@ -19,9 +18,10 @@ namespace pryst {
 
 class TypeChecker : public PrystParserBaseVisitor {
 private:
-    std::vector<std::unordered_map<std::string, std::shared_ptr<Type>>> scopes;
-    std::shared_ptr<Type> currentFunctionReturnType;
-    std::shared_ptr<Type> lastExpressionType;  // Track the type of the last visited expression
+    std::vector<std::unordered_map<std::string, std::any>> scopes;
+    std::unordered_map<std::string, std::any>* currentScope_;
+    std::any currentFunctionReturnType;
+    std::any lastExpressionType;
     bool isInLoop;
     llvm::LLVMContext& context_;
     TypeRegistry& typeRegistry_;
@@ -31,24 +31,24 @@ private:
     void pushScope();
     void popScope();
     void initializeGlobalScope();
-    void declareVariable(const std::string& name, std::shared_ptr<Type> type);
-    std::shared_ptr<Type> lookupVariable(const std::string& name);
-    std::shared_ptr<Type> checkMemberAccess(std::shared_ptr<Type> baseType, const std::string& member, bool isNullable);
-    std::shared_ptr<Type> getTypeFromTypeContext(PrystParser::TypeContext* ctx);
-    std::shared_ptr<Type> getTypeFromReturnTypeContext(PrystParser::ReturnTypeContext* ctx);
-    std::shared_ptr<Type> checkBinaryOp(const std::string& op, std::shared_ptr<Type> left, std::shared_ptr<Type> right);
-    std::shared_ptr<Type> checkUnaryOp(const std::string& op, std::shared_ptr<Type> operand);
-    std::shared_ptr<Type> checkTypeCast(std::shared_ptr<Type> targetType, std::shared_ptr<Type> sourceType);
-    std::shared_ptr<Type> checkArrayAccess(std::shared_ptr<Type> arrayType, std::shared_ptr<Type> indexType);
-    std::shared_ptr<Type> checkTypesMatch(std::shared_ptr<Type> expectedType, std::shared_ptr<Type> actualType, antlr4::ParserRuleContext* ctx);
-    bool isAssignable(std::shared_ptr<Type> targetType, std::shared_ptr<Type> sourceType);
-    std::shared_ptr<Type> inferReturnType(PrystParser::BlockContext* ctx);
-    std::shared_ptr<Type> getLambdaType(PrystParser::LambdaExprContext* ctx);
+    void declareVariable(const std::string& name, std::any type);
+    std::any lookupVariable(const std::string& name);
+    std::any checkMemberAccess(std::any baseType, const std::string& member, bool isNullable);
+    std::any getTypeFromTypeContext(PrystParser::TypeContext* ctx);
+    std::any getTypeFromReturnTypeContext(PrystParser::ReturnTypeContext* ctx);
+    std::any checkBinaryOp(const std::string& op, std::any left, std::any right);
+    std::any checkUnaryOp(const std::string& op, std::any operand);
+    std::any checkTypeCast(std::any targetType, std::any sourceType);
+    std::any checkArrayAccess(std::any arrayType, std::any indexType);
+    std::any checkTypesMatch(std::any expectedType, std::any actualType, antlr4::ParserRuleContext* ctx);
+    bool isAssignable(std::any targetType, std::any sourceType);
+    std::any inferReturnType(PrystParser::BlockContext* ctx);
+    std::any getLambdaType(PrystParser::LambdaExprContext* ctx);
 
 public:
     TypeChecker(llvm::LLVMContext& context, TypeRegistry& typeRegistry, pryst::runtime::RuntimeRegistry& runtimeRegistry)
-        : currentFunctionReturnType(nullptr)
-        , lastExpressionType(nullptr)
+        : currentFunctionReturnType(std::any())
+        , lastExpressionType(std::any())
         , isInLoop(false)
         , context_(context)
         , typeRegistry_(typeRegistry)
@@ -111,6 +111,8 @@ public:
     std::any visitAssignmentExpr(PrystParser::AssignmentExprContext* ctx) override;
     std::any visitCastExpr(PrystParser::CastExprContext* ctx) override;
     std::any visitLambdaExpr(PrystParser::LambdaExprContext* ctx) override;
+    std::any visitInstanceofExpr(PrystParser::InstanceofExprContext* ctx) override;
+    std::any visitTypeofExpr(PrystParser::TypeofExprContext* ctx) override;
 
     // Visit methods for literals and types
     std::any visitType(PrystParser::TypeContext* ctx) override;

@@ -18,8 +18,7 @@
 
 namespace pryst {
 
-class LLVMCodeGen :
-    public PrystParserBaseVisitor {
+class LLVMCodeGen : public PrystParserBaseVisitor {
 private:
     llvm::LLVMContext& context;
     llvm::Module& module;

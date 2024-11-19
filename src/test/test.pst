@@ -1,6 +1,0 @@
-void main() {
-    print("Basic test running...");
-    let x = 42;
-    assert(x == 42);
-    print("Basic test passed!");
-}

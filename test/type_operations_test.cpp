@@ -75,3 +75,66 @@ TEST_F(TypeOperationsTest, TestNullableTypes) {
     Compiler compiler;
     EXPECT_EQ(compiler.compile(source), 0);
 }
+
+TEST_F(TypeOperationsTest, TestComplexInheritance) {
+    const char* source = R"(
+        class Animal {}
+        class Mammal extends Animal {}
+        class Dog extends Mammal {}
+        class Cat extends Mammal {}
+
+        fn main() -> int {
+            let dog: Animal = new Dog();
+            if (!(dog instanceof Animal)) return 1;
+            if (!(dog instanceof Mammal)) return 2;
+            if (!(dog instanceof Dog)) return 3;
+            if (dog instanceof Cat) return 4;
+            return 0;
+        }
+    )";
+
+    Compiler compiler;
+    EXPECT_EQ(compiler.compile(source), 0);
+}
+
+TEST_F(TypeOperationsTest, TestNullableInheritance) {
+    const char* source = R"(
+        class Animal {}
+        class Dog extends Animal {}
+
+        fn main() -> int {
+            let dog: Dog? = new Dog();
+            if (typeof dog != "Dog?") return 1;
+            if (!(dog instanceof Dog)) return 2;
+            if (!(dog instanceof Animal)) return 3;
+
+            dog = null;
+            if (typeof dog != "Dog?") return 4;
+            if (dog instanceof Dog) return 5;
+            return 0;
+        }
+    )";
+
+    Compiler compiler;
+    EXPECT_EQ(compiler.compile(source), 0);
+}
+
+TEST_F(TypeOperationsTest, TestPrimitiveTypes) {
+    const char* source = R"(
+        fn main() -> int {
+            let i = 42;
+            let f = 3.14;
+            let b = true;
+            let s = "hello";
+
+            if (typeof i != "int") return 1;
+            if (typeof f != "float") return 2;
+            if (typeof b != "bool") return 3;
+            if (typeof s != "str") return 4;
+            return 0;
+        }
+    )";
+
+    Compiler compiler;
+    EXPECT_EQ(compiler.compile(source), 0);
+}
