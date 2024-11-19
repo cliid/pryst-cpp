@@ -40,10 +40,8 @@ pkg_check_modules(GC REQUIRED bdw-gc)
 include_directories(${GC_INCLUDE_DIRS})
 link_directories(${GC_LIBRARY_DIRS})
 
-# Find cpp-httplib
-pkg_check_modules(HTTPLIB REQUIRED cpp-httplib)
-include_directories(${HTTPLIB_INCLUDE_DIRS})
-link_directories(${HTTPLIB_LIBRARY_DIRS})
+# Handle cpp-httplib (header-only)
+include_directories(/usr/local/include)
 
 # Find Java for ANTLR
 find_package(Java REQUIRED COMPONENTS Runtime)
@@ -67,7 +65,7 @@ endif()
 message(STATUS "Found ANTLR4 Runtime: ${ANTLR4_RUNTIME_LIB}")
 
 set(ANTLR4_JAR_LOCATION ${ANTLR4_ROOT}/lib/antlr-4.13.2-complete.jar)
-set(ANTLR4_INCLUDE_DIR ${ANTLR4_ROOT}/include/antlr4-runtime)
+set(ANTLR4_INCLUDE_DIR /usr/local/include/antlr4-runtime)
 
 # Set up generated files directory
 set(GENERATED_DIR "${CMAKE_SOURCE_DIR}/src/generated")
@@ -130,6 +128,24 @@ set(LIB_SOURCE_FILES
     src/runtime/map_bindings.cpp
     src/runtime/io_impl.cpp
     src/runtime/io_bindings.cpp
+    src/runtime/runtime_type_ops.cpp
+    src/runtime/runtime.cpp
+    src/runtime/type_ops.cpp
+)
+
+# Create library target
+add_library(libpryst STATIC ${LIB_SOURCE_FILES} ${GENERATED_SRC} ${HEADER_FILES})
+add_dependencies(libpryst antlr4_generation)
+set_target_properties(libpryst PROPERTIES OUTPUT_NAME "pryst")
+target_link_libraries(libpryst ${ANTLR4_RUNTIME_LIB} LLVM-14 ${GC_LIBRARIES} pthread dl)
+
+# Link libraries to libpryst
+target_link_libraries(libpryst
+    ${ANTLR4_RUNTIME_LIB}
+    LLVM-14
+    ${GC_LIBRARIES}
+    pthread
+    dl
 )
 
 # Add header files
@@ -146,6 +162,9 @@ set(HEADER_FILES
     src/runtime/string_impl.hpp
     src/runtime/error_impl.hpp
     src/runtime/io_impl.hpp
+    src/runtime/runtime_type_ops.hpp
+    src/runtime/type_ops.hpp
+    src/runtime/runtime.hpp
 )
 
 # Add main executable
@@ -159,11 +178,12 @@ add_dependencies(pryst antlr4_generation)
 
 # Add unified test executable
 add_executable(run_tests
-    src/test/test_runner.cpp
-    src/test/parser_test.cpp
-    src/test/webserver_test.cpp
-    src/test/map_type_test.cpp
-    src/test/runtime/io_test.cpp  # Updated path to reflect new location
+    unified_tests/test_runner.cpp
+    unified_tests/core/cpp/parser_test.cpp
+    unified_tests/core/cpp/map_type_test.cpp
+    unified_tests/core/cpp/type_ops_test.cpp
+    unified_tests/core/cpp/io_test.cpp
+    unified_tests/web/webserver_test.cpp
     ${LIB_SOURCE_FILES}
     ${GENERATED_SRC}
 )
@@ -175,7 +195,6 @@ foreach(target pryst run_tests)
         ${ANTLR4_RUNTIME_LIB}
         LLVM-14
         ${GC_LIBRARIES}
-        ${HTTPLIB_LIBRARIES}
         pthread
         dl
     )
@@ -201,10 +220,12 @@ target_include_directories(run_tests PRIVATE
 # Create unified test directory structure
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
 
+# Add unified tests directory
+add_subdirectory(unified_tests)
+
 # Copy test files during configure phase
 file(GLOB_RECURSE ALL_PST_FILES
-    "${CMAKE_SOURCE_DIR}/src/test/*.pst"
-    "${CMAKE_SOURCE_DIR}/tests/*.pst"
+    "${CMAKE_SOURCE_DIR}/unified_tests/**/*.pst"
 )
 
 # Copy each test file to the build directory

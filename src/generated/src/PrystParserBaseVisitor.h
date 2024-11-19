@@ -1,5 +1,5 @@
 
-// Generated from src/PrystParser.g4 by ANTLR 4.13.1
+// Generated from src/PrystParser.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -187,7 +187,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitLogicalAndExpr(PrystParser::LogicalAndExprContext *ctx) override {
+  virtual std::any visitInstanceofExpr(PrystParser::InstanceofExprContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -195,7 +195,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitNullCoalesceExpr(PrystParser::NullCoalesceExprContext *ctx) override {
+  virtual std::any visitTypeofExpr(PrystParser::TypeofExprContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -203,23 +203,7 @@ public:
     return visitChildren(ctx);
   }
 
-  virtual std::any visitRelationalExpr(PrystParser::RelationalExprContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
   virtual std::any visitParenExpr(PrystParser::ParenExprContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitNullableMethodCallExpr(PrystParser::NullableMethodCallExprContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitLogicalOrExpr(PrystParser::LogicalOrExprContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitPrefixExpr(PrystParser::PrefixExprContext *ctx) override {
     return visitChildren(ctx);
   }
 
@@ -255,6 +239,34 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual std::any visitConditionalExpr(PrystParser::ConditionalExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitLogicalAndExpr(PrystParser::LogicalAndExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitNullCoalesceExpr(PrystParser::NullCoalesceExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitRelationalExpr(PrystParser::RelationalExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitNullableMethodCallExpr(PrystParser::NullableMethodCallExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitLogicalOrExpr(PrystParser::LogicalOrExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitPrefixExpr(PrystParser::PrefixExprContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual std::any visitConstructorExpr(PrystParser::ConstructorExprContext *ctx) override {
     return visitChildren(ctx);
   }
@@ -268,10 +280,6 @@ public:
   }
 
   virtual std::any visitEqualityExpr(PrystParser::EqualityExprContext *ctx) override {
-    return visitChildren(ctx);
-  }
-
-  virtual std::any visitConditionalExpr(PrystParser::ConditionalExprContext *ctx) override {
     return visitChildren(ctx);
   }
 

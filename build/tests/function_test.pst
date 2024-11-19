@@ -1,0 +1,27 @@
+// Test file for function declarations and calls
+int add(int a, int b) {
+    return a + b;
+}
+
+str greet(str name) {
+    return "Hello, ${name}";
+}
+
+// Function with complex types
+int processMap(map<str,int> data) {
+    return data["value"];
+}
+
+// Lambda function
+let multiply = (int x, int y) -> int {
+    return x * y;
+};
+
+// Test function calls
+print("5 + 3 = ${add(5, 3)}");
+print(greet("World"));
+
+let testMap = new map<str,int>();
+testMap["value"] = 42;
+print("Map value: ${processMap(testMap)}");
+print("6 * 7 = ${multiply(6, 7)}");

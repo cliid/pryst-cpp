@@ -1,5 +1,5 @@
 
-// Generated from /home/ubuntu/pryst_workspace/pryst/src/PrystParser.g4 by ANTLR 4.13.2
+// Generated from /home/ubuntu/workspace/pryst-cpp/src/PrystParser.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -106,23 +106,15 @@ public:
 
     virtual std::any visitAssignmentExpr(PrystParser::AssignmentExprContext *context) = 0;
 
-    virtual std::any visitLogicalAndExpr(PrystParser::LogicalAndExprContext *context) = 0;
+    virtual std::any visitInstanceofExpr(PrystParser::InstanceofExprContext *context) = 0;
 
     virtual std::any visitCastExpr(PrystParser::CastExprContext *context) = 0;
 
-    virtual std::any visitNullCoalesceExpr(PrystParser::NullCoalesceExprContext *context) = 0;
+    virtual std::any visitTypeofExpr(PrystParser::TypeofExprContext *context) = 0;
 
     virtual std::any visitAdditiveExpr(PrystParser::AdditiveExprContext *context) = 0;
 
-    virtual std::any visitRelationalExpr(PrystParser::RelationalExprContext *context) = 0;
-
     virtual std::any visitParenExpr(PrystParser::ParenExprContext *context) = 0;
-
-    virtual std::any visitNullableMethodCallExpr(PrystParser::NullableMethodCallExprContext *context) = 0;
-
-    virtual std::any visitLogicalOrExpr(PrystParser::LogicalOrExprContext *context) = 0;
-
-    virtual std::any visitPrefixExpr(PrystParser::PrefixExprContext *context) = 0;
 
     virtual std::any visitNullableChain(PrystParser::NullableChainContext *context) = 0;
 
@@ -140,6 +132,20 @@ public:
 
     virtual std::any visitPostfixExpr(PrystParser::PostfixExprContext *context) = 0;
 
+    virtual std::any visitConditionalExpr(PrystParser::ConditionalExprContext *context) = 0;
+
+    virtual std::any visitLogicalAndExpr(PrystParser::LogicalAndExprContext *context) = 0;
+
+    virtual std::any visitNullCoalesceExpr(PrystParser::NullCoalesceExprContext *context) = 0;
+
+    virtual std::any visitRelationalExpr(PrystParser::RelationalExprContext *context) = 0;
+
+    virtual std::any visitNullableMethodCallExpr(PrystParser::NullableMethodCallExprContext *context) = 0;
+
+    virtual std::any visitLogicalOrExpr(PrystParser::LogicalOrExprContext *context) = 0;
+
+    virtual std::any visitPrefixExpr(PrystParser::PrefixExprContext *context) = 0;
+
     virtual std::any visitConstructorExpr(PrystParser::ConstructorExprContext *context) = 0;
 
     virtual std::any visitNonNullAssertExpr(PrystParser::NonNullAssertExprContext *context) = 0;
@@ -147,8 +153,6 @@ public:
     virtual std::any visitMultiplicativeExpr(PrystParser::MultiplicativeExprContext *context) = 0;
 
     virtual std::any visitEqualityExpr(PrystParser::EqualityExprContext *context) = 0;
-
-    virtual std::any visitConditionalExpr(PrystParser::ConditionalExprContext *context) = 0;
 
     virtual std::any visitPrimary(PrystParser::PrimaryContext *context) = 0;
 

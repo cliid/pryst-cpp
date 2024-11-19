@@ -183,6 +183,8 @@ expression
     : primary                                               # primaryExpr
     | NEW qualifiedType genericArgs? LPAREN arguments? RPAREN  # constructorExpr
     | IDENTIFIER LPAREN arguments? RPAREN                   # functionCallExpr
+    | expression INSTANCEOF type                            # instanceofExpr
+    | TYPEOF expression                                     # typeofExpr
     | expression DOT IDENTIFIER                             # memberAccessExpr
     | expression QUESTION_MARK DOT IDENTIFIER               # nullableChain
     | expression DOT IDENTIFIER genericArgs?
