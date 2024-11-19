@@ -145,6 +145,8 @@ public:
     virtual std::any visitConditionalExpr(PrystParser::ConditionalExprContext* ctx) override;
     virtual std::any visitAssignmentExpr(PrystParser::AssignmentExprContext* ctx) override;
     virtual std::any visitLambdaExpr(PrystParser::LambdaExprContext* ctx) override;
+    virtual std::any visitInstanceofExpr(PrystParser::InstanceofExprContext* ctx) override;
+    virtual std::any visitTypeofExpr(PrystParser::TypeofExprContext* ctx) override;
 
     // Class-related
     virtual std::any visitClassDecl(PrystParser::ClassDeclContext* ctx) override;
