@@ -127,25 +127,25 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-unified_tests/CMakeFiles/pryst_test_runner.dir/rule:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 unified_tests/CMakeFiles/pryst_test_runner.dir/rule
-.PHONY : unified_tests/CMakeFiles/pryst_test_runner.dir/rule
+unified_tests/CMakeFiles/pryst_tests.dir/rule:
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 unified_tests/CMakeFiles/pryst_tests.dir/rule
+.PHONY : unified_tests/CMakeFiles/pryst_tests.dir/rule
 
 # Convenience name for target.
-pryst_test_runner: unified_tests/CMakeFiles/pryst_test_runner.dir/rule
-.PHONY : pryst_test_runner
+pryst_tests: unified_tests/CMakeFiles/pryst_tests.dir/rule
+.PHONY : pryst_tests
 
 # fast build rule for target.
-pryst_test_runner/fast:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/build
-.PHONY : pryst_test_runner/fast
+pryst_tests/fast:
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/build
+.PHONY : pryst_tests/fast
 
 core/cpp/io_test.o: core/cpp/io_test.cpp.o
 .PHONY : core/cpp/io_test.o
 
 # target to build an object file
 core/cpp/io_test.cpp.o:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/io_test.cpp.o
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/io_test.cpp.o
 .PHONY : core/cpp/io_test.cpp.o
 
 core/cpp/io_test.i: core/cpp/io_test.cpp.i
@@ -153,7 +153,7 @@ core/cpp/io_test.i: core/cpp/io_test.cpp.i
 
 # target to preprocess a source file
 core/cpp/io_test.cpp.i:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/io_test.cpp.i
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/io_test.cpp.i
 .PHONY : core/cpp/io_test.cpp.i
 
 core/cpp/io_test.s: core/cpp/io_test.cpp.s
@@ -161,7 +161,7 @@ core/cpp/io_test.s: core/cpp/io_test.cpp.s
 
 # target to generate assembly for a file
 core/cpp/io_test.cpp.s:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/io_test.cpp.s
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/io_test.cpp.s
 .PHONY : core/cpp/io_test.cpp.s
 
 core/cpp/map_type_test.o: core/cpp/map_type_test.cpp.o
@@ -169,7 +169,7 @@ core/cpp/map_type_test.o: core/cpp/map_type_test.cpp.o
 
 # target to build an object file
 core/cpp/map_type_test.cpp.o:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/map_type_test.cpp.o
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/map_type_test.cpp.o
 .PHONY : core/cpp/map_type_test.cpp.o
 
 core/cpp/map_type_test.i: core/cpp/map_type_test.cpp.i
@@ -177,7 +177,7 @@ core/cpp/map_type_test.i: core/cpp/map_type_test.cpp.i
 
 # target to preprocess a source file
 core/cpp/map_type_test.cpp.i:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/map_type_test.cpp.i
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/map_type_test.cpp.i
 .PHONY : core/cpp/map_type_test.cpp.i
 
 core/cpp/map_type_test.s: core/cpp/map_type_test.cpp.s
@@ -185,7 +185,7 @@ core/cpp/map_type_test.s: core/cpp/map_type_test.cpp.s
 
 # target to generate assembly for a file
 core/cpp/map_type_test.cpp.s:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/map_type_test.cpp.s
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/map_type_test.cpp.s
 .PHONY : core/cpp/map_type_test.cpp.s
 
 core/cpp/parser_test.o: core/cpp/parser_test.cpp.o
@@ -193,7 +193,7 @@ core/cpp/parser_test.o: core/cpp/parser_test.cpp.o
 
 # target to build an object file
 core/cpp/parser_test.cpp.o:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/parser_test.cpp.o
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/parser_test.cpp.o
 .PHONY : core/cpp/parser_test.cpp.o
 
 core/cpp/parser_test.i: core/cpp/parser_test.cpp.i
@@ -201,7 +201,7 @@ core/cpp/parser_test.i: core/cpp/parser_test.cpp.i
 
 # target to preprocess a source file
 core/cpp/parser_test.cpp.i:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/parser_test.cpp.i
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/parser_test.cpp.i
 .PHONY : core/cpp/parser_test.cpp.i
 
 core/cpp/parser_test.s: core/cpp/parser_test.cpp.s
@@ -209,15 +209,39 @@ core/cpp/parser_test.s: core/cpp/parser_test.cpp.s
 
 # target to generate assembly for a file
 core/cpp/parser_test.cpp.s:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/parser_test.cpp.s
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/parser_test.cpp.s
 .PHONY : core/cpp/parser_test.cpp.s
+
+core/cpp/runtime/io_test.o: core/cpp/runtime/io_test.cpp.o
+.PHONY : core/cpp/runtime/io_test.o
+
+# target to build an object file
+core/cpp/runtime/io_test.cpp.o:
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/runtime/io_test.cpp.o
+.PHONY : core/cpp/runtime/io_test.cpp.o
+
+core/cpp/runtime/io_test.i: core/cpp/runtime/io_test.cpp.i
+.PHONY : core/cpp/runtime/io_test.i
+
+# target to preprocess a source file
+core/cpp/runtime/io_test.cpp.i:
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/runtime/io_test.cpp.i
+.PHONY : core/cpp/runtime/io_test.cpp.i
+
+core/cpp/runtime/io_test.s: core/cpp/runtime/io_test.cpp.s
+.PHONY : core/cpp/runtime/io_test.s
+
+# target to generate assembly for a file
+core/cpp/runtime/io_test.cpp.s:
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/runtime/io_test.cpp.s
+.PHONY : core/cpp/runtime/io_test.cpp.s
 
 core/cpp/type_ops_test.o: core/cpp/type_ops_test.cpp.o
 .PHONY : core/cpp/type_ops_test.o
 
 # target to build an object file
 core/cpp/type_ops_test.cpp.o:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/type_ops_test.cpp.o
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/type_ops_test.cpp.o
 .PHONY : core/cpp/type_ops_test.cpp.o
 
 core/cpp/type_ops_test.i: core/cpp/type_ops_test.cpp.i
@@ -225,7 +249,7 @@ core/cpp/type_ops_test.i: core/cpp/type_ops_test.cpp.i
 
 # target to preprocess a source file
 core/cpp/type_ops_test.cpp.i:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/type_ops_test.cpp.i
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/type_ops_test.cpp.i
 .PHONY : core/cpp/type_ops_test.cpp.i
 
 core/cpp/type_ops_test.s: core/cpp/type_ops_test.cpp.s
@@ -233,7 +257,7 @@ core/cpp/type_ops_test.s: core/cpp/type_ops_test.cpp.s
 
 # target to generate assembly for a file
 core/cpp/type_ops_test.cpp.s:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/core/cpp/type_ops_test.cpp.s
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/core/cpp/type_ops_test.cpp.s
 .PHONY : core/cpp/type_ops_test.cpp.s
 
 test_runner.o: test_runner.cpp.o
@@ -241,7 +265,7 @@ test_runner.o: test_runner.cpp.o
 
 # target to build an object file
 test_runner.cpp.o:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/test_runner.cpp.o
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/test_runner.cpp.o
 .PHONY : test_runner.cpp.o
 
 test_runner.i: test_runner.cpp.i
@@ -249,7 +273,7 @@ test_runner.i: test_runner.cpp.i
 
 # target to preprocess a source file
 test_runner.cpp.i:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/test_runner.cpp.i
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/test_runner.cpp.i
 .PHONY : test_runner.cpp.i
 
 test_runner.s: test_runner.cpp.s
@@ -257,8 +281,32 @@ test_runner.s: test_runner.cpp.s
 
 # target to generate assembly for a file
 test_runner.cpp.s:
-	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/test_runner.cpp.s
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/test_runner.cpp.s
 .PHONY : test_runner.cpp.s
+
+web/webserver_test.o: web/webserver_test.cpp.o
+.PHONY : web/webserver_test.o
+
+# target to build an object file
+web/webserver_test.cpp.o:
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/web/webserver_test.cpp.o
+.PHONY : web/webserver_test.cpp.o
+
+web/webserver_test.i: web/webserver_test.cpp.i
+.PHONY : web/webserver_test.i
+
+# target to preprocess a source file
+web/webserver_test.cpp.i:
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/web/webserver_test.cpp.i
+.PHONY : web/webserver_test.cpp.i
+
+web/webserver_test.s: web/webserver_test.cpp.s
+.PHONY : web/webserver_test.s
+
+# target to generate assembly for a file
+web/webserver_test.cpp.s:
+	cd /home/ubuntu/workspace/pryst-cpp/build && $(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/web/webserver_test.cpp.s
+.PHONY : web/webserver_test.cpp.s
 
 # Help Target
 help:
@@ -269,7 +317,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... pryst_test_runner"
+	@echo "... pryst_tests"
 	@echo "... core/cpp/io_test.o"
 	@echo "... core/cpp/io_test.i"
 	@echo "... core/cpp/io_test.s"
@@ -279,12 +327,18 @@ help:
 	@echo "... core/cpp/parser_test.o"
 	@echo "... core/cpp/parser_test.i"
 	@echo "... core/cpp/parser_test.s"
+	@echo "... core/cpp/runtime/io_test.o"
+	@echo "... core/cpp/runtime/io_test.i"
+	@echo "... core/cpp/runtime/io_test.s"
 	@echo "... core/cpp/type_ops_test.o"
 	@echo "... core/cpp/type_ops_test.i"
 	@echo "... core/cpp/type_ops_test.s"
 	@echo "... test_runner.o"
 	@echo "... test_runner.i"
 	@echo "... test_runner.s"
+	@echo "... web/webserver_test.o"
+	@echo "... web/webserver_test.i"
+	@echo "... web/webserver_test.s"
 .PHONY : help
 
 

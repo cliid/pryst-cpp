@@ -1,6 +1,6 @@
-#include "../../runtime/io_impl.hpp"
-#include "../../runtime/runtime_registry.hpp"
-#include "../../type_registry.hpp"
+#include "runtime/io_impl.hpp"
+#include "runtime/runtime_registry.hpp"
+#include "type_registry.hpp"
 #include <gtest/gtest.h>
 #include "llvm/IR/LLVMContext.h"
 #include "llvm/IR/Module.h"

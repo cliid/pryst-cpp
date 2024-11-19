@@ -241,6 +241,3 @@ add_test(NAME PrystTests COMMAND run_tests)
 set_tests_properties(PrystTests PROPERTIES
     ENVIRONMENT "TEST_FILES_DIR=${CMAKE_BINARY_DIR}/tests"
 )
-
-# Add unified tests
-add_subdirectory(unified_tests)

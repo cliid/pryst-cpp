@@ -218,17 +218,17 @@ run_tests/fast:
 .PHONY : run_tests/fast
 
 #=============================================================================
-# Target rules for targets named pryst_test_runner
+# Target rules for targets named pryst_tests
 
 # Build rule for target.
-pryst_test_runner: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pryst_test_runner
-.PHONY : pryst_test_runner
+pryst_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pryst_tests
+.PHONY : pryst_tests
 
 # fast build rule for target.
-pryst_test_runner/fast:
-	$(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/build
-.PHONY : pryst_test_runner/fast
+pryst_tests/fast:
+	$(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/build
+.PHONY : pryst_tests/fast
 
 src/compiler.o: src/compiler.cpp.o
 .PHONY : src/compiler.o
@@ -1313,7 +1313,7 @@ help:
 	@echo "... omp_gen"
 	@echo "... libpryst"
 	@echo "... pryst"
-	@echo "... pryst_test_runner"
+	@echo "... pryst_tests"
 	@echo "... run_tests"
 	@echo "... src/compiler.o"
 	@echo "... src/compiler.i"

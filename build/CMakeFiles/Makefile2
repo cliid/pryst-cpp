@@ -88,7 +88,7 @@ clean: unified_tests/clean
 # Directory level rules for directory unified_tests
 
 # Recursive "all" directory target.
-unified_tests/all: unified_tests/CMakeFiles/pryst_test_runner.dir/all
+unified_tests/all: unified_tests/CMakeFiles/pryst_tests.dir/all
 .PHONY : unified_tests/all
 
 # Recursive "preinstall" directory target.
@@ -96,7 +96,7 @@ unified_tests/preinstall:
 .PHONY : unified_tests/preinstall
 
 # Recursive "clean" directory target.
-unified_tests/clean: unified_tests/CMakeFiles/pryst_test_runner.dir/clean
+unified_tests/clean: unified_tests/CMakeFiles/pryst_tests.dir/clean
 .PHONY : unified_tests/clean
 
 #=============================================================================
@@ -210,12 +210,12 @@ CMakeFiles/antlr4_generation.dir/clean:
 CMakeFiles/libpryst.dir/all: CMakeFiles/antlr4_generation.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/libpryst.dir/build.make CMakeFiles/libpryst.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/libpryst.dir/build.make CMakeFiles/libpryst.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/workspace/pryst-cpp/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29 "Built target libpryst"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/workspace/pryst-cpp/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 "Built target libpryst"
 .PHONY : CMakeFiles/libpryst.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/libpryst.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/workspace/pryst-cpp/build/CMakeFiles 29
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/workspace/pryst-cpp/build/CMakeFiles 28
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/libpryst.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/workspace/pryst-cpp/build/CMakeFiles 0
 .PHONY : CMakeFiles/libpryst.dir/rule
@@ -236,7 +236,7 @@ CMakeFiles/libpryst.dir/clean:
 CMakeFiles/pryst.dir/all: CMakeFiles/antlr4_generation.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst.dir/build.make CMakeFiles/pryst.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pryst.dir/build.make CMakeFiles/pryst.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/workspace/pryst-cpp/build/CMakeFiles --progress-num=30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59 "Built target pryst"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/workspace/pryst-cpp/build/CMakeFiles --progress-num=29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58 "Built target pryst"
 .PHONY : CMakeFiles/pryst.dir/all
 
 # Build rule for subdir invocation for target.
@@ -282,30 +282,30 @@ CMakeFiles/run_tests.dir/clean:
 .PHONY : CMakeFiles/run_tests.dir/clean
 
 #=============================================================================
-# Target rules for target unified_tests/CMakeFiles/pryst_test_runner.dir
+# Target rules for target unified_tests/CMakeFiles/pryst_tests.dir
 
 # All Build rule for target.
-unified_tests/CMakeFiles/pryst_test_runner.dir/all: CMakeFiles/libpryst.dir/all
-	$(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/depend
-	$(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/workspace/pryst-cpp/build/CMakeFiles --progress-num=60,61,62,63,64,65 "Built target pryst_test_runner"
-.PHONY : unified_tests/CMakeFiles/pryst_test_runner.dir/all
+unified_tests/CMakeFiles/pryst_tests.dir/all: CMakeFiles/libpryst.dir/all
+	$(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/workspace/pryst-cpp/build/CMakeFiles --progress-num=59,60,61,62,63,64,65 "Built target pryst_tests"
+.PHONY : unified_tests/CMakeFiles/pryst_tests.dir/all
 
 # Build rule for subdir invocation for target.
-unified_tests/CMakeFiles/pryst_test_runner.dir/rule: cmake_check_build_system
+unified_tests/CMakeFiles/pryst_tests.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/workspace/pryst-cpp/build/CMakeFiles 35
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 unified_tests/CMakeFiles/pryst_test_runner.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 unified_tests/CMakeFiles/pryst_tests.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/workspace/pryst-cpp/build/CMakeFiles 0
-.PHONY : unified_tests/CMakeFiles/pryst_test_runner.dir/rule
+.PHONY : unified_tests/CMakeFiles/pryst_tests.dir/rule
 
 # Convenience name for target.
-pryst_test_runner: unified_tests/CMakeFiles/pryst_test_runner.dir/rule
-.PHONY : pryst_test_runner
+pryst_tests: unified_tests/CMakeFiles/pryst_tests.dir/rule
+.PHONY : pryst_tests
 
 # clean rule for target.
-unified_tests/CMakeFiles/pryst_test_runner.dir/clean:
-	$(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_test_runner.dir/build.make unified_tests/CMakeFiles/pryst_test_runner.dir/clean
-.PHONY : unified_tests/CMakeFiles/pryst_test_runner.dir/clean
+unified_tests/CMakeFiles/pryst_tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f unified_tests/CMakeFiles/pryst_tests.dir/build.make unified_tests/CMakeFiles/pryst_tests.dir/clean
+.PHONY : unified_tests/CMakeFiles/pryst_tests.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

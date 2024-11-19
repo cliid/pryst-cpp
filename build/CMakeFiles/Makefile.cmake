@@ -194,5 +194,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/libpryst.dir/DependInfo.cmake"
   "CMakeFiles/pryst.dir/DependInfo.cmake"
   "CMakeFiles/run_tests.dir/DependInfo.cmake"
-  "unified_tests/CMakeFiles/pryst_test_runner.dir/DependInfo.cmake"
+  "unified_tests/CMakeFiles/pryst_tests.dir/DependInfo.cmake"
   )

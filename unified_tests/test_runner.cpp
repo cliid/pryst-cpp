@@ -48,11 +48,8 @@ protected:
     }
 };
 
-// Include C++ test files
-#include "core/cpp/parser_test.cpp"
-#include "core/cpp/type_ops_test.cpp"
-#include "core/cpp/map_type_test.cpp"
-#include "core/cpp/io_test.cpp"
+// Test files are now compiled separately
+// No need to include them here as they're linked via CMake
 
 int main(int argc, char** argv) {
     auto total_start_time = std::chrono::high_resolution_clock::now();

@@ -92,16 +92,18 @@ const char* RuntimeRegistry::getObjectType(void* obj) const {
 }
 
 bool RuntimeRegistry::isNullable(void* obj) const {
-    if (!obj) return true;  // null objects are inherently nullable
+    if (!obj) return true;
     const char* typeId = *reinterpret_cast<const char**>(obj);
     if (!typeId) return false;
 
-    // Check if the type ends with '?' indicating nullable
+    auto it = nullableTypes.find(typeId);
+    if (it != nullableTypes.end()) {
+        return it->second;
+    }
+
     size_t len = strlen(typeId);
     return len > 0 && typeId[len - 1] == '?';
 }
-
-
 
 const ClassType* RuntimeRegistry::getClass(const std::string& name) const {
     // Try exact match first
@@ -373,6 +375,32 @@ void RuntimeRegistry::registerInheritance(const std::string& derived, const std:
 
 void RuntimeRegistry::registerNullableType(const std::string& typeName) {
     nullableTypes[typeName] = true;
+    std::string nullableTypeName = typeName + "?";
+    nullableTypes[nullableTypeName] = true;
+
+    auto it = classes.find(typeName);
+    if (it != classes.end()) {
+        ClassType nullableClass = it->second;
+        nullableClass.name = nullableClass.name + "?";
+        nullableClass.fullName = nullableClass.fullName + "?";
+        classes[nullableClass.name] = nullableClass;
+        classes[nullableClass.fullName] = nullableClass;
+    }
+}
+
+    // Also register the nullable version of the type (with '?' suffix)
+    std::string nullableTypeName = typeName + "?";
+    nullableTypes[nullableTypeName] = true;
+
+    // If it's a class type, ensure we have both versions registered
+    auto it = classes.find(typeName);
+    if (it != classes.end()) {
+        ClassType nullableClass = it->second;
+        nullableClass.name = nullableClass.name + "?";
+        nullableClass.fullName = nullableClass.fullName + "?";
+        classes[nullableClass.name] = nullableClass;
+        classes[nullableClass.fullName] = nullableClass;
+    }
 }
 
 } // namespace runtime

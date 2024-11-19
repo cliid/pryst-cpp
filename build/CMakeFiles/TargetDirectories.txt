@@ -8,7 +8,7 @@
 /home/ubuntu/workspace/pryst-cpp/build/CMakeFiles/test.dir
 /home/ubuntu/workspace/pryst-cpp/build/CMakeFiles/edit_cache.dir
 /home/ubuntu/workspace/pryst-cpp/build/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/workspace/pryst-cpp/build/unified_tests/CMakeFiles/pryst_test_runner.dir
+/home/ubuntu/workspace/pryst-cpp/build/unified_tests/CMakeFiles/pryst_tests.dir
 /home/ubuntu/workspace/pryst-cpp/build/unified_tests/CMakeFiles/test.dir
 /home/ubuntu/workspace/pryst-cpp/build/unified_tests/CMakeFiles/edit_cache.dir
 /home/ubuntu/workspace/pryst-cpp/build/unified_tests/CMakeFiles/rebuild_cache.dir

@@ -1,6 +1,10 @@
 # Unified test suite for Pryst
 add_executable(pryst_tests
     test_runner.cpp
+)
+
+target_sources(pryst_tests
+    PRIVATE
     core/cpp/parser_test.cpp
     core/cpp/io_test.cpp
     core/cpp/map_type_test.cpp
@@ -11,7 +15,7 @@ add_executable(pryst_tests
 
 target_link_libraries(pryst_tests
     PRIVATE
-    pryst_lib
+    libpryst
     gtest
     gtest_main
     pthread
@@ -20,6 +24,7 @@ target_link_libraries(pryst_tests
 target_include_directories(pryst_tests
     PRIVATE
     ${CMAKE_SOURCE_DIR}/src
+    ${CMAKE_SOURCE_DIR}/src/runtime
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/third_party
 )

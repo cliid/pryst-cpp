@@ -982,8 +982,9 @@ bool TypeRegistry::isTypeNullable(llvm::Type* type) const {
             std::string typeName = structType->getName().str();
             std::cout << "Debug [isTypeNullable]: Checking struct type: " << typeName << std::endl;
 
-            // Check if the type itself is registered as nullable
-            if (nullableTypes.find(typeName) != nullableTypes.end()) {
+            // Check if the type is registered as nullable or has '?' suffix
+            if (nullableTypes.find(typeName) != nullableTypes.end() ||
+                (typeName.length() > 0 && typeName.back() == '?')) {
                 std::cout << "Debug [isTypeNullable]: Type " << typeName << " is nullable" << std::endl;
                 return true;
             }
@@ -1007,6 +1008,13 @@ bool TypeRegistry::isTypeNullable(llvm::Type* type) const {
             std::cout << "Debug [isTypeNullable]: Basic type is nullable" << std::endl;
             return true;
         }
+    }
+
+    // Check if the type itself is nullable
+    if (auto* structType = llvm::dyn_cast<llvm::StructType>(type)) {
+        std::string typeName = structType->getName().str();
+        return nullableTypes.find(typeName) != nullableTypes.end() ||
+               (typeName.length() > 0 && typeName.back() == '?');
     }
 
     return false;
