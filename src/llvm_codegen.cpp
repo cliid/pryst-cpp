@@ -1610,6 +1610,45 @@ std::any LLVMCodeGen::visitAssignment(PrystParser::AssignmentContext* ctx) {
     return value;
 }
 
+// Implementation of instanceof expression
+std::any LLVMCodeGen::visitInstanceofExpr(PrystParser::InstanceofExprContext* ctx) {
+    // Get the object being checked
+    auto object = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+
+    // Get the type name being checked against
+    auto typeCtx = ctx->type();
+    auto checkType = getTypeFromTypeContext(typeCtx);
+
+    // Get runtime instanceof function
+    auto instanceofFn = module.getFunction("pryst_runtime_instanceof");
+    if (!instanceofFn) {
+        throw std::runtime_error("Runtime instanceof function not found");
+    }
+
+    // Create type string constant
+    auto typeStr = builder.CreateGlobalStringPtr(checkType->toString(), "type_str");
+
+    // Call runtime instanceof function
+    std::vector<llvm::Value*> args = {object, typeStr};
+    return builder.CreateCall(llvm::FunctionCallee(instanceofFn), args, "instanceof_result");
+}
+
+// Implementation of typeof expression
+std::any LLVMCodeGen::visitTypeofExpr(PrystParser::TypeofExprContext* ctx) {
+    // Get the object
+    auto object = std::any_cast<llvm::Value*>(visit(ctx->expression()));
+
+    // Get runtime typeof function
+    auto typeofFn = module.getFunction("pryst_runtime_typeof");
+    if (!typeofFn) {
+        throw std::runtime_error("Runtime typeof function not found");
+    }
+
+    // Call runtime typeof function
+    std::vector<llvm::Value*> args = {object};
+    return builder.CreateCall(llvm::FunctionCallee(typeofFn), args, "typeof_result");
+}
+
 std::any LLVMCodeGen::visitArguments(PrystParser::ArgumentsContext* ctx) {
     std::vector<llvm::Value*> args;
     for (auto arg : ctx->expression()) {
