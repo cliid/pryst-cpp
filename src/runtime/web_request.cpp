@@ -3,6 +3,7 @@
 #include <sstream>
 
 namespace pryst {
+namespace runtime {
 namespace web {
 
 Request::Request(const std::string& body) : body_(body) {}
@@ -29,4 +30,5 @@ std::map<std::string, std::any> Request::json() {
 }
 
 } // namespace web
+} // namespace runtime
 } // namespace pryst

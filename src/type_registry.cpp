@@ -468,6 +468,88 @@ void TypeRegistry::registerClass(const std::string& className,
     }
 }
 
+void TypeRegistry::registerClass(const std::string& className,
+                               const std::vector<std::pair<std::string, llvm::Type*>>& members,
+                               const std::string& baseClass) {
+    std::cout << "Debug [registerClass]: Attempting to register class " << className
+              << " with base class " << baseClass << std::endl;
+
+    // First register the class normally
+    registerClass(className, members);
+
+    // Then handle inheritance
+    if (baseClass == "Error" || isSubclassOf(baseClass, "Error")) {
+        auto baseType = getCachedType(baseClass);
+        if (!baseType) {
+            throw Error("TypeError", "Base class " + baseClass + " not found in cache");
+        }
+
+        auto derivedType = getCachedType(className);
+        if (!derivedType) {
+            throw Error("TypeError", "Derived class " + className + " not found in cache");
+        }
+
+        // Set inheritance relationship
+        std::static_pointer_cast<ClassType>(derivedType)->setBaseType(baseType);
+        registerInheritance(className, baseClass);
+    } else {
+        throw Error("TypeError", "Error classes must extend Error or its subclasses: " + className);
+    }
+}
+
+void TypeRegistry::validateErrorMethodOverride(const std::string& className,
+                                             const std::string& methodName,
+                                             const std::shared_ptr<FunctionType>& method,
+                                             const std::string& baseClass) {
+    auto baseType = getCachedType(baseClass);
+    if (auto baseClassType = std::dynamic_pointer_cast<ClassType>(baseType)) {
+        auto baseMethod = baseClassType->getMethod(methodName);
+        if (baseMethod) {
+            auto baseFuncType = std::dynamic_pointer_cast<FunctionType>(baseMethod);
+            if (!method->isCompatibleWith(baseFuncType)) {
+                throw Error("TypeError", "Method override in " + className +
+                          " is not compatible with base method in " + baseClass);
+            }
+        }
+    }
+}
+
+void TypeRegistry::validateErrorChain(const std::string& errorClass,
+                                    const std::string& chainedClass) {
+    if (!isErrorType(errorClass)) {
+        throw Error("TypeError", "Class " + errorClass + " must be an Error type to support chaining");
+    }
+    if (!isErrorType(chainedClass)) {
+        throw Error("TypeError", "Chained class " + chainedClass + " must be an Error type");
+    }
+}
+
+std::shared_ptr<Type> TypeRegistry::createErrorChainType(const std::string& errorClass,
+                                                       const std::string& chainedClass) {
+    validateErrorChain(errorClass, chainedClass);
+
+    auto errorType = getCachedType(errorClass);
+    auto chainedType = getCachedType(chainedClass);
+
+    if (auto errorClassType = std::dynamic_pointer_cast<ClassType>(errorType)) {
+        auto chainedErrorType = std::make_shared<ClassType>(errorClass);
+
+        for (const auto& [name, type] : errorClassType->getMembers()) {
+            chainedErrorType->addMember(name, type);
+        }
+
+        chainedErrorType->addMember("cause", std::make_shared<NullableType>(chainedType));
+
+        return chainedErrorType;
+    }
+
+    throw Error("TypeError", "Failed to create error chain type for " + errorClass);
+}
+
+bool TypeRegistry::isErrorType(const std::string& className) const {
+    return className == "Error" || isSubclassOf(className, "Error");
+}
+
 void TypeRegistry::registerInheritance(const std::string& derived, const std::string& base) {
     if (!hasClass(derived)) {
         throw Error("Derived class " + derived + " not found in registry");
@@ -1317,6 +1399,81 @@ std::vector<std::string> TypeRegistry::getRegisteredNamespaces() const {
     std::vector<std::string> namespaces;
     namespaces.insert(namespaces.end(), registeredNamespaces.begin(), registeredNamespaces.end());
     return namespaces;
+}
+
+std::shared_ptr<Type> TypeRegistry::getFunctionType(const std::string& functionName) const {
+    std::cout << "Debug [getFunctionType]: Looking up function type for: " << functionName << std::endl;
+
+    // Look up function type in typeCache
+    auto it = typeCache.find(functionName);
+    if (it != typeCache.end()) {
+        std::cout << "Debug [getFunctionType]: Found cached type for: " << functionName << std::endl;
+        return it->second;
+    }
+
+    std::cout << "Debug [getFunctionType]: No type found for function: " << functionName << std::endl;
+    return nullptr;
+}
+
+// Get LLVM type for a Pryst type
+llvm::Type* TypeRegistry::getLLVMType(std::shared_ptr<Type> type) {
+    std::cout << "Debug [getLLVMType]: Converting type " << type->toString() << std::endl;
+    auto llvmType = convertTypeToLLVMType(type);
+    if (!llvmType) {
+        std::cerr << "Error [getLLVMType]: Failed to convert type " << type->toString() << std::endl;
+        throw Error("TypeError", "Failed to convert type " + type->toString());
+    }
+    return llvmType;
+}
+
+// Get bool type
+llvm::Type* TypeRegistry::getBoolType() const {
+    return classTypes.at("bool");
+}
+
+// Get all registered types
+const std::unordered_map<std::string, std::shared_ptr<Type>>& TypeRegistry::getAllTypes() const {
+    return typeCache;
+}
+
+// Register interface type
+void TypeRegistry::registerInterfaceType(std::shared_ptr<InterfaceType> interfaceType) {
+    std::cout << "Debug [registerInterfaceType]: Registering interface " << interfaceType->getName() << std::endl;
+    cacheType(interfaceType->getName(), interfaceType);
+}
+
+// Check if a class implements an interface
+bool TypeRegistry::implementsInterface(const std::string& className, const std::string& interfaceName) const {
+    auto it = interfaceImplementations.find(className);
+    if (it != interfaceImplementations.end()) {
+        return it->second.find(interfaceName) != it->second.end();
+    }
+    return false;
+}
+
+// Register interface implementation
+void TypeRegistry::registerInterfaceImplementation(const std::string& className, const std::string& interfaceName) {
+    std::cout << "Debug [registerInterfaceImplementation]: Registering " << className << " implements " << interfaceName << std::endl;
+
+    // Verify class exists
+    if (!hasClass(className)) {
+        throw Error("TypeError", "Class not found: " + className);
+    }
+
+    // Verify interface exists in type cache
+    auto interfaceType = getCachedType(interfaceName);
+    if (!interfaceType || !std::dynamic_pointer_cast<InterfaceType>(interfaceType)) {
+        throw Error("TypeError", "Interface not found: " + interfaceName);
+    }
+
+    // Register the implementation
+    interfaceImplementations[className].insert(interfaceName);
+    std::cout << "Debug [registerInterfaceImplementation]: Successfully registered interface implementation" << std::endl;
+}
+
+// Get LLVM context
+llvm::LLVMContext& TypeRegistry::getContext() {
+    return context_;
 }
 
 } // namespace pryst

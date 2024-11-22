@@ -30,18 +30,24 @@ struct ClassType {
     llvm::StructType* llvmType;
     std::vector<ClassMethod> methods;
     const ClassType* baseClass;  // Track inheritance
+    bool isInterface;  // Flag to indicate if this is an interface
+    std::vector<const ClassType*> implementedInterfaces;  // Track implemented interfaces
 
-    ClassType() : llvmType(nullptr), baseClass(nullptr) {}
+    ClassType() : llvmType(nullptr), baseClass(nullptr), isInterface(false), implementedInterfaces() {}
     ClassType(const std::string& fullName)
         : name(fullName.substr(fullName.find_last_of(':') + 1)),
           fullName(fullName),
           llvmType(nullptr),
-          baseClass(nullptr) {}
+          baseClass(nullptr),
+          isInterface(false),
+          implementedInterfaces() {}
     ClassType(const std::string& name, const std::string& fullName)
         : name(name),
           fullName(fullName),
           llvmType(nullptr),
-          baseClass(nullptr) {}
+          baseClass(nullptr),
+          isInterface(false),
+          implementedInterfaces() {}
 };
 
 class RuntimeRegistry {
@@ -69,23 +75,26 @@ public:
     void registerInheritance(const std::string& derived, const std::string& base);  // Add inheritance relationship
     void registerNullableType(const std::string& typeName);  // Register a type as nullable
 
-    void registerClass(const std::string& name, const std::string& fullName, llvm::StructType* type);
+    void registerClass(const std::string& name, const std::string& fullName, llvm::StructType* type, bool isInterface = false);
     void registerClassMethod(const std::string& className, const ClassMethod& method);
     void setBaseClass(const std::string& derivedClass, const std::string& baseClass);
+    void implementInterface(const std::string& className, const std::string& interfaceName);
     const ClassType* getClass(const std::string& name) const;
     bool hasClass(const std::string& name) const;
+    bool isSubclassOf(const char* derivedType, const char* baseType) const;
+    const char* getObjectType(void* obj) const;
+    bool isNullable(void* obj) const;
+    bool implementsInterface(const std::string& typeName, const std::string& interfaceName) const;
+    bool isInterface(const std::string& typeName) const;
+    bool isArray(const std::string& typeName) const;
+    bool isPrimitive(const std::string& typeName) const;
+    std::string getTypeKind(const std::string& typeName) const;
     llvm::Module* getModule() const { return module; }
     TypeRegistry* getTypeRegistry() const { return typeRegistry; }  // Change to pointer return type
 
-    // Type checking methods
-    bool isSubclassOf(const char* derivedType, const char* baseType) const;
-    const char* getObjectType(void* obj) const;
-    bool isNullable(void* obj) const;  // Add method to check if an object is nullable
-
     // Register all runtime functions and types
     void registerBuiltins();
-    void registerWebTypes();  // Add web type registration method
-};
-
+    void registerWebTypes();
+}; // End of RuntimeRegistry
 } // namespace runtime
 } // namespace pryst

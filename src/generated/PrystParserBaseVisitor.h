@@ -1,5 +1,5 @@
 
-// Generated from /home/ubuntu/workspace/pryst-cpp/src/PrystParser.g4 by ANTLR 4.13.2
+// Generated from /home/ubuntu/attachments/pryst/src/PrystParser.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -102,6 +102,10 @@ public:
   }
 
   virtual std::any visitContinueStmt(PrystParser::ContinueStmtContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
+  virtual std::any visitPrintStmt(PrystParser::PrintStmtContext *ctx) override {
     return visitChildren(ctx);
   }
 

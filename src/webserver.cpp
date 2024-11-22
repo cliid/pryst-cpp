@@ -2,6 +2,7 @@
 #include <iostream>
 
 namespace pryst {
+namespace runtime {
 namespace web {
 
 WebServer::WebServer() : server(std::make_unique<httplib::Server>()) {}
@@ -37,4 +38,5 @@ void WebServer::post(const std::string& pattern,
 }
 
 } // namespace web
+} // namespace runtime
 } // namespace pryst

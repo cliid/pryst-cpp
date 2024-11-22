@@ -17,7 +17,7 @@ namespace runtime {
 
 RuntimeRegistry* RuntimeRegistry::instance = nullptr;
 
-RuntimeRegistry::RuntimeRegistry(llvm::Module* mod)
+RuntimeRegistry::RuntimeRegistry(::llvm::Module* mod)
     : module(mod), typeRegistry(nullptr) {
 }
 
@@ -45,24 +45,45 @@ void RuntimeRegistry::registerType(const std::string& name, const std::string& f
     }
 }
 
-void RuntimeRegistry::registerClass(const std::string& name, const std::string& fullName, llvm::StructType* type) {
-    ClassType classType;
-    classType.name = name;
-    classType.fullName = fullName;
-    classType.llvmType = type;
-    classType.baseClass = nullptr;
-    classes[name] = classType;
-    if (name != fullName) classes[fullName] = classType;
-}
+
 
 bool RuntimeRegistry::isSubclassOf(const char* derivedType, const char* baseType) const {
     if (!derivedType || !baseType) return false;
-    if (auto it = classes.find(derivedType); it != classes.end()) {
-        for (const ClassType* c = &it->second; c; c = c->baseClass) {
-            if (c->fullName == baseType) return true;
+    // Handle nullable type inheritance
+    std::string derivedStr(derivedType);
+    std::string baseStr(baseType);
+    bool derivedNullable = derivedStr.back() == '?';
+    bool baseNullable = baseStr.back() == '?';
+    if (!derivedNullable && baseNullable) return false;
+    if (derivedNullable) derivedStr.pop_back();
+    if (baseNullable) baseStr.pop_back();
+
+    auto derived = classes.find(derivedStr);
+    auto base = classes.find(baseStr);
+
+    if (derived == classes.end() || base == classes.end()) return false;
+
+    const ClassType* current = &derived->second;
+    while (current) {
+        if (current->fullName == baseStr) return true;
+
+        // Check implemented interfaces
+        for (const auto* interface : current->implementedInterfaces) {
+            if (interface->fullName == baseStr) return true;
         }
+
+        current = current->baseClass;
     }
     return false;
+}
+
+void RuntimeRegistry::registerClass(const std::string& name, const std::string& fullName, ::llvm::StructType* type, bool isInterface) {
+    ClassType classType(name, fullName);
+    classType.llvmType = type;
+    classType.isInterface = isInterface;
+    classes[name] = classType;
+    classes[fullName] = classType;
+    std::cout << "Debug [registerClass]: Registered class " << fullName << std::endl;
 }
 
 void RuntimeRegistry::registerClassMethod(const std::string& className, const ClassMethod& method) {
@@ -77,6 +98,15 @@ void RuntimeRegistry::setBaseClass(const std::string& derivedClass, const std::s
     auto base = classes.find(baseClass);
     if (derived != classes.end() && base != classes.end()) {
         derived->second.baseClass = &base->second;
+
+        // Handle nullable inheritance
+        std::string nullableDerived = derivedClass + "?";
+        std::string nullableBase = baseClass + "?";
+        auto nullableDerivedIt = classes.find(nullableDerived);
+        auto nullableBaseIt = classes.find(nullableBase);
+        if (nullableDerivedIt != classes.end() && nullableBaseIt != classes.end()) {
+            nullableDerivedIt->second.baseClass = &nullableBaseIt->second;
+        }
     }
 }
 
@@ -87,22 +117,34 @@ const char* RuntimeRegistry::getObjectType(void* obj) const {
     const char* typeId = *reinterpret_cast<const char**>(obj);
     if (!typeId) return "Object";
 
-    auto it = classes.find(typeId);
+    // Handle nullable types by returning the base type
+    std::string typeStr(typeId);
+    size_t nullablePos = typeStr.find('?');
+    if (nullablePos != std::string::npos) {
+        typeStr = typeStr.substr(0, nullablePos);
+    }
+
+    auto it = classes.find(typeStr);
     return it != classes.end() ? it->second.fullName.c_str() : "Object";
 }
 
 bool RuntimeRegistry::isNullable(void* obj) const {
+    // Null objects are considered nullable
     if (!obj) return true;
+
+    // Get type identifier from object
     const char* typeId = *reinterpret_cast<const char**>(obj);
     if (!typeId) return false;
 
+    // Check explicit nullable registration first
     auto it = nullableTypes.find(typeId);
     if (it != nullableTypes.end()) {
         return it->second;
     }
 
-    size_t len = strlen(typeId);
-    return len > 0 && typeId[len - 1] == '?';
+    // Check for nullable chain (type ending with ?)
+    std::string typeStr(typeId);
+    return typeStr.find('?') != std::string::npos;
 }
 
 const ClassType* RuntimeRegistry::getClass(const std::string& name) const {
@@ -137,7 +179,8 @@ void RuntimeRegistry::registerBuiltins() {
 
     // Register core namespaces first
     typeRegistry->registerNamespace("pryst");
-    typeRegistry->registerNamespace("pryst::web");
+    typeRegistry->registerNamespace("pryst::runtime");
+    typeRegistry->registerNamespace("pryst::runtime::web");
 
     // Register type operators
     registerFunction("instanceof", (void*)pryst_runtime_instanceof);
@@ -149,10 +192,10 @@ void RuntimeRegistry::registerBuiltins() {
     auto& context = module->getContext();
 
     // Register File class and its methods
-    std::vector<llvm::Type*> fileFields;
-    fileFields.push_back(llvm::Type::getInt8PtrTy(context));  // path
-    fileFields.push_back(llvm::Type::getInt8PtrTy(context));  // file handle
-    auto fileStructTy = llvm::StructType::create(context, fileFields, "struct.pryst.io.File");
+    std::vector<::llvm::Type*> fileFields;
+    fileFields.push_back(::llvm::Type::getInt8PtrTy(context));  // path
+    fileFields.push_back(::llvm::Type::getInt8PtrTy(context));  // file handle
+    auto fileStructTy = ::llvm::StructType::create(context, fileFields, "struct.pryst.io.File");
 
     registerClass("File", "pryst::io::File", fileStructTy);
 
@@ -186,8 +229,8 @@ void RuntimeRegistry::registerBuiltins() {
     ));
 
     // Register IO class and its static methods
-    std::vector<llvm::Type*> ioFields;  // Empty as all methods are static
-    auto ioStructTy = llvm::StructType::create(context, ioFields, "struct.pryst.io.IO");
+    std::vector<::llvm::Type*> ioFields;  // Empty as all methods are static
+    auto ioStructTy = ::llvm::StructType::create(context, ioFields, "struct.pryst.io.IO");
 
     registerClass("IO", "pryst::io::IO", ioStructTy);
 
@@ -221,11 +264,11 @@ void RuntimeRegistry::registerBuiltins() {
     ));
 
     // Register Map class and its methods
-    std::vector<llvm::Type*> mapFields;
-    mapFields.push_back(llvm::Type::getInt8PtrTy(context));  // keyType
-    mapFields.push_back(llvm::Type::getInt8PtrTy(context));  // valueType
-    mapFields.push_back(llvm::Type::getInt8PtrTy(context));  // internal map pointer
-    auto mapStructTy = llvm::StructType::create(context, mapFields, "struct.pryst.core.Map");
+    std::vector<::llvm::Type*> mapFields;
+    mapFields.push_back(::llvm::Type::getInt8PtrTy(context));  // keyType
+    mapFields.push_back(::llvm::Type::getInt8PtrTy(context));  // valueType
+    mapFields.push_back(::llvm::Type::getInt8PtrTy(context));  // internal map pointer
+    auto mapStructTy = ::llvm::StructType::create(context, mapFields, "struct.pryst.core.Map");
 
     registerClass("Map", "pryst::core::Map", mapStructTy);
 
@@ -303,22 +346,22 @@ void RuntimeRegistry::registerWebTypes() {
     auto& context = module->getContext();
 
     // Register Request class
-    std::vector<llvm::Type*> requestFields;
-    requestFields.push_back(llvm::Type::getInt8PtrTy(context));  // method
-    requestFields.push_back(llvm::Type::getInt8PtrTy(context));  // path
+    std::vector<::llvm::Type*> requestFields;
+    requestFields.push_back(::llvm::Type::getInt8PtrTy(context));  // method
+    requestFields.push_back(::llvm::Type::getInt8PtrTy(context));  // path
     // Use the proper map struct type for headers
-    auto mapStructTy = llvm::StructType::getTypeByName(context, "struct.pryst.core.Map");
+    auto mapStructTy = ::llvm::StructType::getTypeByName(context, "struct.pryst.core.Map");
     if (!mapStructTy) {
-        std::vector<llvm::Type*> mapFields;
-        mapFields.push_back(llvm::Type::getInt8PtrTy(context));  // keyType
-        mapFields.push_back(llvm::Type::getInt8PtrTy(context));  // valueType
-        mapFields.push_back(llvm::Type::getInt8PtrTy(context));  // internal map pointer
-        mapStructTy = llvm::StructType::create(context, mapFields, "struct.pryst.core.Map");
+        std::vector<::llvm::Type*> mapFields;
+        mapFields.push_back(::llvm::Type::getInt8PtrTy(context));  // keyType
+        mapFields.push_back(::llvm::Type::getInt8PtrTy(context));  // valueType
+        mapFields.push_back(::llvm::Type::getInt8PtrTy(context));  // internal map pointer
+        mapStructTy = ::llvm::StructType::create(context, mapFields, "struct.pryst.core.Map");
     }
     requestFields.push_back(mapStructTy);  // headers (map)
-    auto requestStructTy = llvm::StructType::create(context, requestFields, "struct.pryst.web.Request");
+    auto requestStructTy = ::llvm::StructType::create(context, requestFields, "struct.pryst.runtime.web.Request");
 
-    registerClass("Request", "pryst::web::Request", requestStructTy);
+    registerClass("Request", "pryst::runtime::web::Request", requestStructTy);
 
     // Register Request methods
     registerClassMethod("Request", ClassMethod(
@@ -329,13 +372,13 @@ void RuntimeRegistry::registerWebTypes() {
     ));
 
     // Register Response class
-    std::vector<llvm::Type*> responseFields;
-    responseFields.push_back(llvm::Type::getInt32Ty(context));   // status
-    responseFields.push_back(llvm::Type::getInt8PtrTy(context)); // body
+    std::vector<::llvm::Type*> responseFields;
+    responseFields.push_back(::llvm::Type::getInt32Ty(context));   // status
+    responseFields.push_back(::llvm::Type::getInt8PtrTy(context)); // body
     responseFields.push_back(mapStructTy); // headers (map)
-    auto responseStructTy = llvm::StructType::create(context, responseFields, "struct.pryst.web.Response");
+    auto responseStructTy = ::llvm::StructType::create(context, responseFields, "struct.pryst.runtime.web.Response");
 
-    registerClass("Response", "pryst::web::Response", responseStructTy);
+    registerClass("Response", "pryst::runtime::web::Response", responseStructTy);
 
     // Register Response methods
     registerClassMethod("Response", ClassMethod(
@@ -346,10 +389,10 @@ void RuntimeRegistry::registerWebTypes() {
     ));
 
     // Register WebServer class
-    std::vector<llvm::Type*> serverFields;
-    serverFields.push_back(llvm::Type::getInt8PtrTy(context));  // host
-    serverFields.push_back(llvm::Type::getInt32Ty(context));    // port
-    auto serverStructTy = llvm::StructType::create(context, serverFields, "struct.pryst.web.WebServer");
+    std::vector<::llvm::Type*> serverFields;
+    serverFields.push_back(::llvm::Type::getInt8PtrTy(context));  // host
+    serverFields.push_back(::llvm::Type::getInt32Ty(context));    // port
+    auto serverStructTy = ::llvm::StructType::create(context, serverFields, "struct.pryst.runtime.web.WebServer");
 
     registerClass("WebServer", "pryst::web::WebServer", serverStructTy);
 
@@ -369,11 +412,53 @@ void RuntimeRegistry::registerWebTypes() {
     ));
 }
 
-void RuntimeRegistry::registerInheritance(const std::string& derived, const std::string& base) {
-    setBaseClass(derived, base);  // Reuse existing setBaseClass method
+std::string RuntimeRegistry::getTypeKind(const std::string& typeName) const {
+    if (isPrimitive(typeName)) return "primitive";
+    if (isArray(typeName)) return "array";
+    if (isInterface(typeName)) return "interface";
+    return "class";
+}
+
+bool RuntimeRegistry::isArray(const std::string& typeName) const {
+    return typeName.find("Array<") != std::string::npos;
+}
+
+bool RuntimeRegistry::isPrimitive(const std::string& typeName) const {
+    return typeName == "int" || typeName == "float" || typeName == "bool" || typeName == "string";
+}
+
+bool RuntimeRegistry::isInterface(const std::string& typeName) const {
+    auto it = classes.find(typeName);
+    return it != classes.end() && it->second.isInterface;
+}
+
+bool RuntimeRegistry::implementsInterface(const std::string& typeName, const std::string& interfaceName) const {
+    auto typeIt = classes.find(typeName);
+    if (typeIt == classes.end()) return false;
+
+    const ClassType* current = &typeIt->second;
+    while (current) {
+        for (const auto* interface : current->implementedInterfaces) {
+            if (interface->fullName == interfaceName) return true;
+        }
+        current = current->baseClass;
+    }
+    return false;
+}
+
+void RuntimeRegistry::implementInterface(const std::string& className, const std::string& interfaceName) {
+    auto classIt = classes.find(className);
+    auto interfaceIt = classes.find(interfaceName);
+
+    if (classIt != classes.end() && interfaceIt != classes.end() && interfaceIt->second.isInterface) {
+        classIt->second.implementedInterfaces.push_back(&interfaceIt->second);
+        std::cout << "Debug [implementInterface]: " << className << " now implements " << interfaceName << std::endl;
+    }
 }
 
 void RuntimeRegistry::registerNullableType(const std::string& typeName) {
+    std::cout << "Debug [registerNullableType]: Registering nullable type for " << typeName << std::endl;
+
     nullableTypes[typeName] = true;
     std::string nullableTypeName = typeName + "?";
     nullableTypes[nullableTypeName] = true;
@@ -381,25 +466,25 @@ void RuntimeRegistry::registerNullableType(const std::string& typeName) {
     auto it = classes.find(typeName);
     if (it != classes.end()) {
         ClassType nullableClass = it->second;
-        nullableClass.name = nullableClass.name + "?";
-        nullableClass.fullName = nullableClass.fullName + "?";
+        nullableClass.name += "?";
+        nullableClass.fullName += "?";
+
+        // Preserve inheritance relationship for nullable types
+        if (nullableClass.baseClass) {
+            std::string nullableBaseName = nullableClass.baseClass->fullName + "?";
+            auto baseIt = classes.find(nullableBaseName);
+            if (baseIt != classes.end()) {
+                nullableClass.baseClass = &baseIt->second;
+            }
+        }
+
+        // Copy implemented interfaces for nullable version
+        nullableClass.implementedInterfaces = it->second.implementedInterfaces;
+
         classes[nullableClass.name] = nullableClass;
         classes[nullableClass.fullName] = nullableClass;
-    }
-}
-
-    // Also register the nullable version of the type (with '?' suffix)
-    std::string nullableTypeName = typeName + "?";
-    nullableTypes[nullableTypeName] = true;
-
-    // If it's a class type, ensure we have both versions registered
-    auto it = classes.find(typeName);
-    if (it != classes.end()) {
-        ClassType nullableClass = it->second;
-        nullableClass.name = nullableClass.name + "?";
-        nullableClass.fullName = nullableClass.fullName + "?";
-        classes[nullableClass.name] = nullableClass;
-        classes[nullableClass.fullName] = nullableClass;
+        std::cout << "Debug [registerNullableType]: Registered nullable class "
+                  << nullableClass.fullName << std::endl;
     }
 }
 

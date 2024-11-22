@@ -1,5 +1,5 @@
 
-// Generated from /home/ubuntu/workspace/pryst-cpp/src/PrystParser.g4 by ANTLR 4.13.2
+// Generated from /home/ubuntu/attachments/pryst/src/PrystParser.g4 by ANTLR 4.13.2
 
 
 #include "PrystParserBaseVisitor.h"

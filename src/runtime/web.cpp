@@ -6,13 +6,6 @@ namespace web {
 
 // Implementation of any non-inline methods would go here
 
-} // namespace web
-} // namespace runtime
-} // namespace pryst
-
-namespace pryst {
-namespace web {
-
 std::string Request::getMethod() const {
     return method;
 }
@@ -34,4 +27,5 @@ std::string Request::getBody() const {
 }
 
 } // namespace web
+} // namespace runtime
 } // namespace pryst

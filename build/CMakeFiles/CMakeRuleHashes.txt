@@ -1,2 +1,0 @@
-# Hashes of file build rules.
-937804a4cdcf8790a17848d8a4b39c98 CMakeFiles/antlr4_generation

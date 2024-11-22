@@ -1,11 +1,18 @@
 #pragma once
 
-#include <llvm/IR/IRBuilder.h>
-#include <llvm/IR/LLVMContext.h>
-#include <llvm/IR/Module.h>
-#include <llvm/IR/Function.h>
-#include <llvm/IR/Type.h>
-#include <llvm/IR/Verifier.h>
+// LLVM forward declarations
+namespace llvm {
+    class LLVMContext;
+    class Module;
+    class Value;
+    class Function;
+    class Type;
+    class BasicBlock;
+    class ConstantFolder;
+    class IRBuilderDefaultInserter;
+    template<typename T, typename U> class IRBuilder;
+}
+
 #include "generated/PrystParserBaseVisitor.h"
 #include "generated/PrystParser.h"
 #include "type_checker.hpp"
@@ -20,58 +27,58 @@ namespace pryst {
 
 class LLVMCodeGen : public PrystParserBaseVisitor {
 private:
-    llvm::LLVMContext& context;
-    llvm::Module& module;
-    llvm::IRBuilder<>& builder;
+    ::llvm::LLVMContext& context;
+    ::llvm::Module& module;
+    ::llvm::IRBuilder<::llvm::ConstantFolder, ::llvm::IRBuilderDefaultInserter>& builder;
     TypeRegistry& typeRegistry;
     ClassTypeRegistry classTypeRegistry;
-    std::unordered_map<std::string, llvm::Value*> valueMap;
-    std::vector<std::pair<llvm::BasicBlock*, llvm::BasicBlock*>> loopStack;
-    llvm::Function* currentFunction;
+    std::unordered_map<std::string, ::llvm::Value*> valueMap;
+    std::vector<std::pair<::llvm::BasicBlock*, ::llvm::BasicBlock*>> loopStack;
+    ::llvm::Function* currentFunction;
     std::string currentClass;
-    llvm::Value* currentInstance;
-    std::unordered_map<std::string, llvm::Type*> memberTypes;
+    ::llvm::Value* currentInstance;
+    std::unordered_map<std::string, ::llvm::Type*> memberTypes;
     std::unordered_map<std::string, size_t> memberIndices;
 
     // Helper methods
-    llvm::Value* createAdd(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createSub(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createMul(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createDiv(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createMod(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createLT(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createGT(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createLE(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createGE(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createEQ(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createNEQ(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createAnd(llvm::Value* left, llvm::Value* right);
-    llvm::Value* createOr(llvm::Value* left, llvm::Value* right);
-    llvm::Value* convertToFloat(llvm::Value* value);
-    llvm::Value* convertType(llvm::Value* value, llvm::Type* targetType);
-    llvm::Type* getLLVMType(std::shared_ptr<Type> type);
-    std::vector<llvm::Type*> getLLVMTypes(const std::vector<std::shared_ptr<Type>>& types);
+    ::llvm::Value* createAdd(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createSub(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createMul(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createDiv(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createMod(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createLT(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createGT(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createLE(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createGE(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createEQ(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createNEQ(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createAnd(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* createOr(::llvm::Value* left, ::llvm::Value* right);
+    ::llvm::Value* convertToFloat(::llvm::Value* value);
+    ::llvm::Value* convertType(::llvm::Value* value, ::llvm::Type* targetType);
+    ::llvm::Type* getLLVMType(std::shared_ptr<Type> type);
+    std::vector<::llvm::Type*> getLLVMTypes(const std::vector<std::shared_ptr<Type>>& types);
     std::shared_ptr<Type> getTypeFromTypeContext(PrystParser::TypeContext* ctx);
     std::shared_ptr<Type> getTypeFromReturnTypeContext(PrystParser::ReturnTypeContext* ctx);
-    llvm::Function* getOrCreateStringAlloc();
-    llvm::Function* getOrCreateArrayAlloc();
-    llvm::Function* getOrCreateMapAlloc();
-    llvm::Function* getOrCreateGCAlloc();
+    ::llvm::Function* getOrCreateStringAlloc();
+    ::llvm::Function* getOrCreateArrayAlloc();
+    ::llvm::Function* getOrCreateMapAlloc();
+    ::llvm::Function* getOrCreateGCAlloc();
     void initializeRuntime();
     std::string getTokenText(antlr4::tree::TerminalNode* node);
     bool hasToken(antlr4::tree::TerminalNode* node);
     bool hasContext(antlr4::tree::ParseTree* node);
     antlr4::ParserRuleContext* getContext(antlr4::tree::ParseTree* node);
-    unsigned getMemberIndex(llvm::Type* classType, const std::string& memberName);
+    unsigned getMemberIndex(::llvm::Type* classType, const std::string& memberName);
     virtual std::any visitPrimary(PrystParser::PrimaryContext* ctx);
 
     // Type creation helpers
-    llvm::Type* createArrayType(llvm::Type* elementType);
-    llvm::Type* createMapType(llvm::Type* keyType, llvm::Type* valueType);
-    llvm::Type* createNullableType(llvm::Type* baseType);
+    ::llvm::Type* createArrayType(::llvm::Type* elementType);
+    ::llvm::Type* createMapType(::llvm::Type* keyType, ::llvm::Type* valueType);
+    ::llvm::Type* createNullableType(::llvm::Type* baseType);
 
 public:
-    LLVMCodeGen(llvm::LLVMContext& context, llvm::Module& module, llvm::IRBuilder<>& builder, TypeRegistry& registry);
+    LLVMCodeGen(::llvm::LLVMContext& context, ::llvm::Module& module, ::llvm::IRBuilder<::llvm::ConstantFolder, ::llvm::IRBuilderDefaultInserter>& builder, TypeRegistry& registry);
     ~LLVMCodeGen() = default;
 
     virtual std::any visitChildren(antlr4::tree::ParseTree* node) override {

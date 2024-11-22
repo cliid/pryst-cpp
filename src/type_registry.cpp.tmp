@@ -1,0 +1,25 @@
+```cpp
+{ existing implementation }
+
+bool TypeRegistry::isNumericType(std::shared_ptr<Type> type) const {
+    if (!type) return false;
+    auto typeName = type->toString();
+    return typeName == "int" || typeName == "float";
+}
+
+std::shared_ptr<Type> TypeRegistry::getCommonNumericType(std::shared_ptr<Type> type1, std::shared_ptr<Type> type2) const {
+    if (!isNumericType(type1) || !isNumericType(type2)) {
+        throw Error("TypeError", "Both types must be numeric");
+    }
+
+    // If either type is float, result is float
+    if (type1->toString() == "float" || type2->toString() == "float") {
+        return std::make_shared<FloatType>();
+    }
+
+    // Otherwise both are int
+    return std::make_shared<IntType>();
+}
+
+{ remaining implementation }
+```

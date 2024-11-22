@@ -26,7 +26,7 @@ declaration
     ;
 
 errorDecl
-    : ERROR qualifiedType (EXTENDS qualifiedType)?
+    : ERROR IDENTIFIER (EXTENDS IDENTIFIER)?
       LBRACE
         (constructorDecl | errorMember)*
       RBRACE
@@ -36,9 +36,22 @@ functionDecl
     : returnType IDENTIFIER genericParams? LPAREN parameters? RPAREN block
     ;
 
-parameters: (parameter | defaultParam) (COMMA (parameter | defaultParam))*;
-parameter: type IDENTIFIER;
-defaultParam: type IDENTIFIER ASSIGN expression;
+parameters
+    : parameter (COMMA parameter)* (COMMA defaultParam)*
+    ;
+parameter
+    : type IDENTIFIER
+    ;
+defaultParam
+    : type IDENTIFIER ASSIGN (literal | NULL_LIT)
+    ;
+
+literal
+    : INTEGER
+    | FLOAT_LITERAL
+    | STRING
+    | BOOLEAN
+    ;
 
 block: LBRACE statement* RBRACE;
 
@@ -54,6 +67,7 @@ statement
     | tryStmt
     | breakStmt
     | continueStmt
+    | printStmt
     ;
 
 varDecl
@@ -79,9 +93,11 @@ forStmt
         statement
     ;
 returnStmt: RETURN expression? SEMICOLON;
-tryStmt: TRY block (CATCH LPAREN type IDENTIFIER RPAREN block)* (FINALLY block)?;
+tryStmt: TRY block catchClause* (FINALLY block)?;
+catchClause: CATCH LPAREN type IDENTIFIER (CHAIN expression)? RPAREN block;
 breakStmt: BREAK SEMICOLON;
 continueStmt: CONTINUE SEMICOLON;
+printStmt: PRINT LPAREN expression RPAREN SEMICOLON;
 
 expressionStmt: expression SEMICOLON;
 
@@ -264,6 +280,7 @@ mapKey
     ;
 
 errorMember
-    : type IDENTIFIER SEMICOLON
-    | returnType IDENTIFIER LPAREN parameters? RPAREN block
+    : type IDENTIFIER SEMICOLON                                  # errorField
+    | returnType IDENTIFIER LPAREN parameters? RPAREN block      # errorMethod
+    | CHAIN type IDENTIFIER SEMICOLON                           # errorChainField
     ;

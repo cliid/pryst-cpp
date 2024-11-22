@@ -5,7 +5,7 @@ project(Pryst VERSION 1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0 -frtti")
 
 # Enable testing
 enable_testing()
@@ -40,8 +40,10 @@ pkg_check_modules(GC REQUIRED bdw-gc)
 include_directories(${GC_INCLUDE_DIRS})
 link_directories(${GC_LIBRARY_DIRS})
 
-# Handle cpp-httplib (header-only)
-include_directories(/usr/local/include)
+# Handle cpp-httplib
+pkg_check_modules(HTTPLIB REQUIRED cpp-httplib)
+include_directories(${HTTPLIB_INCLUDE_DIRS})
+link_directories(${HTTPLIB_LIBRARY_DIRS})
 
 # Find Java for ANTLR
 find_package(Java REQUIRED COMPONENTS Runtime)
@@ -137,7 +139,6 @@ set(LIB_SOURCE_FILES
 add_library(libpryst STATIC ${LIB_SOURCE_FILES} ${GENERATED_SRC} ${HEADER_FILES})
 add_dependencies(libpryst antlr4_generation)
 set_target_properties(libpryst PROPERTIES OUTPUT_NAME "pryst")
-target_link_libraries(libpryst ${ANTLR4_RUNTIME_LIB} LLVM-14 ${GC_LIBRARIES} pthread dl)
 
 # Link libraries to libpryst
 target_link_libraries(libpryst
@@ -146,6 +147,7 @@ target_link_libraries(libpryst
     ${GC_LIBRARIES}
     pthread
     dl
+    ${HTTPLIB_LIBRARIES}
 )
 
 # Add header files
@@ -178,12 +180,16 @@ add_dependencies(pryst antlr4_generation)
 
 # Add unified test executable
 add_executable(run_tests
-    unified_tests/test_runner.cpp
-    unified_tests/core/cpp/parser_test.cpp
-    unified_tests/core/cpp/map_type_test.cpp
-    unified_tests/core/cpp/type_ops_test.cpp
-    unified_tests/core/cpp/io_test.cpp
-    unified_tests/web/webserver_test.cpp
+    tests/test_runner.cpp
+    tests/core/cpp/parser_test.cpp
+    tests/core/cpp/map_type_test.cpp
+    tests/core/cpp/type_ops_test.cpp
+    tests/core/cpp/type_operators_test.cpp
+    tests/core/cpp/io_test.cpp
+    tests/core/cpp/nullable_pst_test.cpp
+    tests/web/webserver_test.cpp
+    tests/type_checker_tests.cpp
+    tests/nullable_test.cpp
     ${LIB_SOURCE_FILES}
     ${GENERATED_SRC}
 )
@@ -197,6 +203,7 @@ foreach(target pryst run_tests)
         ${GC_LIBRARIES}
         pthread
         dl
+        ${HTTPLIB_LIBRARIES}
     )
 
     target_include_directories(${target} PRIVATE
@@ -221,11 +228,11 @@ target_include_directories(run_tests PRIVATE
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
 
 # Add unified tests directory
-add_subdirectory(unified_tests)
+add_subdirectory(tests)
 
 # Copy test files during configure phase
 file(GLOB_RECURSE ALL_PST_FILES
-    "${CMAKE_SOURCE_DIR}/unified_tests/**/*.pst"
+    "${CMAKE_SOURCE_DIR}/tests/**/*.pst"
 )
 
 # Copy each test file to the build directory

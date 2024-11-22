@@ -8,6 +8,7 @@
 #include "type_registry.hpp"
 #include "runtime/runtime_registry.hpp"
 #include "llvm_type_converter.hpp"
+#include "type_info.hpp"
 #include <llvm/IR/LLVMContext.h>
 #include <memory>
 #include <string>
@@ -16,16 +17,29 @@
 
 namespace pryst {
 
+using std::string;
+using std::vector;
+using std::unordered_map;
+using std::any;
+using std::shared_ptr;
+using runtime::RuntimeRegistry;
+
+// Forward declarations for test classes
+namespace testing {
+    class PrystTestFixture;
+}
+
 class TypeChecker : public PrystParserBaseVisitor {
-private:
-    std::vector<std::unordered_map<std::string, std::any>> scopes;
-    std::unordered_map<std::string, std::any>* currentScope_;
-    std::any currentFunctionReturnType;
-    std::any lastExpressionType;
+    friend class testing::PrystTestFixture;
+
+protected:
+    ScopeManager scopeManager_;
+    any currentFunctionReturnType;
+    any lastExpressionType;
     bool isInLoop;
     llvm::LLVMContext& context_;
     TypeRegistry& typeRegistry_;
-    pryst::runtime::RuntimeRegistry& runtimeRegistry_;
+    RuntimeRegistry& runtimeRegistry_;
     LLVMTypeConverter converter_;
 
     void pushScope();
@@ -41,32 +55,22 @@ private:
     std::any checkTypeCast(std::any targetType, std::any sourceType);
     std::any checkArrayAccess(std::any arrayType, std::any indexType);
     std::any checkTypesMatch(std::any expectedType, std::any actualType, antlr4::ParserRuleContext* ctx);
-    bool isAssignable(std::any targetType, std::any sourceType);
     std::any inferReturnType(PrystParser::BlockContext* ctx);
     std::any getLambdaType(PrystParser::LambdaExprContext* ctx);
+    std::any unwrapNullableType(std::any type);
+    bool isNullableType(std::any type);
+    std::any wrapAsNullable(std::any type);
+    std::any propagateNullability(std::any sourceType, std::any targetType);
+    bool isErrorType(std::shared_ptr<Type> type);
+    bool validateErrorMethodSignature(const std::string& methodName,
+                                    const std::shared_ptr<FunctionType>& method,
+                                    const std::shared_ptr<Type>& baseType);
+    std::shared_ptr<Type> createErrorChain(const std::shared_ptr<Type>& error,
+                                         const std::shared_ptr<Type>& cause);
 
 public:
-    TypeChecker(llvm::LLVMContext& context, TypeRegistry& typeRegistry, pryst::runtime::RuntimeRegistry& runtimeRegistry)
-        : currentFunctionReturnType(std::any())
-        , lastExpressionType(std::any())
-        , isInLoop(false)
-        , context_(context)
-        , typeRegistry_(typeRegistry)
-        , runtimeRegistry_(runtimeRegistry)
-        , converter_(context) {
-        pushScope(); // Global scope
-
-        // Register core namespaces first, before any type registration
-        if (!typeRegistry_.isNamespaceRegistered("pryst")) {
-            typeRegistry_.registerNamespace("pryst");
-        }
-        if (!typeRegistry_.isNamespaceRegistered("pryst::web")) {
-            typeRegistry_.registerNamespace("pryst::web");
-        }
-
-        // Initialize global scope with all registered types
-        initializeGlobalScope();
-    }
+    TypeChecker(llvm::LLVMContext& context, TypeRegistry& typeRegistry, runtime::RuntimeRegistry& runtimeRegistry);
+    bool isAssignable(std::any targetType, std::any sourceType);
 
     virtual ~TypeChecker() override {
         while (!scopes.empty()) {
@@ -79,6 +83,9 @@ public:
     std::any visitFunctionDecl(PrystParser::FunctionDeclContext* ctx) override;
     std::any visitVarDecl(PrystParser::VarDeclContext* ctx) override;
     std::any visitClassDecl(PrystParser::ClassDeclContext* ctx) override;
+    std::any visitErrorDecl(PrystParser::ErrorDeclContext* ctx) override;
+    std::any visitErrorField(PrystParser::ErrorFieldContext* ctx) override;
+    std::any visitErrorMethod(PrystParser::ErrorMethodContext* ctx) override;
     std::any visitInterfaceDecl(PrystParser::InterfaceDeclContext* ctx) override;
 
     // Visit methods for statements
@@ -101,6 +108,8 @@ public:
     std::any visitArrayAccessExpr(PrystParser::ArrayAccessExprContext* ctx) override;
     std::any visitMemberAccessExpr(PrystParser::MemberAccessExprContext* ctx) override;
     std::any visitNullableChain(PrystParser::NullableChainContext* ctx) override;
+    std::any visitPrimary(PrystParser::PrimaryContext* ctx) override;
+    std::any visitNullCoalesceExpr(PrystParser::NullCoalesceExprContext* ctx) override;
     std::any visitAdditiveExpr(PrystParser::AdditiveExprContext* ctx) override;
     std::any visitMultiplicativeExpr(PrystParser::MultiplicativeExprContext* ctx) override;
     std::any visitRelationalExpr(PrystParser::RelationalExprContext* ctx) override;
@@ -134,7 +143,6 @@ public:
     // Additional visitor methods for nullable types and type system
     std::any visitNullableType(PrystParser::NullableTypeContext* ctx) override;
     std::any visitKeyType(PrystParser::KeyTypeContext* ctx) override;
-    std::any visitPrimary(PrystParser::PrimaryContext* ctx) override;
     std::any visitStringInterpolation(PrystParser::StringInterpolationContext* ctx) override;
     std::any visitIdentifierList(PrystParser::IdentifierListContext* ctx) override;
 
@@ -155,9 +163,14 @@ public:
     std::any visitGenericArgs(PrystParser::GenericArgsContext* ctx) override;
     std::any visitInterfaceMember(PrystParser::InterfaceMemberContext* ctx) override;
     std::any visitClassMember(PrystParser::ClassMemberContext* ctx) override;
+    std::any visitErrorChainField(PrystParser::ErrorChainFieldContext* ctx) override;
+    std::shared_ptr<Type> validateErrorChain(std::shared_ptr<Type> errorType, std::shared_ptr<Type> chainedType);
+    bool isValidErrorChain(std::shared_ptr<Type> chainedType);
     std::any visitOverloadParams(PrystParser::OverloadParamsContext* ctx) override;
     std::any visitConstructorDecl(PrystParser::ConstructorDeclContext* ctx) override;
     std::any visitConstructorBlock(PrystParser::ConstructorBlockContext* ctx) override;
     std::any visitTypeList(PrystParser::TypeListContext* ctx) override;
+    std::any visitErrorDecl(PrystParser::ErrorDeclContext* ctx) override;
+    std::any visitErrorMember(PrystParser::ErrorMemberContext* ctx) override;
 };
 } // namespace pryst

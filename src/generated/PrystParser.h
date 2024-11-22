@@ -1,5 +1,5 @@
 
-// Generated from /home/ubuntu/workspace/pryst-cpp/src/PrystParser.g4 by ANTLR 4.13.2
+// Generated from /home/ubuntu/attachments/pryst/src/PrystParser.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -19,14 +19,14 @@ public:
     ELSE = 19, WHILE = 20, FOR = 21, IN = 22, IMPORT = 23, MODULE = 24, 
     TRY = 25, CATCH = 26, FINALLY = 27, AS = 28, BREAK = 29, CONTINUE = 30, 
     NEW = 31, MAP = 32, FROM = 33, THIS = 34, NULL_LIT = 35, INSTANCEOF = 36, 
-    TYPEOF = 37, ERROR = 38, NULL_COALESCE = 39, PLUS = 40, MINUS = 41, 
-    STAR = 42, SLASH = 43, PERCENT = 44, ASSIGN = 45, EQ = 46, NEQ = 47, 
-    LT = 48, GT = 49, LE = 50, GE = 51, AND = 52, OR = 53, NOT = 54, QUESTION_MARK = 55, 
-    COLON = 56, ARROW = 57, INC = 58, DEC = 59, LPAREN = 60, RPAREN = 61, 
-    LBRACE = 62, RBRACE = 63, LBRACK = 64, RBRACK = 65, SEMICOLON = 66, 
-    COMMA = 67, DOT = 68, DOUBLE_COLON = 69, IDENTIFIER = 70, STRING = 71, 
-    STRING_START = 72, STRING_MIDDLE = 73, STRING_END = 74, WS = 75, COMMENT = 76, 
-    BLOCK_COMMENT = 77, INVALID_CHAR = 78, INVALID_IDENTIFIER = 79, INTERP_WS = 80
+    TYPEOF = 37, ERROR = 38, PRINT = 39, NULL_COALESCE = 40, PLUS = 41, 
+    MINUS = 42, STAR = 43, SLASH = 44, PERCENT = 45, ASSIGN = 46, EQ = 47, 
+    NEQ = 48, LT = 49, GT = 50, LE = 51, GE = 52, AND = 53, OR = 54, NOT = 55, 
+    QUESTION_MARK = 56, COLON = 57, ARROW = 58, INC = 59, DEC = 60, LPAREN = 61, 
+    RPAREN = 62, LBRACE = 63, RBRACE = 64, LBRACK = 65, RBRACK = 66, SEMICOLON = 67, 
+    COMMA = 68, DOT = 69, DOUBLE_COLON = 70, IDENTIFIER = 71, STRING = 72, 
+    STRING_START = 73, STRING_MIDDLE = 74, STRING_END = 75, WS = 76, COMMENT = 77, 
+    BLOCK_COMMENT = 78, INVALID_CHAR = 79, INVALID_IDENTIFIER = 80, INTERP_WS = 81
   };
 
   enum {
@@ -35,16 +35,16 @@ public:
     RuleParameter = 8, RuleDefaultParam = 9, RuleBlock = 10, RuleStatement = 11, 
     RuleVarDecl = 12, RuleIdentifierList = 13, RuleAssignment = 14, RuleIfStmt = 15, 
     RuleWhileStmt = 16, RuleForStmt = 17, RuleReturnStmt = 18, RuleTryStmt = 19, 
-    RuleBreakStmt = 20, RuleContinueStmt = 21, RuleExpressionStmt = 22, 
-    RuleClassDecl = 23, RuleInterfaceDecl = 24, RuleInterfaceMember = 25, 
-    RuleGenericParams = 26, RuleGenericArgs = 27, RuleClassMember = 28, 
-    RuleOverloadParams = 29, RuleConstructorDecl = 30, RuleConstructorBlock = 31, 
-    RuleType = 32, RuleQualifiedType = 33, RuleReturnType = 34, RuleNullableType = 35, 
-    RuleBasicType = 36, RuleArrayType = 37, RuleMapType = 38, RuleKeyType = 39, 
-    RuleFunctionType = 40, RuleTypeList = 41, RuleExpression = 42, RulePrimary = 43, 
-    RuleStringInterpolation = 44, RuleChainedCall = 45, RuleStringLiteral = 46, 
-    RuleLambdaParams = 47, RuleArguments = 48, RuleArrayLiteral = 49, RuleMapLiteral = 50, 
-    RuleMapEntry = 51, RuleMapKey = 52, RuleErrorMember = 53
+    RuleBreakStmt = 20, RuleContinueStmt = 21, RulePrintStmt = 22, RuleExpressionStmt = 23, 
+    RuleClassDecl = 24, RuleInterfaceDecl = 25, RuleInterfaceMember = 26, 
+    RuleGenericParams = 27, RuleGenericArgs = 28, RuleClassMember = 29, 
+    RuleOverloadParams = 30, RuleConstructorDecl = 31, RuleConstructorBlock = 32, 
+    RuleType = 33, RuleQualifiedType = 34, RuleReturnType = 35, RuleNullableType = 36, 
+    RuleBasicType = 37, RuleArrayType = 38, RuleMapType = 39, RuleKeyType = 40, 
+    RuleFunctionType = 41, RuleTypeList = 42, RuleExpression = 43, RulePrimary = 44, 
+    RuleStringInterpolation = 45, RuleChainedCall = 46, RuleStringLiteral = 47, 
+    RuleLambdaParams = 48, RuleArguments = 49, RuleArrayLiteral = 50, RuleMapLiteral = 51, 
+    RuleMapEntry = 52, RuleMapKey = 53, RuleErrorMember = 54
   };
 
   explicit PrystParser(antlr4::TokenStream *input);
@@ -86,6 +86,7 @@ public:
   class TryStmtContext;
   class BreakStmtContext;
   class ContinueStmtContext;
+  class PrintStmtContext;
   class ExpressionStmtContext;
   class ClassDeclContext;
   class InterfaceDeclContext;
@@ -331,6 +332,7 @@ public:
     TryStmtContext *tryStmt();
     BreakStmtContext *breakStmt();
     ContinueStmtContext *continueStmt();
+    PrintStmtContext *printStmt();
 
 
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -521,6 +523,23 @@ public:
   };
 
   ContinueStmtContext* continueStmt();
+
+  class  PrintStmtContext : public antlr4::ParserRuleContext {
+  public:
+    PrintStmtContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *PRINT();
+    antlr4::tree::TerminalNode *LPAREN();
+    ExpressionContext *expression();
+    antlr4::tree::TerminalNode *RPAREN();
+    antlr4::tree::TerminalNode *SEMICOLON();
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  PrintStmtContext* printStmt();
 
   class  ExpressionStmtContext : public antlr4::ParserRuleContext {
   public:

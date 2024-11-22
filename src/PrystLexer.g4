@@ -41,6 +41,8 @@ NULL_LIT: 'null';
 INSTANCEOF: 'instanceof';
 TYPEOF: 'typeof';
 ERROR: 'error';
+CHAIN: 'chain';
+PRINT: 'print';
 NULL_COALESCE: '??';
 
 PLUS: '+';

@@ -9,5 +9,6 @@ std::shared_ptr<Type> STRING_TYPE = std::make_shared<PrimitiveType>(Type::Kind::
 std::shared_ptr<Type> VOID_TYPE = std::make_shared<PrimitiveType>(Type::Kind::Void);
 std::shared_ptr<Type> ERROR_TYPE = std::make_shared<PrimitiveType>(Type::Kind::Error);
 std::shared_ptr<Type> NULL_TYPE = std::make_shared<PrimitiveType>(Type::Kind::Null);
+std::shared_ptr<Type> ANY_TYPE = std::make_shared<PrimitiveType>(Type::Kind::Any);
 
 } // namespace pryst

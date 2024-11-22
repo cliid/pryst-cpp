@@ -3,7 +3,7 @@
 #include <cstring>
 #include <memory>
 
-using namespace pryst::web;
+using namespace pryst::runtime::web;
 
 extern "C" {
     // Request methods

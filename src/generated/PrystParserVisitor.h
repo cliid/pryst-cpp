@@ -1,5 +1,5 @@
 
-// Generated from /home/ubuntu/workspace/pryst-cpp/src/PrystParser.g4 by ANTLR 4.13.2
+// Generated from /home/ubuntu/attachments/pryst/src/PrystParser.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -63,6 +63,8 @@ public:
     virtual std::any visitBreakStmt(PrystParser::BreakStmtContext *context) = 0;
 
     virtual std::any visitContinueStmt(PrystParser::ContinueStmtContext *context) = 0;
+
+    virtual std::any visitPrintStmt(PrystParser::PrintStmtContext *context) = 0;
 
     virtual std::any visitExpressionStmt(PrystParser::ExpressionStmtContext *context) = 0;
 

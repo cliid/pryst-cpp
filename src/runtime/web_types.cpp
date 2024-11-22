@@ -8,68 +8,68 @@ namespace runtime {
 namespace web {
 
 extern "C" void* webserver_constructor() {
-    return new pryst::web::WebServer();
+    return new runtime::web::WebServer();
 }
 
 // Static wrapper functions for Request methods
 extern "C" void* request_constructor(const char* method, const char* path, const char* headers, const char* body) {
-    return new pryst::web::Request(method, path, std::map<std::string, std::string>(), body);
+    return new pryst::runtime::web::Request(method, path, std::map<std::string, std::string>(), body);
 }
 
 extern "C" const char* request_get_method(void* request) {
     static std::string result;  // Static to ensure the c_str() remains valid
-    result = static_cast<pryst::web::Request*>(request)->getMethod();
+    result = static_cast<runtime::web::Request*>(request)->getMethod();
     return result.c_str();
 }
 
 extern "C" const char* request_get_path(void* request) {
     static std::string result;
-    result = static_cast<pryst::web::Request*>(request)->getPath();
+    result = static_cast<runtime::web::Request*>(request)->getPath();
     return result.c_str();
 }
 
 extern "C" const char* request_get_headers(void* request) {
     static std::string result;
-    result = static_cast<pryst::web::Request*>(request)->getHeaders();
+    result = static_cast<runtime::web::Request*>(request)->getHeaders();
     return result.c_str();
 }
 
 extern "C" const char* request_get_body(void* request) {
     static std::string result;
-    result = static_cast<pryst::web::Request*>(request)->getBody();
+    result = static_cast<runtime::web::Request*>(request)->getBody();
     return result.c_str();
 }
 
 extern "C" void* response_constructor() {
-    return new pryst::web::Response();
+    return new runtime::web::Response();
 }
 
 extern "C" void response_set_status(void* response, int status) {
-    static_cast<pryst::web::Response*>(response)->status = status;
+    static_cast<runtime::web::Response*>(response)->status = status;
 }
 
 extern "C" void response_set_body(void* response, const char* body) {
-    static_cast<pryst::web::Response*>(response)->body = body;
+    static_cast<runtime::web::Response*>(response)->body = body;
 }
 
 extern "C" void response_set_content_type(void* response, const char* contentType) {
-    static_cast<pryst::web::Response*>(response)->contentType = contentType;
-    static_cast<pryst::web::Response*>(response)->headers["Content-Type"] = contentType;
+    static_cast<runtime::web::Response*>(response)->contentType = contentType;
+    static_cast<runtime::web::Response*>(response)->headers["Content-Type"] = contentType;
 }
 
 extern "C" void response_set_content(void* response, const char* content, const char* contentType) {
-    auto resp = static_cast<pryst::web::Response*>(response);
+    auto resp = static_cast<runtime::web::Response*>(response);
     resp->body = content;
     resp->contentType = contentType;
     resp->headers["Content-Type"] = contentType;
 }
 
 extern "C" void webserver_get(void* server, const char* path, void* handler) {
-    static_cast<pryst::web::WebServer*>(server)->get(path, *static_cast<std::function<void(pryst::web::Request&, pryst::web::Response&)>*>(handler));
+    static_cast<runtime::web::WebServer*>(server)->get(path, *static_cast<std::function<void(runtime::web::Request&, runtime::web::Response&)>*>(handler));
 }
 
 extern "C" void webserver_start(void* server, int port) {
-    static_cast<pryst::web::WebServer*>(server)->start(port);
+    static_cast<runtime::web::WebServer*>(server)->start(port);
 }
 
 void registerWebTypes(RuntimeRegistry& registry) {
@@ -82,104 +82,104 @@ void registerWebTypes(RuntimeRegistry& registry) {
     if (!typeRegistry->isNamespaceRegistered("pryst")) {
         typeRegistry->registerNamespace("pryst");
     }
-    if (!typeRegistry->isNamespaceRegistered("pryst::web")) {
-        typeRegistry->registerNamespace("pryst::web");
+    if (!typeRegistry->isNamespaceRegistered("pryst::runtime")) {
+        typeRegistry->registerNamespace("pryst::runtime");
+    }
+    if (!typeRegistry->isNamespaceRegistered("pryst::runtime::web")) {
+        typeRegistry->registerNamespace("pryst::runtime::web");
     }
 
     // Step 2: Create class types without LLVM types first
     std::cout << "Debug [registerWebTypes]: Creating class types" << std::endl;
 
-    // Request class type
-    auto requestClassType = std::make_shared<pryst::ClassType>("pryst::web::Request");
-    // Request methods don't take parameters but return string
-    requestClassType->addMethod("getMethod", STRING_TYPE, std::vector<std::shared_ptr<Type>>{});
-    requestClassType->addMethod("getPath", STRING_TYPE, std::vector<std::shared_ptr<Type>>{});
-    requestClassType->addMethod("getHeaders", STRING_TYPE, std::vector<std::shared_ptr<Type>>{});
-    requestClassType->addMethod("getBody", STRING_TYPE, std::vector<std::shared_ptr<Type>>{});
+    // Create LLVM types for web classes
+    std::vector<std::pair<std::string, llvm::Type*>> requestMembers = {
+        {"method", llvm::PointerType::get(llvm::Type::getInt8Ty(typeRegistry->getContext()), 0)},
+        {"path", llvm::PointerType::get(llvm::Type::getInt8Ty(typeRegistry->getContext()), 0)},
+        {"body", llvm::PointerType::get(llvm::Type::getInt8Ty(typeRegistry->getContext()), 0)}
+    };
+    typeRegistry->registerClass("pryst::runtime::web::Request", requestMembers);
 
-    // Response class type
-    auto responseClassType = std::make_shared<pryst::ClassType>("pryst::web::Response");
-    std::vector<std::shared_ptr<Type>> statusParams = {INT_TYPE};
-    std::vector<std::shared_ptr<Type>> bodyParams = {STRING_TYPE};
-    std::vector<std::shared_ptr<Type>> contentTypeParams = {STRING_TYPE};
-    std::vector<std::shared_ptr<Type>> setContentParams = {STRING_TYPE, STRING_TYPE};
+    std::vector<std::pair<std::string, llvm::Type*>> responseMembers = {
+        {"status", llvm::Type::getInt32Ty(typeRegistry->getContext())},
+        {"body", llvm::PointerType::get(llvm::Type::getInt8Ty(typeRegistry->getContext()), 0)},
+        {"contentType", llvm::PointerType::get(llvm::Type::getInt8Ty(typeRegistry->getContext()), 0)}
+    };
+    typeRegistry->registerClass("pryst::runtime::web::Response", responseMembers);
 
-    responseClassType->addMethod("setStatus", VOID_TYPE, statusParams);
-    responseClassType->addMethod("setBody", VOID_TYPE, bodyParams);
-    responseClassType->addMethod("setContentType", VOID_TYPE, contentTypeParams);
-    responseClassType->addMethod("setContent", VOID_TYPE, setContentParams);
-    // WebServer class type
-    auto serverClassType = std::make_shared<pryst::ClassType>("pryst::web::WebServer");
+    std::vector<std::pair<std::string, llvm::Type*>> serverMembers;  // WebServer has no members, just methods
+    typeRegistry->registerClass("pryst::runtime::web::WebServer", serverMembers);
+
+    // Get the registered types
+    auto requestClassType = typeRegistry->getCachedType("pryst::runtime::web::Request");
+    auto responseClassType = typeRegistry->getCachedType("pryst::runtime::web::Response");
+    auto serverClassType = typeRegistry->getCachedType("pryst::runtime::web::WebServer");
+
+    // Add methods to the types
+    requestClassType->addMethod("getMethod", STRING_TYPE);
+    requestClassType->addMethod("getPath", STRING_TYPE);
+    requestClassType->addMethod("getHeaders", STRING_TYPE);
+    requestClassType->addMethod("getBody", STRING_TYPE);
+
+    responseClassType->addMethod("setStatus", VOID_TYPE, {INT_TYPE});
+    responseClassType->addMethod("setBody", VOID_TYPE, {STRING_TYPE});
+    responseClassType->addMethod("setContentType", VOID_TYPE, {STRING_TYPE});
+    responseClassType->addMethod("setContent", VOID_TYPE, {STRING_TYPE, STRING_TYPE});
 
     // Handler type for get method: function(Request, Response) -> void
-    std::vector<std::shared_ptr<Type>> handlerParams = {
-        requestClassType,  // Request parameter
-        responseClassType  // Response parameter
-    };
+    std::vector<std::shared_ptr<Type>> handlerParams = {requestClassType, responseClassType};
     auto handlerType = std::make_shared<FunctionType>(VOID_TYPE, handlerParams);
 
-    // Parameters for get method: (path: string, handler: function)
-    std::vector<std::shared_ptr<Type>> getParams = {STRING_TYPE, handlerType};
-    // Parameters for start method: (port: int)
-    std::vector<std::shared_ptr<Type>> startParams = {INT_TYPE};
+    serverClassType->addMethod("get", VOID_TYPE, {STRING_TYPE, handlerType});
+    serverClassType->addMethod("start", VOID_TYPE, {INT_TYPE});
 
-    serverClassType->addMethod("get", VOID_TYPE, getParams);
-    serverClassType->addMethod("start", VOID_TYPE, startParams);
-
-    // Step 3: Cache types in type registry
-    std::cout << "Debug [registerWebTypes]: Caching types" << std::endl;
-    typeRegistry->cacheType("pryst::web::Request", requestClassType);
-    typeRegistry->cacheType("Request", requestClassType);
-    typeRegistry->cacheType("pryst::web::Response", responseClassType);
-    typeRegistry->cacheType("Response", responseClassType);
-    typeRegistry->cacheType("pryst::web::WebServer", serverClassType);
-    typeRegistry->cacheType("WebServer", serverClassType);
-
-    // Step 4: Now create LLVM types and register members
-    std::cout << "Debug [registerWebTypes]: Creating LLVM types" << std::endl;
-    auto strType = typeRegistry->getCachedType("str");
+    // Register with runtime registry
+    registry.registerClass("pryst::runtime::web::Request", "Request", typeRegistry->getClassType("pryst::runtime::web::Request"));
+    registry.registerClass("pryst::runtime::web::Response", "Response", typeRegistry->getClassType("pryst::runtime::web::Response"));
+    registry.registerClass("pryst::runtime::web::WebServer", "WebServer", typeRegistry->getClassType("pryst::runtime::web::WebServer"));
 
     // Create map type for headers
+    auto strType = typeRegistry->getCachedType("str");
     auto headersMapType = std::make_shared<MapType>(strType, strType);
     typeRegistry->cacheType("map<str,str>", headersMapType);
 
     // Request members
-    std::vector<std::pair<std::string, llvm::Type*>> requestMembers;
-    requestMembers.push_back(std::make_pair("method", typeRegistry->getLLVMType(strType)));
-    requestMembers.push_back(std::make_pair("path", typeRegistry->getLLVMType(strType)));
-    requestMembers.push_back(std::make_pair("headers", typeRegistry->getLLVMType(headersMapType)));
-    requestMembers.push_back(std::make_pair("body", typeRegistry->getLLVMType(strType)));
+    std::vector<std::pair<std::string, llvm::Type*>> requestFields;
+    requestFields.push_back(std::make_pair("method", typeRegistry->getLLVMType(strType)));
+    requestFields.push_back(std::make_pair("path", typeRegistry->getLLVMType(strType)));
+    requestFields.push_back(std::make_pair("headers", typeRegistry->getLLVMType(headersMapType)));
+    requestFields.push_back(std::make_pair("body", typeRegistry->getLLVMType(strType)));
 
     // Response members
-    std::vector<std::pair<std::string, llvm::Type*>> responseMembers;
-    responseMembers.push_back(std::make_pair("status", llvm::Type::getInt32Ty(context)));
-    responseMembers.push_back(std::make_pair("headers", typeRegistry->getLLVMType(headersMapType)));
-    responseMembers.push_back(std::make_pair("body", typeRegistry->getLLVMType(strType)));
-    responseMembers.push_back(std::make_pair("contentType", typeRegistry->getLLVMType(strType)));
+    std::vector<std::pair<std::string, llvm::Type*>> responseFields;
+    responseFields.push_back(std::make_pair("status", llvm::Type::getInt32Ty(context)));
+    responseFields.push_back(std::make_pair("headers", typeRegistry->getLLVMType(headersMapType)));
+    responseFields.push_back(std::make_pair("body", typeRegistry->getLLVMType(strType)));
+    responseFields.push_back(std::make_pair("contentType", typeRegistry->getLLVMType(strType)));
 
     // WebServer members
-    std::vector<std::pair<std::string, llvm::Type*>> serverMembers;
-    serverMembers.push_back(std::make_pair("routes", typeRegistry->getLLVMType(strType)));
+    std::vector<std::pair<std::string, llvm::Type*>> serverFields;
+    serverFields.push_back(std::make_pair("routes", typeRegistry->getLLVMType(strType)));
 
     // Step 5: Create LLVM struct types
     std::cout << "Debug [registerWebTypes]: Creating LLVM struct types" << std::endl;
-    std::vector<llvm::Type*> requestFields;
+    std::vector<llvm::Type*> requestTypeFields;
     for (const auto& member : requestMembers) {
-        requestFields.push_back(member.second);
+        requestTypeFields.push_back(member.second);
     }
-    auto requestType = llvm::StructType::create(context, requestFields, "struct.pryst.web.Request");
+    auto requestType = llvm::StructType::create(context, requestTypeFields, "struct.pryst.runtime.web.Request");
 
-    std::vector<llvm::Type*> responseFields;
+    std::vector<llvm::Type*> responseTypeFields;
     for (const auto& member : responseMembers) {
-        responseFields.push_back(member.second);
+        responseTypeFields.push_back(member.second);
     }
-    auto responseType = llvm::StructType::create(context, responseFields, "struct.pryst.web.Response");
+    auto responseType = llvm::StructType::create(context, responseTypeFields, "struct.pryst.runtime.web.Response");
 
-    std::vector<llvm::Type*> serverFields;
+    std::vector<llvm::Type*> serverTypeFields;
     for (const auto& member : serverMembers) {
-        serverFields.push_back(member.second);
+        serverTypeFields.push_back(member.second);
     }
-    auto serverType = llvm::StructType::create(context, serverFields, "struct.pryst.web.WebServer");
+    auto serverType = llvm::StructType::create(context, serverTypeFields, "struct.pryst.runtime.web.WebServer");
 
     // Step 6: Register classes with members
     std::cout << "Debug [registerWebTypes]: Registering classes with members" << std::endl;

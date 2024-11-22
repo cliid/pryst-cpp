@@ -6,6 +6,7 @@
 #include "error_impl.hpp"
 
 namespace pryst {
+namespace runtime {
 namespace web {
 
 class Request {
@@ -18,4 +19,5 @@ private:
 };
 
 } // namespace web
+} // namespace runtime
 } // namespace pryst

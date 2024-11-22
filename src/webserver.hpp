@@ -6,6 +6,7 @@
 #include <memory>
 
 namespace pryst {
+namespace runtime {
 namespace web {
 
 class WebServer {
@@ -24,4 +25,5 @@ private:
 };
 
 } // namespace web
+} // namespace runtime
 } // namespace pryst

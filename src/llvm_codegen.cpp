@@ -1,3 +1,4 @@
+// LLVM includes
 #include <llvm/IR/IRBuilder.h>
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/Module.h>
@@ -8,15 +9,20 @@
 #include <llvm/IR/DerivedTypes.h>
 #include <llvm/IR/BasicBlock.h>
 #include <llvm/IR/Constants.h>
+
+// Standard includes
 #include <memory>
 #include <map>
 #include <string>
 #include <stdexcept>
+
+// Project includes
 #include "llvm_codegen.hpp"
 #include "type_checker.hpp"
 #include "types.hpp"
 #include "type_registry.hpp"
 
+// Use LLVM types explicitly in implementation
 namespace pryst {
 
 std::shared_ptr<Type> LLVMCodeGen::getTypeFromTypeContext(PrystParser::TypeContext* ctx) {

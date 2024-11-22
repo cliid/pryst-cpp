@@ -1,4 +1,4 @@
-#include "compiler.hpp"
+// LLVM includes
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/Module.h>
 #include <llvm/IR/IRBuilder.h>
@@ -17,14 +17,15 @@
 #include <llvm/Transforms/IPO/PassManagerBuilder.h>
 #include <llvm/IR/LegacyPassManager.h>
 #include <llvm/ADT/Optional.h>
+
+// Project includes
+#include "type_checker.hpp"
+#include "compiler.hpp"
 #include <memory>
 #include <string>
 
 namespace pryst {
-    // Forward declarations if needed
-} // namespace pryst
-
-using namespace pryst;
+// Implementation will use explicit LLVM namespace qualifications
 
 void Compiler::initializeTarget() {
     llvm::InitializeNativeTarget();
@@ -62,7 +63,7 @@ Compiler::Compiler() :
     Builder(std::make_unique<llvm::IRBuilder<>>(*Context)) {
 
     // Create RuntimeRegistry first without TypeRegistry dependency
-    runtimeRegistry = std::make_unique<pryst::runtime::RuntimeRegistry>(Module.get());
+    runtimeRegistry = std::make_unique<runtime::RuntimeRegistry>(Module.get());
 
     // Create TypeRegistry with RuntimeRegistry reference
     Registry = std::make_unique<TypeRegistry>(*Context, *runtimeRegistry);
@@ -148,3 +149,4 @@ bool Compiler::compileToObjectFile(const std::string& filename) {
     dest.flush();
     return true;
 }
+} // namespace pryst

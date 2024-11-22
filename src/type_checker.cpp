@@ -15,7 +15,36 @@ using namespace antlr4;
 
 namespace pryst {
 
-// Begin method implementations
+TypeChecker::TypeChecker(llvm::LLVMContext& context, TypeRegistry& typeRegistry, runtime::RuntimeRegistry& runtimeRegistry)
+    : scopeManager_(typeRegistry)
+    , currentFunctionReturnType(std::any())
+    , lastExpressionType(std::any())
+    , isInLoop(false)
+    , context_(context)
+    , typeRegistry_(typeRegistry)
+    , runtimeRegistry_(runtimeRegistry)
+    , converter_(context) {
+
+    // Register core namespaces first, before any type registration
+    if (!typeRegistry_.isNamespaceRegistered("pryst")) {
+        typeRegistry_.registerNamespace("pryst");
+    }
+    if (!typeRegistry_.isNamespaceRegistered("pryst::runtime::web")) {
+        typeRegistry_.registerNamespace("pryst::runtime::web");
+    }
+
+    // Initialize global scope with all registered types
+    initializeGlobalScope();
+}
+
+void TypeChecker::initializeGlobalScope() {
+    std::cout << "Debug [initializeGlobalScope]: Initializing global scope" << std::endl;
+
+    // Register all known types from type registry in global scope
+    for (const auto& [typeName, type] : typeRegistry_.getAllTypes()) {
+        scopeManager_.declareVariable(typeName, type);
+    }
+}
 
 void debugPrintType(const std::shared_ptr<Type>& type, const std::string& context) {
     std::cout << "Debug [" << context << "]: ";
@@ -26,13 +55,24 @@ void debugPrintType(const std::shared_ptr<Type>& type, const std::string& contex
     }
 }
 
+bool TypeChecker::isErrorType(std::shared_ptr<Type> type) {
+    if (type->getKind() != Type::Kind::Class) {
+        return false;
+    }
+
+    auto className = type->toString();
+    if (className == "Error") {
+        return true;
+    }
+
+    // Check if type extends Error through the inheritance chain
+    return typeRegistry_.isSubclassOf(className, "Error");
+}
+
 void TypeChecker::declareVariable(const std::string& name, std::any type) {
     auto typeSPtr = std::any_cast<std::shared_ptr<Type>>(type);
     std::cout << "Debug [declareVariable]: Registering variable " << name
               << " with type " << (typeSPtr ? typeSPtr->toString() : "null") << std::endl;
-    if (scopes.empty()) {
-        throw Error("InternalError", "No scope available for variable declaration");
-    }
 
     if (typeSPtr && typeSPtr->getKind() == Type::Kind::Class) {
         auto classType = std::static_pointer_cast<ClassType>(typeSPtr);
@@ -46,108 +86,138 @@ void TypeChecker::declareVariable(const std::string& name, std::any type) {
         }
     }
 
-    if (currentScope_) {
-        (*currentScope_)[name] = type;
-    } else {
-        throw Error("InternalError", "No current scope available for variable declaration");
-    }
+    scopeManager_.declareVariable(name, typeSPtr);
 }
 
 void TypeChecker::pushScope() {
     std::cout << "Debug [pushScope]: Creating new scope" << std::endl;
 
-    // Create new scope
-    std::unordered_map<std::string, std::shared_ptr<Type>> newScope;
-
     // If there are existing scopes, preserve all class types and their namespaces
     if (!scopes.empty()) {
-        for (const auto& [name, type] : scopes.back()) {
-            if (type && type->getKind() == Type::Kind::Class) {
-                auto classType = std::static_pointer_cast<ClassType>(type);
-                std::string typeName = classType->getName();
+        for (const auto& [name, typeAny] : scopes.back()) {
+            if (auto type = std::any_cast<std::shared_ptr<Type>>(&typeAny)) {
+                if ((*type)->getKind() == Type::Kind::Class) {
+                    auto classType = std::static_pointer_cast<ClassType>(*type);
+                    std::string typeName = classType->getName();
 
-                // Preserve all class types, not just web types
-                std::cout << "Debug [pushScope]: Preserving type " << typeName << " in new scope" << std::endl;
-                newScope[name] = type;
+                    // Preserve all class types, not just web types
+                    std::cout << "Debug [pushScope]: Preserving type " << typeName << " in new scope" << std::endl;
 
-                // Ensure type is cached in registry
-                typeRegistry_.cacheType(typeName, type);
+                    // Ensure type is cached in registry
+                    typeRegistry_.cacheType(typeName, *type);
 
-                // Cache short name if it's a qualified name
-                size_t lastSeparator = typeName.rfind("::");
-                if (lastSeparator != std::string::npos) {
-                    std::string shortName = typeName.substr(lastSeparator + 2);
-                    typeRegistry_.cacheType(shortName, type);
+                    // Cache short name if it's a qualified name
+                    size_t lastSeparator = typeName.rfind("::");
+                    if (lastSeparator != std::string::npos) {
+                        std::string shortName = typeName.substr(lastSeparator + 2);
+                        typeRegistry_.cacheType(shortName, *type);
+                    }
+
+                    scopeManager_.declareVariable(name, *type);
                 }
             }
         }
     }
 
-    scopes.push_back(newScope);
+    scopeManager_.pushScope();
+}
+
+bool TypeChecker::isErrorType(std::shared_ptr<Type> type) {
+    if (!type) return false;
+    return type->toString() == "Error" || typeRegistry_.isSubclassOf(type->toString(), "Error");
+}
+
+bool TypeChecker::validateErrorMethodSignature(const std::string& methodName,
+                                             const std::shared_ptr<FunctionType>& method,
+                                             const std::shared_ptr<Type>& baseType) {
+    if (auto baseClass = std::dynamic_pointer_cast<ClassType>(baseType)) {
+        auto baseMethod = baseClass->getMethod(methodName);
+        if (baseMethod) {
+            if (auto baseFuncType = std::dynamic_pointer_cast<FunctionType>(baseMethod)) {
+                return method->isCompatibleWith(baseFuncType);
+            }
+        }
+    }
+    return true;  // No base method to validate against
+}
+
+std::shared_ptr<Type> TypeChecker::createErrorChain(const std::shared_ptr<Type>& error,
+                                                   const std::shared_ptr<Type>& cause) {
+    if (!isErrorType(error) || (cause && !isErrorType(cause))) {
+        throw Error("TypeError", "Both error and cause must be error types");
+    }
+
+    // Create a new error instance with the cause set
+    auto chainedError = std::make_shared<ClassType>(error->toString());
+    if (auto errorClass = std::dynamic_pointer_cast<ClassType>(error)) {
+        // Copy all fields and methods from the original error
+        for (const auto& field : errorClass->getAvailableMembers()) {
+            chainedError->addField(field, errorClass->getField(field));
+        }
+        // Set the cause field
+        chainedError->addField("cause", cause ? cause : std::make_shared<NullableType>(typeRegistry_.getCachedType("Error")));
+    }
+    return chainedError;
 }
 
 void TypeChecker::popScope() {
-    if (!scopes.empty()) {
-        std::cout << "Debug [popScope]: Removing current scope" << std::endl;
+    std::cout << "Debug [popScope]: Removing current scope" << std::endl;
 
-        // Before popping the scope, ensure all class types and their namespaces are preserved
-        for (const auto& [name, type] : scopes.back()) {
-            if (type && type->getKind() == Type::Kind::Class) {
-                auto classType = std::static_pointer_cast<ClassType>(type);
-                std::string typeName = classType->getName();
-                std::cout << "Debug [popScope]: Preserving type " << typeName << " in registry" << std::endl;
+    // Before popping the scope, ensure all class types and their namespaces are preserved
+    auto currentScope = scopeManager_.getCurrentScope();
+    for (const auto& [name, type] : currentScope) {
+        if (type->getKind() == Type::Kind::Class) {
+            auto classType = std::static_pointer_cast<ClassType>(type);
+            std::string typeName = classType->getName();
+            std::cout << "Debug [popScope]: Preserving type " << typeName << " in registry" << std::endl;
 
-                // Cache with full name
-                typeRegistry_.cacheType(typeName, type);
+            // Cache with full name
+            typeRegistry_.cacheType(typeName, type);
 
-                // Parse and register all namespace parts
-                std::vector<std::string> parts;
-                std::string currentNamespace;
-                size_t start = 0;
-                size_t end = typeName.find("::");
+            // Parse and register all namespace parts
+            std::vector<std::string> parts;
+            std::string currentNamespace;
+            size_t start = 0;
+            size_t end = typeName.find("::");
 
-                // Register core namespaces first
-                typeRegistry_.registerNamespace("pryst");
-                typeRegistry_.registerNamespace("pryst::web");
+            // Register core namespaces first
+            typeRegistry_.registerNamespace("pryst");
+            typeRegistry_.registerNamespace("pryst::runtime::web");
 
-                while (end != std::string::npos) {
-                    std::string part = typeName.substr(start, end - start);
-                    if (!currentNamespace.empty()) {
-                        currentNamespace += "::";
-                    }
-                    currentNamespace += part;
-                    std::cout << "Debug [popScope]: Registering namespace: " << currentNamespace << std::endl;
-                    typeRegistry_.registerNamespace(currentNamespace);
-
-                    start = end + 2;
-                    end = typeName.find("::", start);
+            while (end != std::string::npos) {
+                std::string part = typeName.substr(start, end - start);
+                if (!currentNamespace.empty()) {
+                    currentNamespace += "::";
                 }
+                currentNamespace += part;
+                std::cout << "Debug [popScope]: Registering namespace: " << currentNamespace << std::endl;
+                typeRegistry_.registerNamespace(currentNamespace);
 
-                // Cache with short name if it's a qualified name
-                size_t lastSeparator = typeName.rfind("::");
-                if (lastSeparator != std::string::npos) {
-                    std::string shortName = typeName.substr(lastSeparator + 2);
-                    typeRegistry_.cacheType(shortName, type);
-                }
+                start = end + 2;
+                end = typeName.find("::", start);
+            }
+
+            // Cache with short name if it's a qualified name
+            size_t lastSeparator = typeName.rfind("::");
+            if (lastSeparator != std::string::npos) {
+                std::string shortName = typeName.substr(lastSeparator + 2);
+                typeRegistry_.cacheType(shortName, type);
             }
         }
-
-        scopes.pop_back();
-    } else {
-        std::cerr << "Warning [popScope]: Attempted to pop empty scope stack" << std::endl;
     }
+
+    scopeManager_.popScope();
 }
 
 
 
 std::any TypeChecker::lookupVariable(const std::string& name) {
-    for (auto it = scopes.rbegin(); it != scopes.rend(); ++it) {
-        auto found = it->find(name);
-        if (found != it->end()) {
-            return found->second;
-        }
+    try {
+        auto type = scopeManager_.getVariableType(name);
+        return std::any(type);
+    } catch (const Error& e) {
+        throw Error("ReferenceError", "Undefined variable: " + name);
     }
-    throw Error("ReferenceError", "Undefined variable: " + name);
 }
 
 std::any TypeChecker::checkMemberAccess(std::any baseType, const std::string& member, bool isNullable) {
@@ -155,24 +225,167 @@ std::any TypeChecker::checkMemberAccess(std::any baseType, const std::string& me
     std::cout << "Debug [checkMemberAccess]: Checking member '" << member
               << "' on type " << baseTypeSPtr->toString() << std::endl;
 
-    // Handle nullable types
-    if (baseTypeSPtr->getKind() == Type::Kind::Nullable) {
-        auto nullableType = std::static_pointer_cast<NullableType>(baseTypeSPtr);
+    // Handle nullable types with proper chain operator support
+    if (auto nullableType = std::dynamic_pointer_cast<NullableType>(baseTypeSPtr)) {
         auto innerType = nullableType->getInnerType();
-        auto memberType = checkMemberAccess(std::any(innerType), member, false);
-        auto memberTypeSPtr = std::any_cast<std::shared_ptr<Type>>(memberType);
-        return std::any(isNullable ? std::make_shared<NullableType>(memberTypeSPtr) : memberTypeSPtr);
+        if (!isNullable) {
+            throw Error("TypeError", "Cannot access member '" + member + "' on nullable type without using ?. operator");
+        }
+        auto result = checkMemberAccess(std::any(innerType), member, true);
+        return std::any(std::make_shared<NullableType>(std::any_cast<std::shared_ptr<Type>>(result)));
     }
 
     // Handle class types
-    if (baseTypeSPtr->getKind() == Type::Kind::Class) {
-        auto classType = std::static_pointer_cast<ClassType>(baseTypeSPtr);
-        if (auto memberType = classType->getField(member)) {
-            return std::any(isNullable ? std::make_shared<NullableType>(memberType) : memberType);
+    if (auto classType = std::dynamic_pointer_cast<ClassType>(baseTypeSPtr)) {
+        if (auto fieldType = classType->getField(member)) {
+            return std::any(isNullable ? std::make_shared<NullableType>(fieldType) : fieldType);
+        }
+        if (auto methodType = classType->getMethod(member)) {
+            return std::any(isNullable ? std::make_shared<NullableType>(methodType) : methodType);
         }
     }
 
     throw Error("TypeError", "Type " + baseTypeSPtr->toString() + " has no member '" + member + "'");
+}
+
+std::any TypeChecker::unwrapNullableType(std::any type) {
+    auto typeSPtr = std::any_cast<std::shared_ptr<Type>>(type);
+    if (typeSPtr->getKind() == Type::Kind::Nullable) {
+        return std::any(std::static_pointer_cast<NullableType>(typeSPtr)->getInnerType());
+    }
+    return type;
+}
+
+bool TypeChecker::isNullableType(std::any type) {
+    auto typeSPtr = std::any_cast<std::shared_ptr<Type>>(type);
+    return typeSPtr->getKind() == Type::Kind::Nullable;
+}
+
+std::any TypeChecker::wrapAsNullable(std::any type) {
+    auto typeSPtr = std::any_cast<std::shared_ptr<Type>>(type);
+    if (typeSPtr->isNullable()) {
+        return type;
+    }
+    return std::any(std::make_shared<NullableType>(typeSPtr));
+}
+
+std::any TypeChecker::propagateNullability(std::any sourceType, std::any targetType) {
+    auto sourceSPtr = std::any_cast<std::shared_ptr<Type>>(sourceType);
+    auto targetSPtr = std::any_cast<std::shared_ptr<Type>>(targetType);
+
+    if (sourceSPtr->isNullable()) {
+        return wrapAsNullable(targetType);
+    }
+    return targetType;
+}
+
+std::any TypeChecker::visitNullableMethodCallExpr(PrystParser::NullableMethodCallExprContext* ctx) {
+    auto baseType = visit(ctx->expression());
+    if (!isNullableType(baseType)) {
+        throw Error("TypeError", "Cannot use ?. operator on non-nullable type");
+    }
+
+    auto methodName = ctx->IDENTIFIER()->getText();
+    auto unwrappedType = unwrapNullableType(baseType);
+    auto baseTypeSPtr = std::any_cast<std::shared_ptr<Type>>(unwrappedType);
+
+    // Check if method exists on unwrapped type
+    auto methodType = baseTypeSPtr->getMethod(methodName);
+    if (!methodType) {
+        throw Error("TypeError", "Method '" + methodName + "' not found on type " + baseTypeSPtr->toString());
+    }
+
+    // Process arguments
+    std::vector<std::shared_ptr<Type>> argTypes;
+    if (ctx->arguments()) {
+        for (auto arg : ctx->arguments()->expression()) {
+            auto argType = std::any_cast<std::shared_ptr<Type>>(visit(arg));
+            argTypes.push_back(argType);
+        }
+    }
+
+    // Verify argument types match method parameters
+    auto funcType = std::static_pointer_cast<FunctionType>(methodType);
+    if (argTypes.size() != funcType->getParamTypes().size()) {
+        throw Error("TypeError", "Wrong number of arguments for method '" + methodName + "'");
+    }
+
+    // Return type is always nullable when using ?. operator
+    return wrapAsNullable(std::any(funcType->getReturnType()));
+}
+
+std::any TypeChecker::visitNullableChain(PrystParser::NullableChainContext* ctx) {
+    auto currentType = visit(ctx->expression());
+    auto baseType = std::any_cast<std::shared_ptr<Type>>(currentType);
+
+    if (!baseType->isNullable()) {
+        throw Error("TypeError", "Cannot use ?. operator on non-nullable type '" + baseType->toString() + "'");
+    }
+
+    auto nullableType = std::static_pointer_cast<NullableType>(baseType);
+    auto memberName = ctx->IDENTIFIER()->getText();
+
+    // Try to get field from nullable type
+    auto memberType = nullableType->getField(memberName);
+    if (!memberType) {
+        throw Error("TypeError", "Member '" + memberName + "' not found on type " + nullableType->getInnerType()->toString());
+    }
+
+    return std::any(memberType);
+}
+
+std::any TypeChecker::visitMethodCallExpr(PrystParser::MethodCallExprContext* ctx) {
+    auto baseType = visit(ctx->expression());
+    auto methodName = ctx->IDENTIFIER()->getText();
+    auto baseTypeSPtr = std::any_cast<std::shared_ptr<Type>>(baseType);
+
+    // Handle nullable types without ?. operator
+    if (baseTypeSPtr->isNullable()) {
+        throw Error("TypeError", "Cannot call method '" + methodName + "' on nullable type without using ?. operator");
+    }
+
+    // Get method type
+    auto methodType = baseTypeSPtr->getMethod(methodName);
+    if (!methodType) {
+        throw Error("TypeError", "Method '" + methodName + "' not found on type " + baseTypeSPtr->toString());
+    }
+
+    // Process arguments
+    std::vector<std::shared_ptr<Type>> argTypes;
+    if (ctx->arguments()) {
+        for (auto arg : ctx->arguments()->expression()) {
+            argTypes.push_back(std::any_cast<std::shared_ptr<Type>>(visit(arg)));
+        }
+    }
+
+    auto funcType = std::static_pointer_cast<FunctionType>(methodType);
+    if (argTypes.size() != funcType->getParamTypes().size()) {
+        throw Error("TypeError", "Wrong number of arguments for method '" + methodName + "'");
+    }
+
+    return std::any(funcType->getReturnType());
+}
+
+std::any TypeChecker::visitMemberAccessExpr(PrystParser::MemberAccessExprContext* ctx) {
+    auto baseType = visit(ctx->expression());
+    auto memberName = ctx->IDENTIFIER()->getText();
+    auto baseTypeSPtr = std::any_cast<std::shared_ptr<Type>>(baseType);
+
+    // Handle nullable types without ?. operator
+    if (baseTypeSPtr->isNullable()) {
+        throw Error("TypeError", "Cannot access member '" + memberName + "' on nullable type without using ?. operator");
+    }
+
+    if (auto classType = std::dynamic_pointer_cast<ClassType>(baseTypeSPtr)) {
+        auto memberType = classType->getFieldType(memberName);
+        if (!memberType) {
+            throw Error("TypeError", "Member '" + memberName + "' not found in class " +
+                      classType->getName());
+        }
+        return std::any(memberType);
+    }
+
+    return checkMemberAccess(baseType, memberName, false);
 }
 
 std::any TypeChecker::getTypeFromTypeContext(PrystParser::TypeContext* ctx) {
@@ -185,7 +398,7 @@ std::any TypeChecker::getTypeFromTypeContext(PrystParser::TypeContext* ctx) {
             throw Error("TypeError", "Null type context");
         }
 
-        // Handle qualified types (e.g., pryst::web::Request)
+        // Handle qualified types (e.g., pryst::runtime::web::Request)
         if (ctx->qualifiedType()) {
             std::cout << "Debug [getTypeFromTypeContext]: Processing qualified type" << std::endl;
             auto qualifiedType = ctx->qualifiedType();
@@ -205,15 +418,15 @@ std::any TypeChecker::getTypeFromTypeContext(PrystParser::TypeContext* ctx) {
             std::cout << "Debug [getTypeFromTypeContext]: Full type name: " << fullTypeName << std::endl;
 
             // Pre-register web types immediately if this might be a web type
-            if (fullTypeName.find("pryst::web") == 0 || parts[0] == "pryst" || parts[0] == "web") {
+            if (fullTypeName.find("pryst::runtime::web") == 0 || parts[0] == "pryst" || parts[0] == "web") {
                 std::cout << "Debug [getTypeFromTypeContext]: Pre-registering web types early for: " << fullTypeName << std::endl;
 
                 // Register namespaces first
                 typeRegistry_.registerNamespace("pryst");
-                typeRegistry_.registerNamespace("pryst::web");
+                typeRegistry_.registerNamespace("pryst::runtime::web");
 
                 // Then register web types
-                pryst::runtime::web::registerWebTypes(runtimeRegistry_);
+                runtime::web::registerWebTypes(runtimeRegistry_);
 
                 // Try to get the type immediately after registration
                 auto type = typeRegistry_.getCachedType(fullTypeName);
@@ -338,9 +551,9 @@ std::any TypeChecker::getTypeFromTypeContext(PrystParser::TypeContext* ctx) {
             std::cout << "Type registry has cached type (short): " << (typeRegistry_.getCachedType(shortName) ? "yes" : "no") << std::endl;
 
             // One last attempt to register web types if we haven't found the type
-            if (fullTypeName.find("pryst::web::") == 0) {
+            if (fullTypeName.find("pryst::runtime::web::") == 0) {
                 std::cout << "Debug [getTypeFromTypeContext]: Final attempt to register web types for: " << fullTypeName << std::endl;
-                pryst::runtime::web::registerWebTypes(runtimeRegistry_);
+                runtime::web::registerWebTypes(runtimeRegistry_);
 
                 // Check one last time
                 type = typeRegistry_.getCachedType(fullTypeName);
@@ -481,7 +694,11 @@ std::any TypeChecker::visitClassDecl(PrystParser::ClassDeclContext* ctx) {
         typeRegistry_.cacheType(className, classType);
     }
 
+    scopeManager_.pushScope();
+    scopeManager_.declareVariable(className, classType);
+
     // Process members
+    std::vector<std::pair<std::string, llvm::Type*>> classMembers;
     for (const auto& memberCtx : ctx->classMember()) {
         if (memberCtx->type()) {  // Check if there is a type
             auto memberName = memberCtx->IDENTIFIER()->getText();
@@ -501,8 +718,9 @@ std::any TypeChecker::visitClassDecl(PrystParser::ClassDeclContext* ctx) {
             std::cout << "Debug [visitClassDecl]: Adding field " << memberName
                       << " with type " << memberType->toString() << std::endl;
 
-            // Add member to the class type with proper LLVM type
-            members.push_back({memberName, llvmType});
+            // Add member to both scope and class type
+            scopeManager_.declareVariable(memberName, memberType);
+            classMembers.push_back({memberName, llvmType});
             classType->addField(memberName, memberType);
         }
     }
@@ -510,67 +728,297 @@ std::any TypeChecker::visitClassDecl(PrystParser::ClassDeclContext* ctx) {
     // Register or update the class with its members
     if (!typeRegistry_.hasClass(className)) {
         std::cout << "Debug [visitClassDecl]: Registering new class " << className << std::endl;
-        typeRegistry_.registerClass(className, members);
+        typeRegistry_.registerClass(className, classMembers);
     } else {
         std::cout << "Debug [visitClassDecl]: Updating existing class " << className << std::endl;
         // Update existing class registration with new members
-        for (const auto& member : members) {
-            typeRegistry_.registerMemberIndex(className, member.first, members.size());
+        for (const auto& member : classMembers) {
+            typeRegistry_.registerMemberIndex(className, member.first, classMembers.size());
         }
     }
 
+    scopeManager_.popScope();
     return std::any(classType);
 }
 
-std::any TypeChecker::visitNullableChain(PrystParser::NullableChainContext* ctx) {
-    std::cout << "Debug [visitNullableChain]: Processing nullable chain" << std::endl;
-    auto baseExpr = visit(ctx->expression());
-    auto baseType = std::any_cast<std::shared_ptr<Type>>(baseExpr);
-    std::cout << "Debug [visitNullableChain]: Base expression type: " << baseType->toString() << std::endl;
+std::any TypeChecker::visitInstanceOfExpr(PrystParser::InstanceOfExprContext* ctx) {
+    std::cout << "Debug [visitInstanceOfExpr]: Processing instanceof expression" << std::endl;
 
-    // Ensure base type is nullable
-    if (baseType->getKind() != Type::Kind::Nullable) {
-        throw Error("TypeError", "Cannot use ?. operator on non-nullable type '" + baseType->toString() + "'. Use '.' instead, or make the type nullable using '?'");
-    }
+    auto exprType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression()));
+    auto checkType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->type()));
 
-    auto nullableType = std::static_pointer_cast<NullableType>(baseType);
-    auto innerType = nullableType->getInnerType();
-
-    if (ctx->IDENTIFIER()) {
-        std::string memberName = ctx->IDENTIFIER()->getText();
-        if (auto classType = std::dynamic_pointer_cast<ClassType>(innerType)) {
-            auto fieldType = classType->getField(memberName);
-            if (fieldType) return std::any(std::make_shared<NullableType>(fieldType));
-            auto methodType = classType->getMethod(memberName);
-            if (methodType) return std::any(std::make_shared<NullableType>(methodType));
-            throw Error("TypeError", "Member '" + memberName + "' not found on type '" + innerType->toString() + "'");
+    // Special handling for error types
+    if (typeRegistry_.isErrorType(checkType->toString())) {
+        if (!typeRegistry_.isErrorType(exprType->toString())) {
+            throw Error("TypeError", "Cannot check if non-error type is instance of error type");
         }
-        throw Error("TypeError", "Cannot access members on non-class type: '" + innerType->toString() + "'");
+
+        // Get variable name for type narrowing if this is a variable expression
+        if (auto varExpr = dynamic_cast<PrystParser::VariableExprContext*>(ctx->expression())) {
+            std::string varName = varExpr->IDENTIFIER()->getText();
+            scopeManager_.narrowType(varName, checkType);
+        }
     }
-    return std::any(baseType);
+
+    // Handle other type checks
+    if (exprType->getKind() != Type::Kind::Class || checkType->getKind() != Type::Kind::Class) {
+        throw Error("TypeError", "instanceof can only be used with class types");
+    }
+
+    return std::any(BOOL_TYPE);
 }
 
-std::any TypeChecker::visitMemberAccessExpr(PrystParser::MemberAccessExprContext* ctx) {
-    std::cout << "Debug [visitMemberAccessExpr]: Processing member access" << std::endl;
+std::any TypeChecker::visitFunctionDecl(PrystParser::FunctionDeclContext* ctx) {
+    std::cout << "Debug [visitFunctionDecl]: Processing function declaration" << std::endl;
+    std::string funcName = ctx->IDENTIFIER()->getText();
+    auto returnType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->returnType()));
 
-    auto object = visit(ctx->expression());
-    auto objectType = std::any_cast<std::shared_ptr<Type>>(object);
-    std::string memberName = ctx->IDENTIFIER()->getText();
+    scopeManager_.pushScope();
 
-    // Use checkMemberAccess which already handles nullable types
-    return checkMemberAccess(std::any(objectType), memberName, false);
+    std::vector<std::shared_ptr<Type>> paramTypes;
+    for (const auto& param : ctx->parameter()) {
+        auto paramType = std::any_cast<std::shared_ptr<Type>>(visit(param->type()));
+        auto paramName = param->IDENTIFIER()->getText();
+        scopeManager_.declareVariable(paramName, paramType);
+        paramTypes.push_back(paramType);
+    }
+
+    auto funcType = std::make_shared<FunctionType>(returnType, paramTypes);
+    scopeManager_.declareVariable(funcName, funcType);
+
+    visit(ctx->block());
+    scopeManager_.popScope();
+
+    return std::any(funcType);
 }
 
+std::any TypeChecker::visitErrorDecl(PrystParser::ErrorDeclContext* ctx) {
+    std::cout << "Debug [visitErrorDecl]: Processing error declaration" << std::endl;
+    std::string errorName = ctx->IDENTIFIER(0)->getText();
 
+    // Get base class name (defaults to Error if not specified)
+    std::string baseClass = "Error";
+    if (ctx->EXTENDS()) {
+        baseClass = ctx->IDENTIFIER(1)->getText();
+        // Verify base class is Error or extends Error
+        if (!typeRegistry_.isSubclassOf(baseClass, "Error")) {
+            throw Error("TypeError", "Error class must extend Error or its subclasses: " + errorName);
+        }
+    }
+
+    // Create error type
+    auto errorType = std::make_shared<ClassType>(errorName);
+    typeRegistry_.cacheType(errorName, errorType);
+
+    scopeManager_.pushScope();
+    scopeManager_.declareVariable(errorName, errorType);
+
+    // Process error members
+    std::vector<std::pair<std::string, llvm::Type*>> errorMembers;
+
+    // First add inherited members from base class
+    auto baseType = typeRegistry_.getCachedType(baseClass);
+    if (auto baseClassType = std::dynamic_pointer_cast<ClassType>(baseType)) {
+        for (const auto& [name, type] : baseClassType->getFields()) {
+            llvm::Type* llvmType = typeRegistry_.getLLVMType(type);
+            errorMembers.push_back({name, llvmType});
+            errorType->addField(name, type);
+            scopeManager_.declareVariable(name, type);
+        }
+    }
+
+    // Then process declared members
+    for (const auto& memberCtx : ctx->errorMember()) {
+        std::any memberResult;
+        if (auto fieldCtx = dynamic_cast<PrystParser::ErrorFieldContext*>(memberCtx)) {
+            memberResult = visitErrorField(fieldCtx);
+        } else if (auto methodCtx = dynamic_cast<PrystParser::ErrorMethodContext*>(memberCtx)) {
+            scopeManager_.pushScope();
+            memberResult = visitErrorMethod(methodCtx);
+            scopeManager_.popScope();
+        }
+
+        if (memberResult.has_value()) {
+            auto memberType = std::any_cast<std::shared_ptr<Type>>(memberResult);
+            auto memberName = memberCtx->IDENTIFIER()->getText();
+
+            // Get LLVM type for the member
+            llvm::Type* llvmType = typeRegistry_.getLLVMType(memberType);
+            if (!llvmType) {
+                throw Error("TypeError", "Failed to get LLVM type for member " + memberName);
+            }
+
+            errorMembers.push_back({memberName, llvmType});
+            errorType->addField(memberName, memberType);
+            scopeManager_.declareVariable(memberName, memberType);
+        }
+    }
+
+    // Register the error class with inheritance
+    typeRegistry_.registerClass(errorName, errorMembers, baseClass);
+    scopeManager_.popScope();
+    return std::any(errorType);
+}
+
+std::any TypeChecker::visitErrorField(PrystParser::ErrorFieldContext* ctx) {
+    std::cout << "Debug [visitErrorField]: Processing error field" << std::endl;
+    auto memberName = ctx->IDENTIFIER()->getText();
+    auto memberTypeAny = visit(ctx->type());
+    auto memberType = std::any_cast<std::shared_ptr<Type>>(memberTypeAny);
+    return std::any(memberType);
+}
+
+std::any TypeChecker::visitErrorChainField(PrystParser::ErrorChainFieldContext* ctx) {
+    std::cout << "Debug [visitErrorChainField]: Processing error chain field" << std::endl;
+    auto chainType = visit(ctx->type());
+    auto chainTypePtr = std::any_cast<std::shared_ptr<Type>>(chainType);
+
+    if (!isErrorType(chainTypePtr)) {
+        throw Error("TypeError", "Chained field must be an Error type");
+    }
+
+    return std::any(std::make_shared<NullableType>(chainTypePtr));
+}
+
+std::any TypeChecker::visitTryCatchStmt(PrystParser::TryCatchStmtContext* ctx) {
+    std::cout << "Debug [visitTryCatchStmt]: Processing try-catch statement" << std::endl;
+
+    visit(ctx->tryBlock);
+
+    for (const auto& catchClause : ctx->catchClause()) {
+        auto errorType = std::any_cast<std::shared_ptr<Type>>(visit(catchClause->type()));
+
+        if (!typeRegistry_.isErrorType(errorType->toString())) {
+            throw Error("TypeError", "Catch clause type must be Error or its subclass");
+        }
+
+        scopeManager_.pushScope();
+        std::string errorVar = catchClause->IDENTIFIER()->getText();
+        scopeManager_.declareVariable(errorVar, errorType);
+
+        visit(catchClause->block());
+        scopeManager_.popScope();
+    }
+
+    return std::any();
+}
+
+std::any TypeChecker::visitErrorMethod(PrystParser::ErrorMethodContext* ctx) {
+    std::cout << "Debug [visitErrorMethod]: Processing error method" << std::endl;
+    auto returnTypeAny = visit(ctx->returnType());
+    auto returnType = std::any_cast<std::shared_ptr<Type>>(returnTypeAny);
+    auto methodName = ctx->IDENTIFIER()->getText();
+
+    std::vector<std::shared_ptr<Type>> paramTypes;
+    if (ctx->parameters()) {
+        for (auto paramCtx : ctx->parameters()->parameter()) {
+            auto paramTypeAny = visit(paramCtx->type());
+            paramTypes.push_back(std::any_cast<std::shared_ptr<Type>>(paramTypeAny));
+        }
+    }
+
+    auto methodType = std::make_shared<FunctionType>(returnType, paramTypes);
+
+    auto errorCtx = dynamic_cast<PrystParser::ErrorDeclContext*>(ctx->parent->parent);
+    if (errorCtx) {
+        std::string errorClassName = errorCtx->IDENTIFIER(0)->getText();
+        std::string baseClass = errorCtx->EXTENDS() ? errorCtx->IDENTIFIER(1)->getText() : "Error";
+        typeRegistry_.validateErrorMethodOverride(errorClassName, methodName, methodType, baseClass);
+    }
+
+    return std::any(methodType);
+}
+
+std::any TypeChecker::visitErrorDecl(PrystParser::ErrorDeclContext* ctx) {
+    std::cout << "Debug [visitErrorDecl]: Processing error declaration" << std::endl;
+    std::string errorName = ctx->IDENTIFIER(0)->getText();
+    std::string baseClass = ctx->EXTENDS() ? ctx->IDENTIFIER(1)->getText() : "Error";
+
+    if (!typeRegistry_.isErrorType(baseClass)) {
+        throw Error("TypeError", "Error class must extend Error or its subclasses: " + errorName);
+    }
+
+    auto errorType = std::make_shared<ClassType>(errorName);
+    typeRegistry_.cacheType(errorName, errorType);
+    std::vector<std::pair<std::string, llvm::Type*>> errorMembers;
+
+    scopeManager_.pushScope();
+
+    // Add standard error fields
+    auto strType = std::make_shared<PrimitiveType>(Type::Kind::String);
+    llvm::Type* messageType = typeRegistry_.getLLVMType(strType);
+    errorMembers.push_back({"message", messageType});
+    errorType->addField("message", strType);
+    scopeManager_.declareVariable("message", strType);
+
+    // Add nullable cause field
+    auto causeType = std::make_shared<NullableType>(typeRegistry_.getCachedType("Error"));
+    llvm::Type* causeLLVMType = typeRegistry_.getLLVMType(causeType);
+    errorMembers.push_back({"cause", causeLLVMType});
+    errorType->addField("cause", causeType);
+    scopeManager_.declareVariable("cause", causeType);
+
+    // Process error members with strict validation
+    for (const auto& memberCtx : ctx->errorMember()) {
+        if (auto methodCtx = dynamic_cast<PrystParser::ErrorMethodContext*>(memberCtx)) {
+            scopeManager_.pushScope();
+            auto returnType = visit(methodCtx->returnType());
+            auto methodName = methodCtx->IDENTIFIER()->getText();
+            auto params = visit(methodCtx->parameters());
+            auto methodType = std::make_shared<FunctionType>(
+                std::any_cast<std::shared_ptr<Type>>(returnType),
+                std::any_cast<std::vector<std::shared_ptr<Type>>>(params)
+            );
+
+            if (baseClass != "Error") {
+                typeRegistry_.validateErrorMethodOverride(errorName, methodName, methodType, baseClass);
+            }
+
+            errorType->addMethod(methodName, methodType);
+        } else if (auto fieldCtx = dynamic_cast<PrystParser::ErrorFieldContext*>(memberCtx)) {
+            auto fieldType = visit(fieldCtx->type());
+            auto fieldTypePtr = std::any_cast<std::shared_ptr<Type>>(fieldType);
+            auto fieldName = fieldCtx->IDENTIFIER()->getText();
+
+            if (errorType->hasMember(fieldName)) {
+                throw Error("TypeError", "Duplicate field name in error class: " + fieldName);
+            }
+
+            llvm::Type* llvmType = typeRegistry_.getLLVMType(fieldTypePtr);
+            errorMembers.push_back({fieldName, llvmType});
+            errorType->addField(fieldName, fieldTypePtr);
+        } else if (auto chainCtx = dynamic_cast<PrystParser::ErrorChainFieldContext*>(memberCtx)) {
+            auto chainType = visitErrorChainField(chainCtx);
+            auto chainTypePtr = std::any_cast<std::shared_ptr<Type>>(chainType);
+            auto fieldName = chainCtx->IDENTIFIER()->getText();
+
+            if (errorType->hasMember(fieldName)) {
+                throw Error("TypeError", "Duplicate field name in error class: " + fieldName);
+            }
+
+            typeRegistry_.validateErrorChain(errorName, chainTypePtr->toString());
+            llvm::Type* llvmType = typeRegistry_.getLLVMType(chainTypePtr);
+            errorMembers.push_back({fieldName, llvmType});
+            errorType->addField(fieldName, chainTypePtr);
+        }
+    }
+
+    typeRegistry_.registerClass(errorName, errorMembers, baseClass);
+    declareVariable(errorName, errorType);
+    return std::any(errorType);
+}
+
+// Removed duplicate implementation of visitNullableChain - using version defined earlier
+
+// Removed duplicate implementation of visitMemberAccessExpr - using version defined earlier
 
 std::any TypeChecker::visitEmptyArrayLiteral(PrystParser::EmptyArrayLiteralContext* ctx) {
     std::cout << "Debug [visitEmptyArrayLiteral]: Processing empty array literal" << std::endl;
 
-    auto genericArgs = ctx->genericArgs();
-    if (!genericArgs || genericArgs->type().empty()) {
-        throw Error("TypeError", "Empty array literal requires type argument");
-    }
-    auto elementType = std::any_cast<std::shared_ptr<Type>>(visit(genericArgs->type(0)));
+    // Empty array literals don't have explicit type in grammar
+    // Default to int[] if no type is specified
+    auto elementType = INT_TYPE;
+    typeRegistry_.registerArrayType(elementType->toString());
     return std::any(std::make_shared<ArrayType>(elementType));
 }
 
@@ -593,15 +1041,49 @@ std::any TypeChecker::visitNonEmptyArrayLiteral(PrystParser::NonEmptyArrayLitera
     return std::any(std::make_shared<ArrayType>(elementType));
 }
 
+std::any TypeChecker::visitTryStmt(PrystParser::TryStmtContext* ctx) {
+    std::cout << "Debug [visitTryStmt]: Processing try statement" << std::endl;
+
+    // Process try block
+    scopeManager_.pushScope();
+    visit(ctx->block(0));
+    scopeManager_.popScope();
+
+    // Process catch clauses
+    for (auto catchClause : ctx->catchClause()) {
+        auto exceptionTypeAny = visit(catchClause->type());
+        auto exceptionType = std::any_cast<std::shared_ptr<Type>>(exceptionTypeAny);
+
+        // Verify catch clause type is Error or extends Error
+        if (!isErrorType(exceptionType)) {
+            throw Error("TypeError", "Catch clause type must be Error or extend Error: " + exceptionType->toString());
+        }
+
+        // Create new scope for catch block with exception variable
+        scopeManager_.pushScope();
+        scopeManager_.declareVariable(catchClause->IDENTIFIER()->getText(), exceptionType);
+        visit(catchClause->block());
+        scopeManager_.popScope();
+    }
+
+    // Process finally block if present
+    if (ctx->FINALLY()) {
+        scopeManager_.pushScope();
+        visit(ctx->block(1));
+        scopeManager_.popScope();
+    }
+
+    return std::any();
+}
+
 std::any TypeChecker::visitEmptyMapLiteral(PrystParser::EmptyMapLiteralContext* ctx) {
     std::cout << "Debug [visitEmptyMapLiteral]: Processing empty map literal" << std::endl;
 
-    auto genericArgs = ctx->genericArgs();
-    if (!genericArgs || genericArgs->type().size() != 2) {
-        throw Error("TypeError", "Empty map literal requires two type arguments");
-    }
-    auto keyType = std::any_cast<std::shared_ptr<Type>>(visit(genericArgs->type(0)));
-    auto valueType = std::any_cast<std::shared_ptr<Type>>(visit(genericArgs->type(1)));
+    // Empty map literals don't have explicit types in grammar
+    // Default to Map<string, any> if no types specified
+    auto keyType = STRING_TYPE;
+    auto valueType = ANY_TYPE;
+    typeRegistry_.registerMapType(keyType->toString(), valueType->toString());
     return std::any(std::make_shared<MapType>(keyType, valueType));
 }
 
@@ -645,7 +1127,71 @@ std::any TypeChecker::visitMapKey(PrystParser::MapKeyContext* ctx) {
     return std::any(pryst::STRING_TYPE);
 }
 
+std::any TypeChecker::visitTryCatchStmt(PrystParser::TryCatchStmtContext* ctx) {
+    // Visit try block
+    scopeManager_.pushScope();
+    visit(ctx->block());
+    scopeManager_.popScope();
 
+    // Process catch blocks
+    for (const auto& catchClause : ctx->catchClause()) {
+        auto errorType = visit(catchClause->type());
+        auto errorTypePtr = std::any_cast<std::shared_ptr<Type>>(errorType);
+
+        if (!typeRegistry_.isErrorType(errorTypePtr->toString())) {
+            throw Error("TypeError", "Catch clause must use Error type or its subclasses");
+        }
+
+        scopeManager_.pushScope();
+        auto errorVar = catchClause->IDENTIFIER()->getText();
+        scopeManager_.declareVariable(errorVar, errorType);
+
+        if (catchClause->CHAIN()) {
+            auto chainExpr = visit(catchClause->expression());
+            auto chainTypePtr = std::any_cast<std::shared_ptr<Type>>(chainExpr);
+
+            typeRegistry_.validateErrorChain(errorTypePtr->toString(), chainTypePtr->toString());
+            auto chainedErrorType = typeRegistry_.createErrorChainType(
+                errorTypePtr->toString(), chainTypePtr->toString());
+
+            // Update variable type to include chain information
+            declareVariable(errorVar, std::any(chainedErrorType));
+        }
+
+        visit(catchClause->block());
+        popScope();
+    }
+
+    // Visit finally block if present
+    if (ctx->FINALLY()) {
+        pushScope();
+        visit(ctx->block().back());
+        popScope();
+    }
+
+    return std::any(VOID_TYPE);
+}
+
+bool TypeChecker::isValidErrorChain(std::shared_ptr<Type> chainedType) {
+    return typeRegistry_.isErrorType(chainedType->toString());
+}
+
+std::shared_ptr<Type> TypeChecker::validateErrorChain(std::shared_ptr<Type> errorType, std::shared_ptr<Type> chainedType) {
+    typeRegistry_.validateErrorChain(errorType->toString(), chainedType->toString());
+    return typeRegistry_.createErrorChainType(errorType->toString(), chainedType->toString());
+}
+
+std::any TypeChecker::visitErrorChainField(PrystParser::ErrorChainFieldContext* ctx) {
+    auto chainType = visit(ctx->type());
+    auto chainTypePtr = std::any_cast<std::shared_ptr<Type>>(chainType);
+    auto fieldName = ctx->IDENTIFIER()->getText();
+
+    typeRegistry_.validateErrorChain("Error", chainTypePtr->toString());
+    auto nullableChainType = std::make_shared<NullableType>(chainTypePtr);
+    typeRegistry_.registerNullableType(chainTypePtr->toString());
+
+    return std::any(nullableChainType);
+}
 
 std::any TypeChecker::visitNonNullAssertExpr(PrystParser::NonNullAssertExprContext* ctx) {
     std::cout << "Debug [visitNonNullAssertExpr]: Processing non-null assertion" << std::endl;
@@ -704,6 +1250,12 @@ bool TypeChecker::isAssignable(std::any targetTypeAny, std::any sourceTypeAny) {
         return true;
     }
 
+    // Error type compatibility
+    if (typeRegistry_.isErrorType(targetType->toString()) &&
+        typeRegistry_.isErrorType(sourceType->toString())) {
+        return typeRegistry_.isSubclassOf(sourceType->toString(), targetType->toString());
+    }
+
     // Array type compatibility
     if (targetType->getKind() == Type::Kind::Array && sourceType->getKind() == Type::Kind::Array) {
         auto targetArray = std::static_pointer_cast<ArrayType>(targetType);
@@ -743,12 +1295,14 @@ bool TypeChecker::isAssignable(std::any targetTypeAny, std::any sourceTypeAny) {
             }
         }
         return true;
+    } else if (targetType->getKind() == Type::Kind::Interface && sourceType->getKind() == Type::Kind::Class) {
+        return typeRegistry_.implementsInterface(sourceType->toString(), targetType->toString());
     }
 
     // Handle interface type compatibility
     if (targetType->getKind() == Type::Kind::Interface) {
         if (sourceType->getKind() == Type::Kind::Class) {
-            return typeRegistry_.doesImplementInterface(sourceType->toString(), targetType->toString());
+            return typeRegistry_.implementsInterface(sourceType->toString(), targetType->toString());
         }
         return false;
     }
@@ -808,6 +1362,26 @@ std::any TypeChecker::visitPrimary(PrystParser::PrimaryContext* ctx) {
 
     std::cout << "Debug [visitPrimary]: Delegating to child nodes" << std::endl;
     return visitChildren(ctx);
+}
+
+std::any TypeChecker::visitNullCoalesceExpr(PrystParser::NullCoalesceExprContext* ctx) {
+    std::cout << "Debug [visitNullCoalesceExpr]: Processing null coalesce expression" << std::endl;
+
+    auto leftType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
+    auto rightType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
+
+    if (!leftType->isNullable()) {
+        throw Error("TypeError", "Left operand of ?? must be nullable");
+    }
+
+    auto innerType = std::static_pointer_cast<NullableType>(leftType)->getInnerType();
+    if (!isAssignable(innerType, rightType) && !isAssignable(rightType, innerType)) {
+        throw Error("TypeError", "Incompatible types in null coalescing expression: " +
+                   innerType->toString() + " and " + rightType->toString());
+    }
+
+    // Result type is the common type between left inner type and right type
+    return std::any(isAssignable(innerType, rightType) ? rightType : innerType);
 }
 
 std::any TypeChecker::visitStringInterpolation(PrystParser::StringInterpolationContext* ctx) {
@@ -876,6 +1450,46 @@ std::any TypeChecker::visitStringLiteral(PrystParser::StringLiteralContext* ctx)
     return std::any(STRING_TYPE);
 }
 
+std::any TypeChecker::visitMultiplicativeExpr(PrystParser::MultiplicativeExprContext* ctx) {
+    std::cout << "Debug [visitMultiplicativeExpr]: Processing multiplicative expression" << std::endl;
+
+    auto leftType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
+    auto rightType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
+
+    if (!typeRegistry_.isNumericType(leftType) || !typeRegistry_.isNumericType(rightType)) {
+        throw Error("TypeError", "Multiplicative operators require numeric operands");
+    }
+
+    scopeManager_.pushScope();
+    auto resultType = typeRegistry_.getCommonNumericType(leftType, rightType);
+    scopeManager_.popScope();
+
+    return std::any(resultType);
+}
+
+std::any TypeChecker::visitAdditiveExpr(PrystParser::AdditiveExprContext* ctx) {
+    std::cout << "Debug [visitAdditiveExpr]: Processing additive expression" << std::endl;
+
+    auto leftType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
+    auto rightType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
+
+    if (ctx->op->getType() == PrystParser::PLUS) {
+        if (leftType->toString() == "string" || rightType->toString() == "string") {
+            throw Error("TypeError", "String concatenation with non-string types is not allowed");
+        }
+    }
+
+    if (!typeRegistry_.isNumericType(leftType) || !typeRegistry_.isNumericType(rightType)) {
+        throw Error("TypeError", "Additive operators require numeric operands");
+    }
+
+    scopeManager_.pushScope();
+    auto resultType = typeRegistry_.getCommonNumericType(leftType, rightType);
+    scopeManager_.popScope();
+
+    return std::any(resultType);
+}
+
 std::any TypeChecker::visitLambdaParams(PrystParser::LambdaParamsContext* ctx) {
     std::cout << "Debug [visitLambdaParams]: Processing lambda parameters" << std::endl;
     return visitChildren(ctx);
@@ -904,6 +1518,22 @@ std::any TypeChecker::visitBlock(PrystParser::BlockContext* ctx) {
     return result;
 }
 
+std::any TypeChecker::visitRelationalExpr(PrystParser::RelationalExprContext* ctx) {
+    std::cout << "Debug [visitRelationalExpr]: Processing relational expression" << std::endl;
+
+    auto leftType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
+    auto rightType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
+
+    scopeManager_.pushScope();
+    if (!typeRegistry_.isComparable(leftType, rightType)) {
+        throw Error("TypeError", "Cannot compare incompatible types: " +
+                  leftType->toString() + " and " + rightType->toString());
+    }
+    scopeManager_.popScope();
+
+    return std::any(std::make_shared<BoolType>());
+}
+
 std::any TypeChecker::visitVarDecl(PrystParser::VarDeclContext* ctx) {
     std::cout << "Debug [visitVarDecl]: Processing variable declaration" << std::endl;
 
@@ -928,7 +1558,7 @@ std::any TypeChecker::visitVarDecl(PrystParser::VarDeclContext* ctx) {
         std::string varName = ident->getText();
         std::cout << "Debug [visitVarDecl]: Declaring variable " << varName
                   << " with type " << varType->toString() << std::endl;
-        declareVariable(varName, varType);
+        scopeManager_.declareVariable(varName, varType);
     }
 
     // Type check initializer if present
@@ -943,13 +1573,19 @@ std::any TypeChecker::visitVarDecl(PrystParser::VarDeclContext* ctx) {
     return std::any(varType);
 }
 
-std::any TypeChecker::visitIfStmt(PrystParser::IfStmtContext* ctx) {
-    std::cout << "Debug [visitIfStmt]: Processing if statement" << std::endl;
-    auto condType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression()));
-    if (!isAssignable(BOOL_TYPE, condType)) {
-        throw Error("TypeError", "If condition must be boolean");
+std::any TypeChecker::visitEqualityExpr(PrystParser::EqualityExprContext* ctx) {
+    std::cout << "Debug [visitEqualityExpr]: Processing equality expression" << std::endl;
+    auto leftType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
+    auto rightType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
+
+    scopeManager_.pushScope();
+    if (!typeRegistry_.isEquatable(leftType, rightType)) {
+        throw Error("TypeError", "Cannot compare for equality incompatible types: " +
+                  leftType->toString() + " and " + rightType->toString());
     }
-    return visitChildren(ctx);
+    scopeManager_.popScope();
+
+    return std::any(std::make_shared<BoolType>());
 }
 
 std::any TypeChecker::visitWhileStmt(PrystParser::WhileStmtContext* ctx) {
@@ -958,7 +1594,14 @@ std::any TypeChecker::visitWhileStmt(PrystParser::WhileStmtContext* ctx) {
     if (!isAssignable(BOOL_TYPE, condType)) {
         throw Error("TypeError", "While condition must be boolean");
     }
-    return visitChildren(ctx);
+
+    scopeManager_.pushScope();
+    isInLoop = true;
+    visit(ctx->statement());
+    isInLoop = false;
+    scopeManager_.popScope();
+
+    return std::any();
 }
 
 std::any TypeChecker::visitForStmt(PrystParser::ForStmtContext* ctx) {
@@ -973,7 +1616,7 @@ std::any TypeChecker::visitForStmt(PrystParser::ForStmtContext* ctx) {
         }
 
         auto arrayType = std::static_pointer_cast<ArrayType>(iterableType);
-        declareVariable(ctx->IDENTIFIER()->getText(), arrayType->getElementType());
+        scopeManager_.declareVariable(ctx->IDENTIFIER()->getText(), arrayType->getElementType());
 
     } else {  // C-style for loop
         std::cout << "Debug [visitForStmt]: Processing C-style for loop" << std::endl;
@@ -1000,7 +1643,7 @@ std::any TypeChecker::visitForStmt(PrystParser::ForStmtContext* ctx) {
 
     // Visit the loop body
     auto result = visit(ctx->statement());
-    popScope();
+    scopeManager_.popScope();
     return result;
 }
 
@@ -1012,9 +1655,38 @@ std::any TypeChecker::visitReturnStmt(PrystParser::ReturnStmtContext* ctx) {
     return std::any(VOID_TYPE);
 }
 
+
+
 std::any TypeChecker::visitTryStmt(PrystParser::TryStmtContext* ctx) {
     std::cout << "Debug [visitTryStmt]: Processing try statement" << std::endl;
-    return visitChildren(ctx);
+
+    scopeManager_.pushScope();
+    visit(ctx->block());
+    scopeManager_.popScope();
+
+    // Process catch clauses
+    for (auto catchClause : ctx->catchClause()) {
+        auto errorType = std::any_cast<std::shared_ptr<Type>>(visit(catchClause->type()));
+
+        // Verify that catch type is Error or extends Error
+        if (!typeRegistry_.isErrorType(errorType)) {
+            throw Error("TypeError", "Catch clause type must be Error or extend Error: " + errorType->toString());
+        }
+
+        scopeManager_.pushScope();
+        scopeManager_.declareVariable(catchClause->IDENTIFIER()->getText(), errorType);
+        visit(catchClause->block());
+        scopeManager_.popScope();
+    }
+
+    // Visit finally block if present
+    if (ctx->FINALLY()) {
+        scopeManager_.pushScope();
+        visit(ctx->block(1));
+        scopeManager_.popScope();
+    }
+
+    return std::any(VOID_TYPE);
 }
 
 std::any TypeChecker::visitBreakStmt(PrystParser::BreakStmtContext* ctx) {
@@ -1075,16 +1747,16 @@ std::any TypeChecker::visitImportDecl(PrystParser::ImportDeclContext* ctx) {
     typeRegistry_.registerNamespace(fullPath);
 
     // Pre-register all known types in this namespace
-    if (fullPath == "pryst::web") {
+    if (fullPath == "pryst::runtime::web") {
         std::cout << "Debug [visitImportDecl]: Pre-registering web types" << std::endl;
         // Ensure web types are registered before processing the rest of the import
         pryst::runtime::web::registerWebTypes(this->runtimeRegistry_);
 
         // Make sure all web types are cached in the type registry with both full and short names
         const std::vector<std::string> webTypes = {
-            "pryst::web::Request",
-            "pryst::web::Response",
-            "pryst::web::WebServer"
+            "pryst::runtime::web::Request",
+            "pryst::runtime::web::Response",
+            "pryst::runtime::web::WebServer"
         };
 
         for (const auto& typeName : webTypes) {
@@ -1114,7 +1786,7 @@ std::any TypeChecker::visitImportDecl(PrystParser::ImportDeclContext* ctx) {
             typeRegistry_.registerNamespaceAlias(importedName, fullTypeName);
 
             // If this is a web type, ensure it's registered in both registries
-            if (fullPath == "pryst::web") {
+            if (fullPath == "pryst::runtime::web") {
                 if (auto classType = runtimeRegistry_.getClass(fullTypeName)) {
                     std::cout << "Debug [visitImportDecl]: Registering web type: " << fullTypeName << std::endl;
                     auto sharedType = std::make_shared<ClassType>(fullTypeName);
@@ -1152,7 +1824,7 @@ std::any TypeChecker::visitFunctionDecl(PrystParser::FunctionDeclContext* ctx) {
     std::cout << "Debug [visitFunctionDecl]: Function return type: " << returnType->toString() << std::endl;
 
     // Create new scope for parameters
-    pushScope();
+    scopeManager_.pushScope();
 
     // Process parameters and get their types
     std::vector<std::shared_ptr<Type>> paramTypes;
@@ -1160,87 +1832,27 @@ std::any TypeChecker::visitFunctionDecl(PrystParser::FunctionDeclContext* ctx) {
         auto paramsAny = visit(ctx->parameters());
         auto params = std::any_cast<std::shared_ptr<std::vector<std::shared_ptr<Type>>>>(paramsAny);
         paramTypes = *params;
+
+        // Declare parameters in the new scope
+        for (size_t i = 0; i < ctx->parameters()->parameter().size(); ++i) {
+            auto paramName = ctx->parameters()->parameter(i)->IDENTIFIER()->getText();
+            scopeManager_.declareVariable(paramName, (*params)[i]);
+        }
     }
 
     // Create function type
     auto functionType = std::make_shared<FunctionType>(returnType, paramTypes);
 
-    // Register function in global scope (first scope)
-    if (!scopes.empty()) {
-        scopes.front()[functionName] = functionType;
-        std::cout << "Debug [visitFunctionDecl]: Registered function " << functionName
-                  << " in global scope with type " << functionType->toString() << std::endl;
-    }
+    // Register function in global scope
+    scopeManager_.declareVariable(functionName, functionType);
+    std::cout << "Debug [visitFunctionDecl]: Registered function " << functionName
+              << " in global scope with type " << functionType->toString() << std::endl;
 
     // Process function body
     auto result = visit(ctx->block());
 
-    popScope();
+    scopeManager_.popScope();
     return result;
-}
-
-std::any TypeChecker::visitParameters(PrystParser::ParametersContext* ctx) {
-    std::cout << "Debug [visitParameters]: Processing parameters" << std::endl;
-    std::vector<std::shared_ptr<Type>> paramTypes;
-    if (ctx && ctx->parameter().size() > 0) {
-        for (auto param : ctx->parameter()) {
-            auto paramType = std::any_cast<std::shared_ptr<Type>>(visit(param));
-            paramTypes.push_back(paramType);
-        }
-    }
-    return std::any(std::make_shared<std::vector<std::shared_ptr<Type>>>(paramTypes));
-}
-
-std::any TypeChecker::visitParameter(PrystParser::ParameterContext* ctx) {
-    std::cout << "Debug [visitParameter]: Processing parameter: " << ctx->IDENTIFIER()->getText() << std::endl;
-
-    auto typeCtx = ctx->type();
-    if (!typeCtx) {
-        throw Error("TypeError", "Parameter missing type");
-    }
-
-    std::string rawTypeName = typeCtx->getText();
-    std::cout << "Debug [visitParameter]: Raw type name: " << rawTypeName << std::endl;
-
-    // Try to get the type from cache first
-    std::shared_ptr<Type> paramType = typeRegistry_.getCachedType(rawTypeName);
-
-    if (!paramType) {
-        // If not in cache, try to resolve it
-        paramType = std::any_cast<std::shared_ptr<Type>>(getTypeFromTypeContext(typeCtx));
-        if (!paramType) {
-            throw Error("TypeError", "Failed to resolve type for parameter: " + rawTypeName);
-        }
-        std::cout << "Debug [visitParameter]: Resolved parameter type: " << paramType->toString() << std::endl;
-
-        // Cache the resolved type
-        typeRegistry_.cacheType(rawTypeName, paramType);
-
-        // If it's a qualified name, also cache the short name
-        size_t lastSeparator = rawTypeName.rfind("::");
-        if (lastSeparator != std::string::npos) {
-            std::string shortName = rawTypeName.substr(lastSeparator + 2);
-            typeRegistry_.cacheType(shortName, paramType);
-        }
-    } else {
-        std::cout << "Debug [visitParameter]: Found type in cache: " << paramType->toString() << std::endl;
-    }
-
-    declareVariable(ctx->IDENTIFIER()->getText(), paramType);
-    return std::any(paramType);
-}
-
-std::any TypeChecker::visitAssignment(PrystParser::AssignmentContext* ctx) {
-    std::cout << "Debug [visitAssignment]: Processing assignment" << std::endl;
-    auto lhsType = visit(ctx->expression(0));
-    auto rhsType = visit(ctx->expression(1));
-    if (!isAssignable(std::any_cast<std::shared_ptr<Type>>(lhsType),
-                      std::any_cast<std::shared_ptr<Type>>(rhsType))) {
-        throw Error("TypeError", "Cannot assign " +
-                   std::any_cast<std::shared_ptr<Type>>(rhsType)->toString() + " to " +
-                   std::any_cast<std::shared_ptr<Type>>(lhsType)->toString());
-    }
-    return lhsType;
 }
 
 std::any TypeChecker::visitFunctionCallExpr(PrystParser::FunctionCallExprContext* ctx) {
@@ -1253,81 +1865,50 @@ std::any TypeChecker::visitFunctionCallExpr(PrystParser::FunctionCallExprContext
          ctx->IDENTIFIER()->getText() == "float" ||
          ctx->IDENTIFIER()->getText() == "bool")) {
 
-        std::string functionName = ctx->IDENTIFIER()->getText();
-        std::shared_ptr<Type> targetType;
-        if (functionName == "str") targetType = STRING_TYPE;
-        else if (functionName == "int") targetType = INT_TYPE;
-        else if (functionName == "float") targetType = FLOAT_TYPE;
-        else targetType = BOOL_TYPE;
-
         auto args = ctx->arguments();
-        if (!args || args->expr().empty()) {
-            throw Error("TypeError", functionName + " conversion requires one argument");
+        if (!args || args->expression().empty()) {
+            throw Error("TypeError", ctx->IDENTIFIER()->getText() + " conversion requires one argument");
         }
 
-        auto funcExpr = ctx->expression();
-        if (!funcExpr) {
-            throw Error("TypeError", "Function call requires a function expression");
-        }
-        auto funcType = std::any_cast<std::shared_ptr<Type>>(visit(funcExpr));
+        auto argType = std::any_cast<std::shared_ptr<Type>>(visit(args->expression(0)));
+        if (ctx->IDENTIFIER()->getText() == "str") return std::any(STRING_TYPE);
+        if (ctx->IDENTIFIER()->getText() == "int") return std::any(INT_TYPE);
+        if (ctx->IDENTIFIER()->getText() == "float") return std::any(FLOAT_TYPE);
+        if (ctx->IDENTIFIER()->getText() == "bool") return std::any(BOOL_TYPE);
+    }
 
-        // Process arguments
-        std::vector<std::shared_ptr<Type>> argTypes;
-        if (auto args = ctx->arguments()) {
-            for (auto expr : args->expression()) {
-                argTypes.push_back(std::any_cast<std::shared_ptr<Type>>(visit(expr)));
-            }
-        }
+    // Get callee type from function identifier
+    auto calleeName = ctx->IDENTIFIER()->getText();
+    auto calleeType = typeRegistry_.getFunctionType(calleeName);
+    if (!calleeType) {
+        throw Error("TypeError", "Undefined function: " + calleeName);
+    }
 
-        // Get function type from identifier or expression
-        std::shared_ptr<Type> functionType;
-        if (ctx->IDENTIFIER()) {
-            auto funcName = ctx->IDENTIFIER()->getText();
-            if (currentScope_ && currentScope_->find(funcName) == currentScope_->end()) {
-                throw Error("TypeError", "Function '" + funcName + "' not found");
-            }
-            functionType = std::any_cast<std::shared_ptr<Type>>((*currentScope_)[funcName]);
-        } else {
-            functionType = funcType;
-            if (!std::dynamic_pointer_cast<FunctionType>(functionType)) {
-                throw Error("TypeError", "Expression is not callable");
-            }
+    auto args = ctx->arguments();
+    std::vector<std::shared_ptr<Type>> argTypes;
+    if (args) {
+        for (auto expr : args->expression()) {
+            argTypes.push_back(std::any_cast<std::shared_ptr<Type>>(visit(expr)));
         }
+    }
 
-    // Check if the type is actually a function type
-    auto funcType = std::dynamic_pointer_cast<FunctionType>(functionType);
+    // Cast to FunctionType to access function-specific methods
+    auto funcType = std::dynamic_pointer_cast<FunctionType>(calleeType);
     if (!funcType) {
         throw Error("TypeError", "Expression is not callable");
     }
 
-    if (auto funcType = std::dynamic_pointer_cast<FunctionType>(functionType)) {
-        std::vector<std::shared_ptr<Type>> argTypes;
-        if (ctx->arguments()) {
-            for (auto arg : ctx->arguments()->expression()) {
-                argTypes.push_back(std::any_cast<std::shared_ptr<Type>>(visit(arg)));
-            }
-        }
-
-        if (argTypes.size() != funcType->getParamTypes().size()) {
-            throw Error("TypeError", "Wrong number of arguments");
-        }
-
-        for (size_t i = 0; i < argTypes.size(); i++) {
-            if (!isAssignable(std::any(funcType->getParamTypes()[i]), std::any(argTypes[i]))) {
-                throw Error("TypeError", "Argument type mismatch");
-            }
-        }
-
-        return std::any(funcType->getReturnType());
+    if (argTypes.size() != funcType->getParamTypes().size()) {
+        throw Error("TypeError", "Wrong number of arguments");
     }
-    throw Error("TypeError", "Expression is not callable");
-}
 
-std::any TypeChecker::visitInterfaceDecl(PrystParser::InterfaceDeclContext* ctx) {
-    auto interfaceName = ctx->IDENTIFIER(0)->getText();
-    auto interfaceType = std::make_shared<InterfaceType>(interfaceName);
-    typeRegistry_.registerInterfaceType(interfaceType);
-    return std::any(interfaceType);
+    for (size_t i = 0; i < argTypes.size(); i++) {
+        if (!isAssignable(funcType->getParamTypes()[i], argTypes[i])) {
+            throw Error("TypeError", "Argument type mismatch");
+        }
+    }
+
+    return std::any(funcType->getReturnType());
 }
 
 std::any TypeChecker::visitBasicType(PrystParser::BasicTypeContext* ctx) {
@@ -1360,9 +1941,29 @@ std::any TypeChecker::visitBasicType(PrystParser::BasicTypeContext* ctx) {
     return std::any(type);
 }
 
+std::any TypeChecker::visitInterfaceDecl(PrystParser::InterfaceDeclContext* ctx) {
+    std::cout << "Debug [visitInterfaceDecl]: Processing interface declaration" << std::endl;
+    auto interfaceType = std::make_shared<InterfaceType>(ctx->IDENTIFIER(0)->getText());
+
+    scopeManager_.pushScope();
+    scopeManager_.declareVariable(interfaceType->getName(), interfaceType);
+
+    // Process interface methods
+    for (const auto& method : ctx->interfaceMethod()) {
+        scopeManager_.pushScope();
+        auto methodType = std::any_cast<std::shared_ptr<Type>>(visit(method));
+        scopeManager_.popScope();
+        interfaceType->addMethod(method->IDENTIFIER()->getText(), methodType);
+    }
+
+    scopeManager_.popScope();
+    typeRegistry_.registerInterfaceType(interfaceType);
+    return std::any(interfaceType);
+}
+
 std::any TypeChecker::visitArrayType(PrystParser::ArrayTypeContext* ctx) {
     std::cout << "Debug [visitArrayType]: Processing array type" << std::endl;
-    auto typeAny = visit(ctx->basicType());  // Use basicType() for the base case
+    auto typeAny = visit(ctx->basicType());
     auto elementType = std::any_cast<std::shared_ptr<Type>>(typeAny);
     return std::any(std::make_shared<ArrayType>(elementType));
 }
@@ -1382,8 +1983,7 @@ std::any TypeChecker::visitLogicalAndExpr(PrystParser::LogicalAndExprContext* ct
     std::cout << "Debug [visitLogicalAndExpr]: Processing logical AND expression" << std::endl;
     auto left = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
     auto right = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
-
-    if (left != BOOL_TYPE || right != BOOL_TYPE) {
+    if (left->toString() != "bool" || right->toString() != "bool") {
         throw Error("TypeError", "Logical operators require boolean operands");
     }
     return std::any(BOOL_TYPE);
@@ -1392,12 +1992,8 @@ std::any TypeChecker::visitLogicalAndExpr(PrystParser::LogicalAndExprContext* ct
 std::any TypeChecker::visitInstanceofExpr(PrystParser::InstanceofExprContext* ctx) {
     std::cout << "Debug [visitInstanceofExpr]: Processing instanceof expression" << std::endl;
 
-    // Get the expression type
     auto exprType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression()));
-
-    // Get the target type from the type context
-    auto targetTypeAny = visit(ctx->type());
-    auto targetType = std::any_cast<std::shared_ptr<Type>>(targetTypeAny);
+    auto targetType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->type()));
 
     std::cout << "Debug [visitInstanceofExpr]: Checking if " << exprType->toString()
               << " is instanceof " << targetType->toString() << std::endl;
@@ -1409,14 +2005,25 @@ std::any TypeChecker::visitInstanceofExpr(PrystParser::InstanceofExprContext* ct
     }
 
     // Check if types are compatible, including interface implementation
-    bool isInstance = isAssignable(std::any(targetType), std::any(exprType)) ||
+    bool isInstance = isAssignable(targetType, exprType) ||
                      (exprType->getKind() == Type::Kind::Class &&
                       targetType->getKind() == Type::Kind::Interface &&
-                      typeRegistry_.doesImplementInterface(exprType->toString(), targetType->toString()));
+                      typeRegistry_.implementsInterface(exprType->toString(), targetType->toString()));
+
+    // If this is an identifier expression, narrow its type in the current scope
+    if (auto identExpr = dynamic_cast<PrystParser::PrimaryExprContext*>(ctx->expression())) {
+        if (auto identifier = identExpr->primary()->IDENTIFIER()) {
+            std::string varName = identifier->getText();
+            if (isInstance) {
+                // Store the narrowed type in the current scope
+                declareVariable(varName, targetType);
+                std::cout << "Debug [visitInstanceofExpr]: Narrowed type of " << varName
+                         << " to " << targetType->toString() << std::endl;
+            }
+        }
+    }
 
     std::cout << "Debug [visitInstanceofExpr]: Result: " << (isInstance ? "true" : "false") << std::endl;
-
-    // instanceof always returns a boolean
     return std::any(BOOL_TYPE);
 }
 
@@ -1424,21 +2031,20 @@ std::any TypeChecker::visitTypeofExpr(PrystParser::TypeofExprContext* ctx) {
     std::cout << "Debug [visitTypeofExpr]: Processing typeof expression" << std::endl;
 
     auto exprType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression()));
+    bool isNullable = false;
+    std::shared_ptr<Type> innerType = exprType;
+
     if (exprType->getKind() == Type::Kind::Nullable) {
         auto nullableType = std::static_pointer_cast<NullableType>(exprType);
+        innerType = nullableType->getInnerType();
+        isNullable = true;
         std::cout << "Debug [visitTypeofExpr]: Nullable type with inner type: "
-                  << nullableType->getInnerType()->toString() << std::endl;
+                  << innerType->toString() << std::endl;
     }
 
-    // Create a ClassType representing the type information with detailed metadata
-    auto typeClass = std::make_shared<ClassType>("Type");
-    typeClass->addMethod("toString", STRING_TYPE);
-    typeClass->addMethod("isNullable", BOOL_TYPE);
-    typeClass->addMethod("kind", STRING_TYPE);
-
-    std::cout << "Debug [visitTypeofExpr]: Expression type: " << exprType->toString() << std::endl;
-
-    return std::any(typeClass);
+    auto typeInfo = std::make_shared<TypeInfo>(innerType, isNullable);
+    std::cout << "Debug [visitTypeofExpr]: Created TypeInfo for type: " << typeInfo->toString() << std::endl;
+    return std::any(typeInfo);
 }
 
 std::any TypeChecker::visitCastExpr(PrystParser::CastExprContext* ctx) {
@@ -1455,16 +2061,63 @@ std::any TypeChecker::visitCastExpr(PrystParser::CastExprContext* ctx) {
     return targetType;
 }
 
-std::any TypeChecker::visitAdditiveExpr(PrystParser::AdditiveExprContext* ctx) {
-    std::cout << "Debug [visitAdditiveExpr]: Processing additive expression" << std::endl;
+std::any TypeChecker::visitEqualityExpr(PrystParser::EqualityExprContext* ctx) {
+    std::cout << "Debug [visitEqualityExpr]: Processing equality expression" << std::endl;
     auto left = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
     auto right = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
 
-    if (left == INT_TYPE && right == INT_TYPE) return std::any(INT_TYPE);
-    if (left == FLOAT_TYPE || right == FLOAT_TYPE) return std::any(FLOAT_TYPE);
-    if (left == STRING_TYPE && ctx->op->getType() == PrystParser::PLUS) return std::any(STRING_TYPE);
+    std::cout << "Debug [visitEqualityExpr]: Comparing types: " << left->toString()
+              << " and " << right->toString() << std::endl;
 
-    throw Error("TypeError", "Invalid operands for additive expression");
+    // Handle null comparisons first
+    if (left->getKind() == Type::Kind::Null || right->getKind() == Type::Kind::Null) {
+        // Allow null comparison with nullable types or any class type
+        if (left->getKind() == Type::Kind::Nullable || right->getKind() == Type::Kind::Nullable ||
+            left->getKind() == Type::Kind::Class || right->getKind() == Type::Kind::Class) {
+            return std::any(BOOL_TYPE);
+        }
+    }
+
+    // Handle nullable types
+    if (left->getKind() == Type::Kind::Nullable || right->getKind() == Type::Kind::Nullable) {
+        auto leftType = left->getKind() == Type::Kind::Nullable ?
+            std::static_pointer_cast<NullableType>(left)->getInnerType() : left;
+        auto rightType = right->getKind() == Type::Kind::Nullable ?
+            std::static_pointer_cast<NullableType>(right)->getInnerType() : right;
+
+        // Check if the inner types are compatible
+        if (isAssignable(leftType, rightType) || isAssignable(rightType, leftType)) {
+            return std::any(BOOL_TYPE);
+        }
+    }
+
+    // Handle class and interface types
+    if (left->getKind() == Type::Kind::Class && right->getKind() == Type::Kind::Class) {
+        auto leftClass = std::static_pointer_cast<ClassType>(left);
+        auto rightClass = std::static_pointer_cast<ClassType>(right);
+
+        // Check class hierarchy compatibility
+        if (isAssignable(left, right) || isAssignable(right, left)) {
+            return std::any(BOOL_TYPE);
+        }
+
+        // Check interface implementation
+        if (typeRegistry_.implementsInterface(leftClass->getName(), rightClass->getName()) ||
+            typeRegistry_.implementsInterface(rightClass->getName(), leftClass->getName())) {
+            return std::any(BOOL_TYPE);
+        }
+    }
+
+    // Handle primitive types
+    if (left->isBasicType() && right->isBasicType()) {
+        if (left == right ||
+            (left == INT_TYPE && right == FLOAT_TYPE) ||
+            (left == FLOAT_TYPE && right == INT_TYPE)) {
+            return std::any(BOOL_TYPE);
+        }
+    }
+
+    throw Error("TypeError", "Cannot compare incompatible types " + left->toString() + " and " + right->toString());
 }
 
 std::any TypeChecker::visitRelationalExpr(PrystParser::RelationalExprContext* ctx) {
@@ -1472,8 +2125,15 @@ std::any TypeChecker::visitRelationalExpr(PrystParser::RelationalExprContext* ct
     auto left = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
     auto right = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
 
-    if (!isAssignable(left, right) && !isAssignable(right, left)) {
-        throw Error("TypeError", "Cannot compare incompatible types");
+    // Handle primitive type comparisons
+    if ((left == INT_TYPE || left == FLOAT_TYPE || left == STRING_TYPE || left == BOOL_TYPE) &&
+        (right == INT_TYPE || right == FLOAT_TYPE || right == STRING_TYPE || right == BOOL_TYPE)) {
+        if (left == right ||
+            (left == INT_TYPE && right == FLOAT_TYPE) ||
+            (left == FLOAT_TYPE && right == INT_TYPE)) {
+            return std::any(BOOL_TYPE);
+        }
+        throw Error("TypeError", "Cannot compare incompatible types " + left->toString() + " and " + right->toString());
     }
     return std::any(BOOL_TYPE);
 }
@@ -1515,73 +2175,6 @@ std::any TypeChecker::visitLogicalOrExpr(PrystParser::LogicalOrExprContext* ctx)
     }
     return std::any(BOOL_TYPE);
 }
-
-
-
-std::any TypeChecker::visitMethodCallExpr(PrystParser::MethodCallExprContext* ctx) {
-    std::cout << "Debug [visitMethodCallExpr]: Processing method call" << std::endl;
-
-    // Get the object type
-    auto objType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression()));
-    std::cout << "Debug [visitMethodCallExpr]: Object type: " << objType->toString() << std::endl;
-
-    // Get the method name
-    std::string methodName = ctx->IDENTIFIER()->getText();
-    std::cout << "Debug [visitMethodCallExpr]: Method name: " << methodName << std::endl;
-
-    // Handle nullable types
-    if (typeRegistry_.isTypeNullable(typeRegistry_.convertTypeToLLVMType(objType))) {
-        if (auto nullableType = std::dynamic_pointer_cast<NullableType>(objType)) {
-            objType = nullableType->getInnerType();
-        }
-    }
-
-    // Handle class types
-
-    // Handle class types
-    if (objType->getKind() == Type::Kind::Class) {
-        auto classType = std::static_pointer_cast<ClassType>(objType);
-
-        // Look up the method
-        auto methodType = classType->getMethod(methodName);
-        if (!methodType) {
-            throw Error("TypeError", "Method '" + methodName + "' not found on type " + objType->toString());
-        }
-
-        // Verify method type is a function type
-        auto functionType = std::dynamic_pointer_cast<FunctionType>(methodType);
-        if (!functionType) {
-            throw Error("TypeError", "Member '" + methodName + "' is not a method on type " + objType->toString());
-        }
-
-        // Process arguments if they exist
-        std::vector<std::shared_ptr<Type>> argTypes;
-        if (ctx->arguments()) {
-            for (auto arg : ctx->arguments()->expression()) {
-                auto argType = std::any_cast<std::shared_ptr<Type>>(visit(arg));
-                argTypes.push_back(argType);
-            }
-        }
-
-        // Check argument count
-        if (argTypes.size() != functionType->getParamTypes().size()) {
-            throw Error("TypeError", "Wrong number of arguments for method '" + methodName + "'");
-        }
-
-        // Check argument types
-        for (size_t i = 0; i < argTypes.size(); i++) {
-            if (!isAssignable(std::any(functionType->getParamTypes()[i]), std::any(argTypes[i]))) {
-                throw Error("TypeError", "Argument type mismatch for method '" + methodName + "'");
-            }
-        }
-
-        return std::any(functionType->getReturnType());
-    }
-
-    throw Error("TypeError", "Cannot call methods on non-class type: " + objType->toString());
-}
-
-
 
 std::any TypeChecker::visitArrayAccessExpr(PrystParser::ArrayAccessExprContext* ctx) {
     std::cout << "Debug [visitArrayAccessExpr]: Processing array access" << std::endl;
@@ -1648,7 +2241,7 @@ std::any TypeChecker::visitPostfixExpr(PrystParser::PostfixExprContext* ctx) {
 }
 
 std::any TypeChecker::visitConstructorExpr(PrystParser::ConstructorExprContext* ctx) {
-    auto typeAny = visit(ctx->qualifiedType());  // Changed from expression() to qualifiedType()
+    auto typeAny = visit(ctx->qualifiedType());
     auto constructorType = std::any_cast<std::shared_ptr<Type>>(typeAny);
 
     if (auto classType = std::dynamic_pointer_cast<ClassType>(constructorType)) {
@@ -1676,65 +2269,6 @@ std::any TypeChecker::visitConstructorExpr(PrystParser::ConstructorExprContext* 
     throw Error("TypeError", "Cannot construct non-class type");
 }
 
-std::any TypeChecker::visitNullableMethodCallExpr(PrystParser::NullableMethodCallExprContext* ctx) {
-    std::cout << "Debug [visitNullableMethodCallExpr]: Processing nullable method call" << std::endl;
-
-    // Get the object type
-    auto objType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression()));
-
-    // Ensure type is nullable
-    if (objType->getKind() != Type::Kind::Nullable) {
-        throw Error("TypeError", "Cannot use ?. operator on non-nullable type " + objType->toString());
-    }
-
-    // Unwrap nullable type
-    auto nullableType = std::static_pointer_cast<NullableType>(objType);
-    auto innerType = nullableType->getInnerType();
-
-    // Get method name and process method call
-    std::string methodName = ctx->IDENTIFIER()->getText();
-
-    if (auto classType = std::dynamic_pointer_cast<ClassType>(innerType)) {
-        auto methodType = classType->getMethod(methodName);
-        if (!methodType) {
-            throw Error("TypeError", "Method '" + methodName + "' not found on type " + innerType->toString());
-        }
-
-        auto functionType = std::dynamic_pointer_cast<FunctionType>(methodType);
-        if (!functionType) {
-            throw Error("TypeError", "Member '" + methodName + "' is not a method");
-        }
-
-        // Process arguments
-        std::vector<std::shared_ptr<Type>> argTypes;
-        if (ctx->arguments()) {
-            for (auto arg : ctx->arguments()->expression()) {
-                auto argType = std::any_cast<std::shared_ptr<Type>>(visit(arg));
-                argTypes.push_back(argType);
-            }
-        }
-
-        // Check argument count
-        if (argTypes.size() != functionType->getParamTypes().size()) {
-            throw Error("TypeError", "Wrong number of arguments for method '" + methodName + "'");
-        }
-
-        // Check argument types
-        for (size_t i = 0; i < argTypes.size(); i++) {
-            if (!isAssignable(std::any(functionType->getParamTypes()[i]), std::any(argTypes[i]))) {
-                throw Error("TypeError", "Argument type mismatch for method '" + methodName + "'");
-            }
-        }
-
-        // Make return type nullable since this is a nullable method call
-        auto returnType = functionType->getReturnType();
-        typeRegistry_.registerNullableType(returnType->toString());
-        return std::any(std::make_shared<NullableType>(returnType));
-    }
-
-    throw Error("TypeError", "Cannot call methods on non-class type: " + innerType->toString());
-}
-
 std::any TypeChecker::visitNullableType(PrystParser::NullableTypeContext* ctx) {
     std::cout << "Debug [visitNullableType]: Processing nullable type" << std::endl;
 
@@ -1757,6 +2291,33 @@ std::any TypeChecker::visitNullableType(PrystParser::NullableTypeContext* ctx) {
     auto baseType = std::any_cast<std::shared_ptr<Type>>(baseTypeAny);
     typeRegistry_.registerNullableType(baseType->toString());
     return std::any(std::make_shared<NullableType>(baseType));
+}
+
+std::any TypeChecker::visitParameters(PrystParser::ParametersContext* ctx) {
+    std::cout << "Debug [visitParameters]: Processing parameters" << std::endl;
+    std::vector<std::shared_ptr<Type>> paramTypes;
+
+    if (ctx && ctx->parameter().size() > 0) {
+        for (auto param : ctx->parameter()) {
+            auto paramType = std::any_cast<std::shared_ptr<Type>>(visit(param));
+            paramTypes.push_back(paramType);
+        }
+    }
+
+    return std::any(std::make_shared<std::vector<std::shared_ptr<Type>>>(paramTypes));
+}
+
+std::any TypeChecker::visitParameter(PrystParser::ParameterContext* ctx) {
+    std::cout << "Debug [visitParameter]: Processing parameter" << std::endl;
+
+    // Get parameter type
+    auto paramType = getTypeFromTypeContext(ctx->type());
+
+    // Register parameter in current scope
+    std::string paramName = ctx->IDENTIFIER()->getText();
+    declareVariable(paramName, paramType);
+
+    return paramType;
 }
 
 std::any TypeChecker::visitMultiplicativeExpr(PrystParser::MultiplicativeExprContext* ctx) {
@@ -1787,6 +2348,130 @@ std::any TypeChecker::visitConditionalExpr(PrystParser::ConditionalExprContext* 
     throw Error("TypeError", "Incompatible types in conditional expression");
 }
 
+std::any TypeChecker::visitAssignment(PrystParser::AssignmentContext* ctx) {
+    std::cout << "Debug [visitAssignment]: Processing assignment" << std::endl;
 
+    auto lhs = visit(ctx->expression(0));
+    auto rhs = visit(ctx->expression(1));
+
+    auto lhsType = std::any_cast<std::shared_ptr<Type>>(lhs);
+    auto rhsType = std::any_cast<std::shared_ptr<Type>>(rhs);
+
+    if (!isAssignable(lhsType, rhsType)) {
+        throw Error("TypeError", "Cannot assign " + rhsType->toString() + " to " + lhsType->toString());
+    }
+
+    return lhs;
+}
+
+std::any TypeChecker::visitQualifiedType(PrystParser::QualifiedTypeContext* ctx) {
+    std::cout << "Debug [visitQualifiedType]: Processing qualified type" << std::endl;
+
+    std::string typeName;
+    for (auto identifier : ctx->IDENTIFIER()) {
+        if (!typeName.empty()) typeName += "::";
+        typeName += identifier->getText();
+    }
+
+    auto type = typeRegistry_.getCachedType(typeName);
+    if (!type) {
+        throw Error("TypeError", "Unknown type: " + typeName);
+    }
+
+    return std::any(type);
+}
+
+std::any TypeChecker::visitAdditiveExpr(PrystParser::AdditiveExprContext* ctx) {
+    std::cout << "Debug [visitAdditiveExpr]: Processing additive expression" << std::endl;
+
+    auto left = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
+    auto right = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
+
+    // Handle string concatenation
+    if (ctx->PLUS() && (left == STRING_TYPE || right == STRING_TYPE)) {
+        return std::any(STRING_TYPE);
+    }
+
+    // Handle numeric addition/subtraction
+    if ((left == INT_TYPE || left == FLOAT_TYPE) &&
+        (right == INT_TYPE || right == FLOAT_TYPE)) {
+        return std::any(left == FLOAT_TYPE || right == FLOAT_TYPE ? FLOAT_TYPE : INT_TYPE);
+    }
+
+    throw Error("TypeError", "Invalid operand types for additive operator");
+}
+
+std::any TypeChecker::visitFunctionDecl(PrystParser::FunctionDeclContext* ctx) {
+    std::cout << "Debug [visitFunctionDecl]: Processing function declaration" << std::endl;
+
+    auto returnTypeAny = getTypeFromReturnTypeContext(ctx->returnType());
+    auto returnType = std::any_cast<std::shared_ptr<Type>>(returnTypeAny);
+
+    // Store current function return type for return statement validation
+    currentFunctionReturnType = returnTypeAny;
+
+    std::vector<std::shared_ptr<Type>> paramTypes;
+    std::vector<std::string> paramNames;
+    std::map<std::string, std::shared_ptr<Type>> defaultValues;
+
+    // Process parameters
+    if (ctx->parameters()) {
+        // First process regular parameters
+        for (auto param : ctx->parameters()->parameter()) {
+            auto paramType = std::any_cast<std::shared_ptr<Type>>(visit(param->type()));
+            auto paramName = param->IDENTIFIER()->getText();
+
+            if (defaultValues.size() > 0) {
+                throw Error("TypeError", "Non-default parameters must come before default parameters");
+            }
+
+            paramTypes.push_back(paramType);
+            paramNames.push_back(paramName);
+        }
+
+        // Then process default parameters
+        for (auto defaultParam : ctx->parameters()->defaultParam()) {
+            auto paramType = std::any_cast<std::shared_ptr<Type>>(visit(defaultParam->type()));
+            auto paramName = defaultParam->IDENTIFIER()->getText();
+
+            paramTypes.push_back(paramType);
+            paramNames.push_back(paramName);
+
+            // Store default value type for validation
+            auto defaultValueType = std::any_cast<std::shared_ptr<Type>>(visit(defaultParam->expression()));
+            if (!isAssignable(paramType, defaultValueType)) {
+                throw Error("TypeError", "Default value type does not match parameter type");
+            }
+
+            defaultValues[paramName] = defaultValueType;
+        }
+    }
+
+    auto functionType = std::make_shared<FunctionType>(returnType, paramTypes);
+    auto functionName = ctx->IDENTIFIER()->getText();
+
+    // Create new scope for function body
+    scopeManager_.pushScope();
+
+    // Register parameters in function scope
+    for (size_t i = 0; i < paramNames.size(); ++i) {
+        scopeManager_.declareVariable(paramNames[i], paramTypes[i]);
+    }
+
+    // Visit function body
+    if (ctx->block()) {
+        visit(ctx->block());
+    }
+
+    scopeManager_.popScope();
+
+    // Clear current function return type
+    currentFunctionReturnType = std::any();
+
+    // Register function in current scope
+    scopeManager_.declareVariable(functionName, functionType);
+
+    return std::any(functionType);
+}
 
 } // namespace pryst

@@ -1,0 +1,51 @@
+{ imports and includes }
+
+namespace pryst {
+
+{ TypeChecker constructor and helper methods }
+
+std::any TypeChecker::visitMultiplicativeExpr(PrystParser::MultiplicativeExprContext* ctx) {
+    std::cout << "Debug [visitMultiplicativeExpr]: Processing multiplicative expression" << std::endl;
+    auto leftType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
+    auto rightType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
+
+    if (!typeRegistry_.isNumericType(leftType) || !typeRegistry_.isNumericType(rightType)) {
+        throw Error("TypeError", "Multiplicative operators require numeric operands");
+    }
+
+    return std::any(typeRegistry_.getCommonNumericType(leftType, rightType));
+}
+
+std::any TypeChecker::visitAdditiveExpr(PrystParser::AdditiveExprContext* ctx) {
+    std::cout << "Debug [visitAdditiveExpr]: Processing additive expression" << std::endl;
+    auto leftType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
+    auto rightType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
+
+    if (ctx->op->getType() == PrystParser::PLUS) {
+        // String concatenation is not allowed
+        if (leftType->toString() == "string" || rightType->toString() == "string") {
+            throw Error("TypeError", "String concatenation with other types is not allowed");
+        }
+    }
+
+    if (!typeRegistry_.isNumericType(leftType) || !typeRegistry_.isNumericType(rightType)) {
+        throw Error("TypeError", "Additive operators require numeric operands");
+    }
+
+    return std::any(typeRegistry_.getCommonNumericType(leftType, rightType));
+}
+
+std::any TypeChecker::visitLogicalAndExpr(PrystParser::LogicalAndExprContext* ctx) {
+    std::cout << "Debug [visitLogicalAndExpr]: Processing logical AND expression" << std::endl;
+    auto leftType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(0)));
+    auto rightType = std::any_cast<std::shared_ptr<Type>>(visit(ctx->expression(1)));
+
+    if (leftType != BOOL_TYPE || rightType != BOOL_TYPE) {
+        throw Error("TypeError", "Logical operators require boolean operands");
+    }
+    return std::any(BOOL_TYPE);
+}
+
+{ rest of the implementation }
+
+} // namespace pryst

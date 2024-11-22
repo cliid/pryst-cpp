@@ -30,6 +30,7 @@ extern std::shared_ptr<Type> STRING_TYPE;
 extern std::shared_ptr<Type> VOID_TYPE;
 extern std::shared_ptr<Type> ERROR_TYPE;
 extern std::shared_ptr<Type> NULL_TYPE;
+extern std::shared_ptr<Type> ANY_TYPE;
 
 class Type : public std::enable_shared_from_this<Type> {
 public:
@@ -78,6 +79,10 @@ public:
 
     Kind getKind() const { return kind_; }
 
+    virtual bool isBasicType() const {
+        return kind_ == Kind::Int || kind_ == Kind::Float || kind_ == Kind::Bool || kind_ == Kind::String;
+    }
+
     virtual bool isVoidType() const {
         return kind_ == Kind::Void;
     }
@@ -100,14 +105,22 @@ public:
 
     virtual bool isAssignableTo(const std::shared_ptr<Type>& other) const {
         if (kind_ == Kind::Null && other->isNullable()) {
-            return true;
+            return true;  // null can be assigned to any nullable type
+        }
+        if (other->getKind() == Kind::Any) {
+            return true;  // Any type can be assigned to ANY_TYPE
         }
         return kind_ == other->getKind();
     }
 
+    virtual bool isInstanceOf(const std::shared_ptr<Type>& other) const;
+
     virtual bool canConvertTo(const std::shared_ptr<Type>& other) const {
         if (kind_ == Kind::Null && other->isNullable()) {
             return true;
+        }
+        if (other->getKind() == Kind::Any || kind_ == Kind::Any) {
+            return true;  // ANY_TYPE can convert to/from any type
         }
         return kind_ == other->getKind();
     }
@@ -144,6 +157,7 @@ public:
             case Kind::Function: return "function";
             case Kind::Class: return "class";
             case Kind::Interface: return "interface";
+            case Kind::Any: return "any";
             default: return "unknown";
         }
     }
@@ -259,6 +273,30 @@ public:
     const std::vector<std::shared_ptr<Type>>& getParamTypes() const { return paramTypes_; }
     bool isArrowSyntax() const { return isArrowSyntax_; }
 
+    // Check if this function type is compatible with another (for method overriding)
+    bool isCompatibleWith(const std::shared_ptr<FunctionType>& other) const {
+        if (!other) return false;
+
+        // Return type must be covariant (same type or more specific)
+        if (!returnType_->isInstanceOf(other->getReturnType())) {
+            return false;
+        }
+
+        // Parameter types must be contravariant (same type or more general)
+        const auto& otherParams = other->getParamTypes();
+        if (paramTypes_.size() != otherParams.size()) {
+            return false;
+        }
+
+        for (size_t i = 0; i < paramTypes_.size(); ++i) {
+            if (!otherParams[i]->isInstanceOf(paramTypes_[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 private:
     std::shared_ptr<Type> returnType_;
     std::vector<std::shared_ptr<Type>> paramTypes_;
@@ -299,6 +337,8 @@ public:
         auto functionType = std::make_shared<FunctionType>(returnType, paramTypes);
         methods_[name] = std::static_pointer_cast<Type>(functionType);
     }
+
+    bool isInstanceOf(const std::shared_ptr<Type>& other) const override;
 
     std::vector<std::string> getAvailableMembers() const {
         std::vector<std::string> members;
@@ -366,6 +406,16 @@ public:
         return std::static_pointer_cast<Type>(shared_from_this());
     }
 
+    std::shared_ptr<Type> getField(const std::string& name) const {
+        if (auto classType = std::dynamic_pointer_cast<ClassType>(innerType_)) {
+            auto field = classType->getField(name);
+            if (field) {
+                return field->makeNullable();
+            }
+        }
+        return nullptr;
+    }
+
     std::shared_ptr<Type> getMethod(const std::string& name) const override {
         // First check if the method exists in our own methods map
         auto it = methods_.find(name);
@@ -397,18 +447,24 @@ public:
 
     bool isAssignableTo(const std::shared_ptr<Type>& other) const override {
         if (other->isNullable()) {
+            if (kind_ == Kind::Null) {
+                return true;  // null can be assigned to any nullable type
+            }
             auto otherNullable = std::static_pointer_cast<NullableType>(other);
             return innerType_->isAssignableTo(otherNullable->getInnerType());
         }
-        return false;
+        return false;  // Cannot assign nullable type to non-nullable type
     }
 
     bool canConvertTo(const std::shared_ptr<Type>& other) const override {
         if (other->isNullable()) {
+            if (kind_ == Kind::Null) {
+                return true;  // null can be converted to any nullable type
+            }
             auto otherNullable = std::static_pointer_cast<NullableType>(other);
             return innerType_->canConvertTo(otherNullable->getInnerType());
         }
-        return false;
+        return false;  // Cannot convert nullable type to non-nullable type
     }
 
     std::string toString() const override {
@@ -442,6 +498,38 @@ inline llvm::raw_ostream& operator<<(llvm::raw_ostream& os, const Type::Kind& ki
         case Type::Kind::Null: return os << "Null";
         default: return os << "Unknown";
     }
+}
+
+// Implement Type::isInstanceOf
+inline bool Type::isInstanceOf(const std::shared_ptr<Type>& other) const {
+    if (kind_ == other->getKind()) return true;
+    if (kind_ == Kind::Nullable) {
+        auto nullableType = std::static_pointer_cast<const NullableType>(shared_from_this());
+        return nullableType->getInnerType()->isInstanceOf(other);
+    }
+    return false;
+}
+
+// Implement ClassType::isInstanceOf
+inline bool ClassType::isInstanceOf(const std::shared_ptr<Type>& other) const {
+    if (Type::isInstanceOf(other)) return true;
+
+    if (auto otherClass = std::dynamic_pointer_cast<ClassType>(other)) {
+        // Check base class hierarchy
+        for (auto current = baseClass_; current; current = current->getBaseClass()) {
+            if (current->getName() == otherClass->getName()) return true;
+        }
+
+        // Check interfaces
+        for (const auto& interface : interfaces_) {
+            if (interface->getName() == otherClass->getName()) {
+                return true;
+            }
+        }
+    } else if (auto otherInterface = std::dynamic_pointer_cast<InterfaceType>(other)) {
+        return name_ == otherInterface->getName();
+    }
+    return false;
 }
 
 // Type constants are defined in types.cpp

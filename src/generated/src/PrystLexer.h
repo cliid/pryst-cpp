@@ -1,5 +1,5 @@
 
-// Generated from src/PrystLexer.g4 by ANTLR 4.13.2
+// Generated from src/PrystLexer.g4 by ANTLR 4.7.2
 
 #pragma once
 
@@ -18,49 +18,56 @@ public:
     ELSE = 19, WHILE = 20, FOR = 21, IN = 22, IMPORT = 23, MODULE = 24, 
     TRY = 25, CATCH = 26, FINALLY = 27, AS = 28, BREAK = 29, CONTINUE = 30, 
     NEW = 31, MAP = 32, FROM = 33, THIS = 34, NULL_LIT = 35, INSTANCEOF = 36, 
-    TYPEOF = 37, ERROR = 38, NULL_COALESCE = 39, PLUS = 40, MINUS = 41, 
-    STAR = 42, SLASH = 43, PERCENT = 44, ASSIGN = 45, EQ = 46, NEQ = 47, 
-    LT = 48, GT = 49, LE = 50, GE = 51, AND = 52, OR = 53, NOT = 54, QUESTION_MARK = 55, 
-    COLON = 56, ARROW = 57, INC = 58, DEC = 59, LPAREN = 60, RPAREN = 61, 
-    LBRACE = 62, RBRACE = 63, LBRACK = 64, RBRACK = 65, SEMICOLON = 66, 
-    COMMA = 67, DOT = 68, DOUBLE_COLON = 69, IDENTIFIER = 70, STRING = 71, 
-    STRING_START = 72, STRING_MIDDLE = 73, STRING_END = 74, WS = 75, COMMENT = 76, 
-    BLOCK_COMMENT = 77, INVALID_CHAR = 78, INVALID_IDENTIFIER = 79, INTERP_WS = 80
+    TYPEOF = 37, ERROR = 38, PRINT = 39, NULL_COALESCE = 40, PLUS = 41, 
+    MINUS = 42, STAR = 43, SLASH = 44, PERCENT = 45, ASSIGN = 46, EQ = 47, 
+    NEQ = 48, LT = 49, GT = 50, LE = 51, GE = 52, AND = 53, OR = 54, NOT = 55, 
+    QUESTION_MARK = 56, COLON = 57, ARROW = 58, INC = 59, DEC = 60, LPAREN = 61, 
+    RPAREN = 62, LBRACE = 63, RBRACE = 64, LBRACK = 65, RBRACK = 66, SEMICOLON = 67, 
+    COMMA = 68, DOT = 69, DOUBLE_COLON = 70, IDENTIFIER = 71, STRING = 72, 
+    STRING_START = 73, STRING_MIDDLE = 74, STRING_END = 75, WS = 76, COMMENT = 77, 
+    BLOCK_COMMENT = 78, INVALID_CHAR = 79, INVALID_IDENTIFIER = 80, INTERP_WS = 81
   };
 
   enum {
     INTERPOLATION = 1
   };
 
-  explicit PrystLexer(antlr4::CharStream *input);
+  PrystLexer(antlr4::CharStream *input);
+  ~PrystLexer();
 
-  ~PrystLexer() override;
+  virtual std::string getGrammarFileName() const override;
+  virtual const std::vector<std::string>& getRuleNames() const override;
 
+  virtual const std::vector<std::string>& getChannelNames() const override;
+  virtual const std::vector<std::string>& getModeNames() const override;
+  virtual const std::vector<std::string>& getTokenNames() const override; // deprecated, use vocabulary instead
+  virtual antlr4::dfa::Vocabulary& getVocabulary() const override;
 
-  std::string getGrammarFileName() const override;
-
-  const std::vector<std::string>& getRuleNames() const override;
-
-  const std::vector<std::string>& getChannelNames() const override;
-
-  const std::vector<std::string>& getModeNames() const override;
-
-  const antlr4::dfa::Vocabulary& getVocabulary() const override;
-
-  antlr4::atn::SerializedATNView getSerializedATN() const override;
-
-  const antlr4::atn::ATN& getATN() const override;
-
-  // By default the static state used to implement the lexer is lazily initialized during the first
-  // call to the constructor. You can call this function if you wish to initialize the static state
-  // ahead of time.
-  static void initialize();
+  virtual const std::vector<uint16_t> getSerializedATN() const override;
+  virtual const antlr4::atn::ATN& getATN() const override;
 
 private:
+  static std::vector<antlr4::dfa::DFA> _decisionToDFA;
+  static antlr4::atn::PredictionContextCache _sharedContextCache;
+  static std::vector<std::string> _ruleNames;
+  static std::vector<std::string> _tokenNames;
+  static std::vector<std::string> _channelNames;
+  static std::vector<std::string> _modeNames;
+
+  static std::vector<std::string> _literalNames;
+  static std::vector<std::string> _symbolicNames;
+  static antlr4::dfa::Vocabulary _vocabulary;
+  static antlr4::atn::ATN _atn;
+  static std::vector<uint16_t> _serializedATN;
+
 
   // Individual action functions triggered by action() above.
 
   // Individual semantic predicate functions triggered by sempred() above.
 
+  struct Initializer {
+    Initializer();
+  };
+  static Initializer _init;
 };
 

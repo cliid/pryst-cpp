@@ -26,29 +26,39 @@ public:
     // Register a new class type with its members
     void registerClass(const std::string& className,
                       const std::vector<std::pair<std::string, llvm::Type*>>& members);
+    void registerClass(const std::string& className,
+                      const std::vector<std::pair<std::string, llvm::Type*>>& members,
+                      const std::string& baseClass);
+
+    // Validate error method override
+    void validateErrorMethodOverride(const std::string& className,
+                                   const std::string& methodName,
+                                   const std::shared_ptr<FunctionType>& method,
+                                   const std::string& baseClass);
+
+    // Check if a class is an error type
+    bool isErrorType(const std::string& className) const;
+
+    // Error chain validation and creation
+    void validateErrorChain(const std::string& errorClass,
+                          const std::string& chainedClass);
+    std::shared_ptr<Type> createErrorChainType(const std::string& errorClass,
+                                             const std::string& chainedClass);
 
     // Register a new interface type
-    void registerInterfaceType(std::shared_ptr<InterfaceType> interfaceType) {
-        cacheType(interfaceType->getName(), interfaceType);
-    }
+    void registerInterfaceType(std::shared_ptr<InterfaceType> interfaceType);
+
+    // Register interface implementation
+    void registerInterfaceImplementation(const std::string& className, const std::string& interfaceName);
+
+    // Check if a class implements an interface
+    bool implementsInterface(const std::string& className, const std::string& interfaceName) const;
 
     // Register inheritance relationship
-    void registerInheritance(const std::string& derived, const std::string& base) {
-        inheritance[derived] = base;
-        runtimeRegistry_.registerInheritance(derived, base);
-    }
+    void registerInheritance(const std::string& derived, const std::string& base);
 
     // Check if derived class inherits from base class
-    bool isSubclassOf(const std::string& derived, const std::string& base) const {
-        std::string current = derived;
-        while (!current.empty()) {
-            if (current == base) return true;
-            auto it = inheritance.find(current);
-            if (it == inheritance.end()) break;
-            current = it->second;
-        }
-        return false;
-    }
+    bool isSubclassOf(const std::string& derived, const std::string& base) const;
 
     // Get the LLVM type for a class
     llvm::StructType* getClassType(const std::string& className);
@@ -77,6 +87,9 @@ public:
     // Get member type by name
     std::shared_ptr<Type> getMemberPrystType(const std::string& className, const std::string& memberName);
 
+    // Get function type by name
+    std::shared_ptr<Type> getFunctionType(const std::string& functionName) const;
+
     // Convert LLVM type to Pryst Type
     std::shared_ptr<Type> convertLLVMTypeToType(llvm::Type* llvmType);
 
@@ -84,27 +97,13 @@ public:
     llvm::Type* convertTypeToLLVMType(std::shared_ptr<Type> type);
 
     // Get LLVM type for a Pryst type
-    llvm::Type* getLLVMType(std::shared_ptr<Type> type) {
-        std::cout << "Debug [getLLVMType]: Converting type " << type->toString() << std::endl;
-        auto llvmType = convertTypeToLLVMType(type);
-        if (!llvmType) {
-            std::cerr << "Error [getLLVMType]: Failed to convert type " << type->toString() << std::endl;
-            throw Error("TypeError", "Failed to convert type " + type->toString());
-        }
-        return llvmType;
-    }
+    llvm::Type* getLLVMType(std::shared_ptr<Type> type);
 
     // Check if a type is nullable
-    bool isTypeNullable(llvm::Type* type) const {
-        return nullableTypes.find(type->getStructName().str()) != nullableTypes.end();
-    }
+    bool isTypeNullable(llvm::Type* type) const;
 
     // Register a type as nullable
-    void registerNullableType(const std::string& typeName) {
-        nullableTypes.insert(typeName);
-        // Also register with runtime registry for runtime type checks
-        runtimeRegistry_.registerNullableType(typeName);
-    }
+    void registerNullableType(const std::string& typeName);
 
     // Register a map type with key and value types
     std::shared_ptr<Type> registerMapType(const std::string& keyType, const std::string& valueType);
@@ -116,8 +115,8 @@ public:
     const std::vector<std::pair<std::string, llvm::Type*>>& getClassMembers(const std::string& className) const;
 
     // Get the LLVM context
-    llvm::LLVMContext& getContext() { return context_; }
-    llvm::Type* getBoolType() const { return classTypes.at("bool"); }
+    llvm::LLVMContext& getContext();
+    llvm::Type* getBoolType() const;
 
     // Cache management for Pryst types
     std::shared_ptr<Type> getCachedType(const std::string& typeName) const;
@@ -131,9 +130,13 @@ public:
     std::vector<std::string> getRegisteredNamespaces() const;
 
     // Get all registered types
-    const std::unordered_map<std::string, std::shared_ptr<Type>>& getAllTypes() const {
-        return typeCache;
-    }
+    const std::unordered_map<std::string, std::shared_ptr<Type>>& getAllTypes() const;
+
+    // Check if a type is numeric (int or float)
+    bool isNumericType(std::shared_ptr<Type> type) const;
+
+    // Get common numeric type between two numeric types
+    std::shared_ptr<Type> getCommonNumericType(std::shared_ptr<Type> type1, std::shared_ptr<Type> type2) const;
 
 private:
     llvm::LLVMContext& context_;
@@ -153,8 +156,8 @@ private:
     // Map of class names to their base class
     std::unordered_map<std::string, std::string> inheritance;
 
-    // Set of type names that are nullable
-    std::unordered_set<std::string> nullableTypes;
+    // Map of class names to their implemented interfaces
+    std::unordered_map<std::string, std::unordered_set<std::string>> interfaceImplementations;
 
     // Cache for converted Pryst types
     std::unordered_map<std::string, std::shared_ptr<Type>> typeCache;
@@ -173,6 +176,9 @@ private:
 
     // Get methods for a primitive type
     const std::unordered_map<std::string, llvm::FunctionType*>& getPrimitiveMethods(const std::string& typeName) const;
+
+    // Set of types that can be null
+    std::unordered_set<std::string> nullableTypes;
 };
 
 } // namespace pryst
